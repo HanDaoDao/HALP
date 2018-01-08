@@ -17,6 +17,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    BmobObject *studentSorce = [BmobObject objectWithClassName:@"StudentSorce"];
+    [studentSorce setObject:@"小明" forKey:@"name"];
+    [studentSorce setObject:@20 forKey:@"age"];
+    [studentSorce setObject:[NSNumber numberWithBool:YES] forKey:@"cheatMode"];
+    [studentSorce saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+        NSLog(@"====%d",isSuccessful);
+    }];
+    
+    BmobQuery *queryStudentSorce = [BmobQuery queryWithClassName:@"StudentSorce"];
+    [queryStudentSorce getObjectInBackgroundWithId:<#(NSString *)#> block:<#^(BmobObject *object, NSError *error)block#>]
 }
 
 

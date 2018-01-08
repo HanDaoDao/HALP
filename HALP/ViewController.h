@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BmobSDK.framework/Headers/Bmob.h"
 
 @interface ViewController : UIViewController
 
