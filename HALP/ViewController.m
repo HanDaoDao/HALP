@@ -27,7 +27,17 @@
     }];
     
     BmobQuery *queryStudentSorce = [BmobQuery queryWithClassName:@"StudentSorce"];
-    [queryStudentSorce getObjectInBackgroundWithId:<#(NSString *)#> block:<#^(BmobObject *object, NSError *error)block#>]
+    [queryStudentSorce getObjectInBackgroundWithId:@"0b0a64fae2" block:^(BmobObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"哎呀，出错了，原因是%@",error);
+        } else {
+            if (object) {
+                NSString *nameString = [object objectForKey:@"name"];
+                BOOL cheat = [[object objectForKey:@"cheatMode"] boolValue];
+                NSLog(@"%@-----%i",nameString,cheat);
+            }
+        }
+    }];
 }
 
 
