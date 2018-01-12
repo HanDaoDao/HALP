@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BmobSDK.framework/Headers/Bmob.h"
+#import "HPTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,12 @@
     // Override point for customization after application launch.
     
     [Bmob registerWithAppKey:@"5ba2860c3aa6e23b6d58841be2ed7158"];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    HPTabBarController *TabBarController = [[HPTabBarController alloc] init];
+    self.window.rootViewController = TabBarController;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
