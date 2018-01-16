@@ -19,6 +19,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    self.tabBar.translucent = NO;
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     [self initHPTabBarController];
     
 }
@@ -46,6 +49,15 @@
     
     UITabBarItem *canteenItem = [[UITabBarItem alloc] initWithTitle:@"食堂" image:[[UIImage imageNamed:@"饮食"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] tag:1];
     [canteenVC.navigationController setTabBarItem:canteenItem];
+    
+    UITabBarItem *experssageItem = [[UITabBarItem alloc] initWithTitle:@"快递" image:[[UIImage imageNamed:@"快递"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] tag:2];
+    [experssageVC.navigationController setTabBarItem:experssageItem];
+    
+    UITabBarItem *intendItem = [[UITabBarItem alloc] initWithTitle:@"订单" image:[[UIImage imageNamed:@"订单"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] tag:3];
+    [intendVC.navigationController setTabBarItem:intendItem];
+    
+    UITabBarItem *mineItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:[[UIImage imageNamed:@"我的"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] tag:4];
+    [mineVC.navigationController setTabBarItem:mineItem];
 }
 
 - (void)didReceiveMemoryWarning {
