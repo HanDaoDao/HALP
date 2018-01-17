@@ -11,7 +11,8 @@
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *mineTableView;
-@property(nonatomic,strong) NSArray *mineListNames;
+@property(nonatomic,copy) NSArray *mineListNames;
+@property(nonatomic,copy) NSDictionary *personData;
 
 @end
 
@@ -24,6 +25,12 @@
     [self initMineNavigationBar];
     [self initMineTableView];
     [self initMineListNames];
+}
+
+-(void)mockSomethingData{
+    _personData = [[NSDictionary alloc] init];
+    _personData = @{@"name":@"叨叨",
+                    @"major":@"软件1404",};
 }
 
 -(void)initMineNavigationBar{

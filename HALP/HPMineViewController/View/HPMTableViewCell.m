@@ -14,13 +14,39 @@
     
     UIImage *placeholder = [UIImage imageNamed:@"乔巴"];
     _headImageView = [[UIImageView alloc] init];
+    _headImageView.backgroundColor = [UIColor redColor];
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:placeholder];
     [self.contentView addSubview:_headImageView];
     
+    _nameLabel = [[UILabel alloc] init];
+    _nameLabel.backgroundColor = [UIColor yellowColor];
+    [self.contentView addSubview:_nameLabel];
+    
+    _majorLabel = [[UILabel alloc] init];
+    _majorLabel.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:_majorLabel];
+    
+    /**
+     布局
+     */
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentView.mas_left).offset(20);
-        make.top.mas_equalTo(self.contentView.mas_top).offset(20);
-        make.width.height.mas_equalTo(40);
+        make.top.mas_equalTo(self.contentView.mas_top).offset(10);
+        make.width.height.mas_equalTo(60);
+    }];
+    
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(_headImageView.mas_right).offset(20);
+        make.top.mas_equalTo(self.contentView.mas_top).offset(15);
+        make.width.mas_equalTo(150);
+        make.height.mas_equalTo(25);
+    }];
+    
+    [_majorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_nameLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(_headImageView.mas_right).offset(20);
+        make.width.mas_equalTo(150);
+        make.height.mas_equalTo(20);
     }];
 }
 
