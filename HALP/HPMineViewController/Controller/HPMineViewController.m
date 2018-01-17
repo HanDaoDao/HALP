@@ -8,7 +8,7 @@
 
 #import "HPMineViewController.h"
 
-@interface HPMineViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *mineTableView;
 @property(nonatomic,strong) NSArray *mineListNames;
@@ -43,7 +43,7 @@
 }
 
 -(void)initMineListNames{
-    _mineListNames = @[@"荣誉值",@"订单",@"历史"];
+    _mineListNames = @[@"荣誉值",@"订单",@"历史",@"设置"];
 }
 
 #pragma mark - Table view data source
@@ -59,13 +59,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     static NSString *indentifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+    HPMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:indentifier];
+        cell = [[HPMTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:indentifier];
     }
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        [cell initMineInfomationCell];
+    }
+    else if (indexPath.section == 1){
         cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
     }
     

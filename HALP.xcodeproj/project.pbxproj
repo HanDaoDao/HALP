@@ -19,6 +19,7 @@
 		4C43137B2007176100E5627D /* HPMineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4313792007176100E5627D /* HPMineViewController.xib */; };
 		4C616960200DFDB200696BEC /* HPCanteen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61695F200DFDB200696BEC /* HPCanteen.m */; };
 		4C616963200DFDD600696BEC /* HPFood.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C616962200DFDD600696BEC /* HPFood.m */; };
+		4C616966200E16EC00696BEC /* HPMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C616965200E16EC00696BEC /* HPMTableViewCell.m */; };
 		4C91EA471FFE479C007C6C05 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C91EA461FFE479C007C6C05 /* AppDelegate.m */; };
 		4C91EA4D1FFE479C007C6C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C91EA4B1FFE479C007C6C05 /* Main.storyboard */; };
 		4C91EA4F1FFE479C007C6C05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C91EA4E1FFE479C007C6C05 /* Assets.xcassets */; };
@@ -67,6 +68,8 @@
 		4C61695F200DFDB200696BEC /* HPCanteen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteen.m; sourceTree = "<group>"; };
 		4C616961200DFDD600696BEC /* HPFood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPFood.h; sourceTree = "<group>"; };
 		4C616962200DFDD600696BEC /* HPFood.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPFood.m; sourceTree = "<group>"; };
+		4C616964200E16EC00696BEC /* HPMTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPMTableViewCell.h; sourceTree = "<group>"; };
+		4C616965200E16EC00696BEC /* HPMTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPMTableViewCell.m; sourceTree = "<group>"; };
 		4C91EA421FFE479C007C6C05 /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C91EA451FFE479C007C6C05 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C91EA461FFE479C007C6C05 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 		4C61695C200DFB7800696BEC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4C616964200E16EC00696BEC /* HPMTableViewCell.h */,
+				4C616965200E16EC00696BEC /* HPMTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				4C616963200DFDD600696BEC /* HPFood.m in Sources */,
 				4C431370200713B900E5627D /* HPExpressageViewController.m in Sources */,
 				4C4313752007173C00E5627D /* HPIndentViewController.m in Sources */,
+				4C616966200E16EC00696BEC /* HPMTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

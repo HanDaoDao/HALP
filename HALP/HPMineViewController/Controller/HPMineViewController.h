@@ -9,6 +9,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPMTableViewCell.h"
 
 @interface HPMineViewController : UIViewController
 
