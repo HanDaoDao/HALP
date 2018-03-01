@@ -7,6 +7,7 @@
 //
 
 #import "HPMineViewController.h"
+#import "HPHonorViewController.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,6 +26,7 @@
     [self initMineNavigationBar];
     [self initMineTableView];
     [self initMineListNames];
+    [self mockSomethingData];
 }
 
 -(void)mockSomethingData{
@@ -50,7 +52,7 @@
 }
 
 -(void)initMineListNames{
-    _mineListNames = @[@"荣誉值",@"订单",@"历史",@"设置"];
+    _mineListNames = @[@"荣誉值",@"好友",@"历史",@"设置"];
 }
 
 #pragma mark - Table view data source
@@ -74,6 +76,8 @@
     
     if (indexPath.section == 0) {
         [cell initMineInfomationCell];
+        cell.nameLabel.text = [_personData objectForKey:@"name"];
+        cell.majorLabel.text = [_personData objectForKey:@"major"];
     }
     else if (indexPath.section == 1){
         cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
@@ -86,7 +90,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    HPHonorViewController *honorViewController = [[HPHonorViewController alloc] init];
+    honorViewController.hidesBottomBarWhenPushed = YES;
+    
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:honorViewController animated:YES];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

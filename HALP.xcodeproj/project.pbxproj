@@ -16,7 +16,6 @@
 		4C4313752007173C00E5627D /* HPIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4313732007173C00E5627D /* HPIndentViewController.m */; };
 		4C4313762007173C00E5627D /* HPIndentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4313742007173C00E5627D /* HPIndentViewController.xib */; };
 		4C43137A2007176100E5627D /* HPMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4313782007176100E5627D /* HPMineViewController.m */; };
-		4C43137B2007176100E5627D /* HPMineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4313792007176100E5627D /* HPMineViewController.xib */; };
 		4C616960200DFDB200696BEC /* HPCanteen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61695F200DFDB200696BEC /* HPCanteen.m */; };
 		4C616963200DFDD600696BEC /* HPFood.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C616962200DFDD600696BEC /* HPFood.m */; };
 		4C616966200E16EC00696BEC /* HPMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C616965200E16EC00696BEC /* HPMTableViewCell.m */; };
@@ -27,6 +26,7 @@
 		4C91EA551FFE479C007C6C05 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C91EA541FFE479C007C6C05 /* main.m */; };
 		4C91EA5F1FFE479D007C6C05 /* HALPTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C91EA5E1FFE479D007C6C05 /* HALPTests.m */; };
 		4C91EA6A1FFE479D007C6C05 /* HALPUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C91EA691FFE479D007C6C05 /* HALPUITests.m */; };
+		4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A4720481C06004DFD20 /* HPHonorViewController.m */; };
 		C395481E31B62673E9570381 /* Pods_HALP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +63,6 @@
 		4C4313742007173C00E5627D /* HPIndentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HPIndentViewController.xib; sourceTree = "<group>"; };
 		4C4313772007176100E5627D /* HPMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPMineViewController.h; sourceTree = "<group>"; };
 		4C4313782007176100E5627D /* HPMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPMineViewController.m; sourceTree = "<group>"; };
-		4C4313792007176100E5627D /* HPMineViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HPMineViewController.xib; sourceTree = "<group>"; };
 		4C61695E200DFDB200696BEC /* HPCanteen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteen.h; sourceTree = "<group>"; };
 		4C61695F200DFDB200696BEC /* HPCanteen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteen.m; sourceTree = "<group>"; };
 		4C616961200DFDD600696BEC /* HPFood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPFood.h; sourceTree = "<group>"; };
@@ -84,6 +83,8 @@
 		4C91EA651FFE479D007C6C05 /* HALPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HALPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C91EA691FFE479D007C6C05 /* HALPUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HALPUITests.m; sourceTree = "<group>"; };
 		4C91EA6B1FFE479D007C6C05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C922A4620481C06004DFD20 /* HPHonorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPHonorViewController.h; sourceTree = "<group>"; };
+		4C922A4720481C06004DFD20 /* HPHonorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPHonorViewController.m; sourceTree = "<group>"; };
 		5F3040345BAABD5F48F82309 /* Pods-HALP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.debug.xcconfig"; sourceTree = "<group>"; };
 		62F2E0AE2762FD5B749F494A /* Pods-HALP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.release.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.release.xcconfig"; sourceTree = "<group>"; };
 		7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HALP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,7 +271,8 @@
 			children = (
 				4C4313772007176100E5627D /* HPMineViewController.h */,
 				4C4313782007176100E5627D /* HPMineViewController.m */,
-				4C4313792007176100E5627D /* HPMineViewController.xib */,
+				4C922A4620481C06004DFD20 /* HPHonorViewController.h */,
+				4C922A4720481C06004DFD20 /* HPHonorViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -454,7 +456,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C4313762007173C00E5627D /* HPIndentViewController.xib in Resources */,
-				4C43137B2007176100E5627D /* HPMineViewController.xib in Resources */,
 				4C91EA521FFE479C007C6C05 /* LaunchScreen.storyboard in Resources */,
 				4C43136C2007138F00E5627D /* HPCanteenViewController.xib in Resources */,
 				4C91EA4F1FFE479C007C6C05 /* Assets.xcassets in Resources */,
@@ -549,6 +550,7 @@
 				4C431367200711AD00E5627D /* HPOperationBomb.m in Sources */,
 				4C43137A2007176100E5627D /* HPMineViewController.m in Sources */,
 				4C43136B2007138F00E5627D /* HPCanteenViewController.m in Sources */,
+				4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */,
 				4C91EA551FFE479C007C6C05 /* main.m in Sources */,
 				4C91EA471FFE479C007C6C05 /* AppDelegate.m in Sources */,
 				4C616960200DFDB200696BEC /* HPCanteen.m in Sources */,

@@ -14,16 +14,14 @@
     
     UIImage *placeholder = [UIImage imageNamed:@"乔巴"];
     _headImageView = [[UIImageView alloc] init];
-    _headImageView.backgroundColor = [UIColor redColor];
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:placeholder];
     [self.contentView addSubview:_headImageView];
     
     _nameLabel = [[UILabel alloc] init];
-    _nameLabel.backgroundColor = [UIColor yellowColor];
     [self.contentView addSubview:_nameLabel];
     
     _majorLabel = [[UILabel alloc] init];
-    _majorLabel.backgroundColor = [UIColor redColor];
+//    _majorLabel.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_majorLabel];
     
     /**
