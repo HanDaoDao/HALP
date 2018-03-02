@@ -8,6 +8,7 @@
 
 #import "HPMineViewController.h"
 #import "HPHonorViewController.h"
+#import "HPUserViewController.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -71,9 +72,11 @@
     HPMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
     
     if (cell == nil) {
-        cell = [[HPMTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:indentifier];
+        cell = [[HPMTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:indentifier];
     }
     
+    //设置cell显示右边的小箭头
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         [cell initMineInfomationCell];
         cell.nameLabel.text = [_personData objectForKey:@"name"];
@@ -81,6 +84,9 @@
     }
     else if (indexPath.section == 1){
         cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
+        if (indexPath.row == 0) {
+            cell.detailTextLabel.text = @"100";
+        }
     }
     
     return cell;
@@ -92,8 +98,14 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    HPUserViewController *userViewController = [[HPUserViewController alloc] init];
+    userViewController.hidesBottomBarWhenPushed = YES;
     HPHonorViewController *honorViewController = [[HPHonorViewController alloc] init];
     honorViewController.hidesBottomBarWhenPushed = YES;
+    
+    if (indexPath.section == 0) {
+        [self.navigationController pushViewController:userViewController animated:YES];
+    }
     
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {

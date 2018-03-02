@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
 
 @interface HPHonorViewController : UIViewController
+
+@property(nonatomic,strong) UIImageView *honorImageView;
+@property(nonatomic,strong) UILabel *honorLabel;
+@property(nonatomic,strong) UILabel *numberLabel;
 
 @end
