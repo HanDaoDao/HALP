@@ -1,0 +1,20 @@
+//
+//  HPUser.h
+//  HALP
+//
+//  Created by HanZhao on 2018/3/8.
+//  Copyright © 2018年 HanZhao. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HPUser : NSObject
+
+@property(nonatomic,copy) NSString *name;           //姓名
+@property(nonatomic,copy) NSString *ID;             //学号
+@property(nonatomic,copy) NSString *password;       //登录密码
+@property(nonatomic,copy) NSString *phone;          //电话
+@property(nonatomic,copy) NSString *professional;   //专业班级
+@property(nonatomic,assign) NSInteger money;        //拥有的名誉值（钱）
+
+@end
