@@ -289,10 +289,10 @@
 				4C4313782007176100E5627D /* HPMineViewController.m */,
 				4C922A4F20494024004DFD20 /* HPUserViewController.h */,
 				4C922A5020494024004DFD20 /* HPUserViewController.m */,
-				4C922A4620481C06004DFD20 /* HPHonorViewController.h */,
-				4C922A4720481C06004DFD20 /* HPHonorViewController.m */,
 				4C5BC671205159230021AA0D /* HPUserNameViewController.h */,
 				4C5BC672205159230021AA0D /* HPUserNameViewController.m */,
+				4C922A4620481C06004DFD20 /* HPHonorViewController.h */,
+				4C922A4720481C06004DFD20 /* HPHonorViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

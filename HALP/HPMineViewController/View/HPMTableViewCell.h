@@ -15,6 +15,7 @@
 @property(nonatomic,strong) UIImageView *headImageView;
 @property(nonatomic,strong) UILabel *nameLabel;
 @property(nonatomic,strong) UILabel *majorLabel;
+@property(nonatomic,strong) UILabel *IDLabel;
 
 -(void)initMineInfomationCell;
 @end

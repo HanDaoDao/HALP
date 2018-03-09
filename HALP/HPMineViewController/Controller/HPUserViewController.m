@@ -8,11 +8,15 @@
 
 #import "HPUserViewController.h"
 #import "HPUserNameViewController.h"
+#import "HPUser.h"
+#import "SDWebImage-umbrella.h"
 
-@interface HPUserViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HPUserViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property(nonatomic,strong) UITableView *userTableView;
 @property(nonatomic,strong) NSArray *userSetterList;
+@property(nonatomic,strong) UIImageView *headImageView;
+@property(nonatomic,strong) HPUser *user;
 
 @end
 
@@ -26,6 +30,11 @@
     
     [self initUserTableView];
     [self initUserSetterList];
+    [self mockUser];
+}
+
+-(void)mockUser{
+    self.user = [HPUser sharedHPUser];
 }
 
 -(void)initUserSetterList{
@@ -57,7 +66,25 @@
     userNameVC.hidesBottomBarWhenPushed = YES;
     
     if (indexPath.row == 0) {
+        UIAlertController *headImageAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+        [headImageAlert addAction:[UIAlertAction actionWithTitle:@"从相册选取" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            if ([UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceTypePhotoLibrary)]) {
+                UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
+                imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                imagePickerVC.allowsEditing = YES;
+                imagePickerVC.delegate = self;
+                [self presentViewController:imagePickerVC animated:YES completion:nil];
+            }
+        }]];
+        [headImageAlert addAction:[UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            //拍照获得头像
+            
+        }]];
+        [headImageAlert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
         
+        [self presentViewController:headImageAlert animated:YES completion:nil];
     }
     
     if (indexPath.row == 1) {
@@ -78,14 +105,57 @@
     UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    //换头像
     if (indexPath.row == 0) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"路飞"]];
-        [imageView setFrame:CGRectMake(0, 0, 60, 60)];
-        cell.accessoryView = imageView;
+        UIImage *image = [[UIImage alloc] init];
+        if (_user.imagePath == NULL) {
+            image = [UIImage imageNamed:@"路飞"];//默认为路飞头像
+        }
+        else{
+            image = [UIImage imageWithContentsOfFile:_user.imagePath];
+        }
+        _headImageView = [[UIImageView alloc] initWithImage:image];
+        [_headImageView setFrame:CGRectMake(0, 0, 60, 60)];
+        cell.accessoryView = _headImageView;
     }
     cell.textLabel.text = [_userSetterList objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info;
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    //获取选择的照片并保存
+    UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
+    [self saveImage:image withName:@"headImage.jpg"];
+    
+    //获取沙盒中名为headImage.jpg的照片路径
+    NSString *imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"headImage.jpg"];
+    self.user.imagePath = imagePath;
+    UIImage *saveImage = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    self.headImageView.image = saveImage;
+}
+
+
+/**
+ 照片使用imageName名写入在沙盒中
+
+ @param currentImage 保存的照片
+ @param imageName 保存名
+ */
+-(void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName{
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 1);
+    NSString *fullPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:imageName];
+    [imageData writeToFile:fullPath atomically:NO];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,14 +163,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -9,12 +9,14 @@
 #import "HPMineViewController.h"
 #import "HPHonorViewController.h"
 #import "HPUserViewController.h"
+#import "HPUser.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *mineTableView;
 @property(nonatomic,copy) NSArray *mineListNames;
 @property(nonatomic,copy) NSDictionary *personData;
+@property(nonatomic,strong) HPUser *user;
 
 @end
 
@@ -31,9 +33,11 @@
 }
 
 -(void)mockSomethingData{
-    _personData = [[NSDictionary alloc] init];
-    _personData = @{@"name":@"叨叨",
-                    @"major":@"软件1404",};
+    self.user = [HPUser sharedHPUser];
+    _user.name = @"我是小明啊";
+    _user.ID = @"04143137";
+    _user.professional = @"软件1404";
+    _user.money = 100;
 }
 
 -(void)initMineNavigationBar{
@@ -79,13 +83,14 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         [cell initMineInfomationCell];
-        cell.nameLabel.text = [_personData objectForKey:@"name"];
-        cell.majorLabel.text = [_personData objectForKey:@"major"];
+        cell.nameLabel.text = _user.name;
+        cell.majorLabel.text = _user.professional;
+        cell.IDLabel.text = _user.ID;
     }
     else if (indexPath.section == 1){
         cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
         if (indexPath.row == 0) {
-            cell.detailTextLabel.text = @"100";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",(long)_user.money];
         }
     }
     
