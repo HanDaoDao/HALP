@@ -10,6 +10,7 @@
 #import "HPUserNameViewController.h"
 #import "HPUser.h"
 #import "SDWebImage-umbrella.h"
+//#import "ReactiveObjC.h"
 
 @interface HPUserViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
@@ -24,21 +25,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
-    [self initUserTableView];
-    [self initUserSetterList];
-    [self mockUser];
-}
-
--(void)mockUser{
+    //添加通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(modifiyName:)
+                                                 name:@"changeNameTongzhi"
+                                               object:nil];
+    
     self.user = [HPUser sharedHPUser];
-}
-
--(void)initUserSetterList{
-    _userSetterList = @[@"头像",@"昵称",@"ID",@"更多"];
+    [self initUserTableView];
+    
 }
 
 -(void)initUserTableView{
@@ -46,10 +44,10 @@
     _userTableView.delegate = self;
     _userTableView.dataSource = self;
     [self.view addSubview:_userTableView];
+    _userSetterList = @[@"头像",@"昵称",@"ID",@"更多"];
 }
 
 #pragma mark - tableView delegate
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 80;
@@ -102,10 +100,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *identifier = @"cell";
-    UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
     //换头像
     if (indexPath.row == 0) {
         UIImage *image = [[UIImage alloc] init];
@@ -118,10 +115,19 @@
         _headImageView = [[UIImageView alloc] initWithImage:image];
         [_headImageView setFrame:CGRectMake(0, 0, 60, 60)];
         cell.accessoryView = _headImageView;
+    }else if (indexPath.row == 1){
+        cell.detailTextLabel.text = _user.name;
+    }else if (indexPath.row == 2){
+        cell.detailTextLabel.text = _user.ID;
     }
     cell.textLabel.text = [_userSetterList objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+//通知方法
+-(void)modifiyName:(NSNotification *)tableView{
+    [self.userTableView reloadData];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -139,6 +145,11 @@
     self.user.imagePath = imagePath;
     UIImage *saveImage = [[UIImage alloc] initWithContentsOfFile:imagePath];
     self.headImageView.image = saveImage;
+    
+    //通知给“我的”页面的头像
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:saveImage,@"modifyHead", nil];
+    NSNotification *notification = [NSNotification notificationWithName:@"changeHeadTongzhi" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 
@@ -158,11 +169,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//返回上一层界面事件
+-(void)backPreviousViewControllerAction{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeNameTongzhi" object:nil];
+    // 返回上一层界面
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
-
 
 @end

@@ -26,18 +26,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    //添加通知（头像，昵称）
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(modifiy)
+                                                 name:@"changeHeadTongzhi"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(modifiy)
+                                                 name:@"changeNameTongzhi"
+                                               object:nil];
+    
     [self initMineNavigationBar];
     [self initMineTableView];
-    [self initMineListNames];
-    [self mockSomethingData];
 }
 
--(void)mockSomethingData{
-    self.user = [HPUser sharedHPUser];
-    _user.name = @"我是小明啊";
-    _user.ID = @"04143137";
-    _user.professional = @"软件1404";
-    _user.money = 100;
+//通知方法
+-(void)modifiy{
+    [self.mineTableView reloadData];
 }
 
 -(void)initMineNavigationBar{
@@ -54,14 +59,26 @@
     _mineTableView.dataSource = self;
     
     [self.view addSubview:_mineTableView];
+    [self initMineListNames];
+    [self mockSomethingData];
+}
+
+-(void)mockSomethingData{
+    self.user = [HPUser sharedHPUser];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _user.name = @"我是小明啊";
+        _user.ID = @"04143137";
+        _user.professional = @"软件1404";
+        _user.money = 100;
+    });
 }
 
 -(void)initMineListNames{
     _mineListNames = @[@"荣誉值",@"好友",@"历史",@"设置"];
 }
 
-#pragma mark - Table view data source
-
+#pragma mark - Tableview datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;  {
     return 2;
 }
@@ -77,17 +94,30 @@
     
     if (cell == nil) {
         cell = [[HPMTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:indentifier];
+    }else{
+        //cell中本来就有一个subview，如果是重用cell，则把cell中自己添加的subview清除掉，避免出现重叠问题
+        for (UIView *subView in cell.contentView.subviews)
+        {
+            [subView removeFromSuperview];
+        }
     }
     
     //设置cell显示右边的小箭头
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         [cell initMineInfomationCell];
+        UIImage *image = [[UIImage alloc] init];
+        if (_user.imagePath == NULL) {
+            image = [UIImage imageNamed:@"路飞"];//默认为路飞头像
+        }
+        else{
+            image = [UIImage imageWithContentsOfFile:_user.imagePath];
+        }
+        cell.headImageView.image = image;
         cell.nameLabel.text = _user.name;
         cell.majorLabel.text = _user.professional;
         cell.IDLabel.text = _user.ID;
-    }
-    else if (indexPath.section == 1){
+    }else if (indexPath.section == 1){
         cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",(long)_user.money];
@@ -98,7 +128,6 @@
 }
 
 #pragma mark - UITableView Delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -123,19 +152,9 @@
     return indexPath.section == 0? 80:44;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeHeadTongzhi" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeNameTongzhi" object:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

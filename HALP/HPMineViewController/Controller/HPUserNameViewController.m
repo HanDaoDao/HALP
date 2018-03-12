@@ -8,41 +8,58 @@
 
 #import "HPUserNameViewController.h"
 #import "Masonry.h"
-
-#define hpRGBHex(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#import "HPUser.h"
 
 @interface HPUserNameViewController ()
 
 @property(nonatomic,strong) UITextField *modifyName;
+@property(nonatomic,strong) HPUser *user;
 
 @end
 
 @implementation HPUserNameViewController
 
+-(void)loadView{
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    scrollView.alwaysBounceVertical = YES;
+    self.view = scrollView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+    self.user = [HPUser sharedHPUser];
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0];
-    
-    UIBarButtonItem *compeleteButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:(UIBarButtonItemStylePlain) target:self action:@selector(compeleteAction)];
+    UIBarButtonItem *compeleteButton = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                        style:(UIBarButtonItemStylePlain)
+                                                                       target:self
+                                                                       action:@selector(compeleteAction)];
     self.navigationItem.rightBarButtonItem = compeleteButton;
-    
     _modifyName = [[UITextField alloc] init];
+    _modifyName.frame = CGRectMake(16, 16, SCREEN_WIDTH - 2 * 16, 46);
     _modifyName.backgroundColor = [UIColor whiteColor];
+    _modifyName.borderStyle = UITextBorderStyleRoundedRect;
+    _modifyName.placeholder = @"昵称";
+    _modifyName.text = _user.name;
+    _modifyName.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:_modifyName];
     
-    [_modifyName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view.mas_left).offset(20);
-        make.top.mas_equalTo(self.view.mas_top).offset(30);
-        make.right.mas_equalTo(self.view.mas_right).offset(-20);
-        make.height.mas_equalTo(40);
-    }];
-    
+    //添加手势，键盘隐藏
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesBegan)];
+    [self.view addGestureRecognizer:tap];
 }
 
 -(void)compeleteAction{
+    [self.navigationController popViewControllerAnimated:YES];
+    self.user.name = _modifyName.text;
     
+    //通知“个人信息”页面的昵称进行修改
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.modifyName.text,@"modifyName", nil];
+    NSNotification *notification = [NSNotification notificationWithName:@"changeNameTongzhi" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+-(void)touchesBegan{
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {

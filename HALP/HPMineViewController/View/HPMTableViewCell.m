@@ -12,25 +12,22 @@
 
 -(void)initMineInfomationCell{
     
-    UIImage *placeholder = [UIImage imageNamed:@"路飞"];
+//    UIImage *placeholder = [UIImage imageNamed:@"路飞"];
     _headImageView = [[UIImageView alloc] init];
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:placeholder];
+//    [_headImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:placeholder];
     [self.contentView addSubview:_headImageView];
     
     _nameLabel = [[UILabel alloc] init];
-//    _nameLabel.backgroundColor = [UIColor redColor];
     _nameLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
     [self.contentView addSubview:_nameLabel];
     
     _majorLabel = [[UILabel alloc] init];
-//    _majorLabel.backgroundColor = [UIColor yellowColor];
     _majorLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
     [self.contentView addSubview:_majorLabel];
     
     _IDLabel = [[UILabel alloc] init];
-//    _IDLabel.backgroundColor = [UIColor blueColor];
     _IDLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
-    [self.contentView addSubview:_IDLabel];
+//    [self.contentView addSubview:_IDLabel];
     
     /**
      布局
@@ -55,23 +52,11 @@
         make.height.mas_equalTo(18);
     }];
     
-    [_IDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_majorLabel.mas_right).offset(10);
-        make.top.mas_equalTo(_nameLabel.mas_bottom).offset(5);
-        make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
-        make.height.mas_equalTo(18);
-    }];
+//    [_IDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(_majorLabel.mas_right).offset(10);
+//        make.top.mas_equalTo(_nameLabel.mas_bottom).offset(5);
+//        make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+//        make.height.mas_equalTo(18);
+//    }];
 }
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end

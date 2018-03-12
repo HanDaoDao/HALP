@@ -9,6 +9,8 @@ target 'HALP' do
    pod 'Masonry'
    pod 'BmobSDK'
    pod 'SDWebImage'
+#   pod 'ReactiveCocoa'
+#   pod 'ReactiveObjC'
    pod 'UITableView+FDTemplateLayoutCell'
 
 end
