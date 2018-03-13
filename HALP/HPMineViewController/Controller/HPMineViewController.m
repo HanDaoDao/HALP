@@ -10,6 +10,7 @@
 #import "HPHonorViewController.h"
 #import "HPUserViewController.h"
 #import "HPUser.h"
+#import "AFNetworking.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -24,8 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
+
     //添加通知（头像，昵称）
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(modifiy)
@@ -74,7 +74,7 @@
 }
 
 -(void)initMineListNames{
-    _mineListNames = @[@"荣誉值",@"好友",@"历史",@"设置"];
+    _mineListNames = @[@"荣誉值",@"我的地址",@"我的好友",@"我的足迹",@"设置"];
 }
 
 #pragma mark - Tableview datasource

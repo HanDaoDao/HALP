@@ -9,6 +9,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPCanteenTableViewController.h"
+#import "HPExpressageTableViewController.h"
 
 @interface HPIndentViewController : UIViewController
 

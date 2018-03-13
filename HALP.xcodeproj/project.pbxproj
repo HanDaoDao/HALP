@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C3BF7052057D8200010F913 /* HPCanteenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */; };
+		4C3BF7082057D83A0010F913 /* HPExpressageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF7072057D83A0010F913 /* HPExpressageTableViewController.m */; };
+		4C3BF70B2057F0530010F913 /* HPCanteenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF70A2057F0530010F913 /* HPCanteenTableViewCell.m */; };
 		4C43136120070BA700E5627D /* HPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C43136020070BA700E5627D /* HPTabBarController.m */; };
 		4C431367200711AD00E5627D /* HPOperationBomb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C431366200711AD00E5627D /* HPOperationBomb.m */; };
 		4C43136B2007138F00E5627D /* HPCanteenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4313692007138F00E5627D /* HPCanteenViewController.m */; };
@@ -14,7 +17,6 @@
 		4C431370200713B900E5627D /* HPExpressageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C43136E200713B900E5627D /* HPExpressageViewController.m */; };
 		4C431371200713B900E5627D /* HPExpressageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C43136F200713B900E5627D /* HPExpressageViewController.xib */; };
 		4C4313752007173C00E5627D /* HPIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4313732007173C00E5627D /* HPIndentViewController.m */; };
-		4C4313762007173C00E5627D /* HPIndentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4313742007173C00E5627D /* HPIndentViewController.xib */; };
 		4C43137A2007176100E5627D /* HPMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4313782007176100E5627D /* HPMineViewController.m */; };
 		4C5BC670205130C10021AA0D /* HPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5BC66F205130C10021AA0D /* HPUser.m */; };
 		4C5BC673205159230021AA0D /* HPUserNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5BC672205159230021AA0D /* HPUserNameViewController.m */; };
@@ -53,6 +55,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C3BF7032057D8200010F913 /* HPCanteenTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteenTableViewController.h; sourceTree = "<group>"; };
+		4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteenTableViewController.m; sourceTree = "<group>"; };
+		4C3BF7062057D83A0010F913 /* HPExpressageTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpressageTableViewController.h; sourceTree = "<group>"; };
+		4C3BF7072057D83A0010F913 /* HPExpressageTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpressageTableViewController.m; sourceTree = "<group>"; };
+		4C3BF7092057F0530010F913 /* HPCanteenTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteenTableViewCell.h; sourceTree = "<group>"; };
+		4C3BF70A2057F0530010F913 /* HPCanteenTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteenTableViewCell.m; sourceTree = "<group>"; };
 		4C43135F20070BA700E5627D /* HPTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPTabBarController.h; sourceTree = "<group>"; };
 		4C43136020070BA700E5627D /* HPTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPTabBarController.m; sourceTree = "<group>"; };
 		4C431365200711AD00E5627D /* HPOperationBomb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPOperationBomb.h; sourceTree = "<group>"; };
@@ -65,7 +73,6 @@
 		4C43136F200713B900E5627D /* HPExpressageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HPExpressageViewController.xib; sourceTree = "<group>"; };
 		4C4313722007173C00E5627D /* HPIndentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPIndentViewController.h; sourceTree = "<group>"; };
 		4C4313732007173C00E5627D /* HPIndentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPIndentViewController.m; sourceTree = "<group>"; };
-		4C4313742007173C00E5627D /* HPIndentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HPIndentViewController.xib; sourceTree = "<group>"; };
 		4C4313772007176100E5627D /* HPMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPMineViewController.h; sourceTree = "<group>"; };
 		4C4313782007176100E5627D /* HPMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPMineViewController.m; sourceTree = "<group>"; };
 		4C5BC66E205130C10021AA0D /* HPUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPUser.h; sourceTree = "<group>"; };
@@ -243,6 +250,8 @@
 		4C616958200DFB3200696BEC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4C3BF7092057F0530010F913 /* HPCanteenTableViewCell.h */,
+				4C3BF70A2057F0530010F913 /* HPCanteenTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,7 +261,10 @@
 			children = (
 				4C4313722007173C00E5627D /* HPIndentViewController.h */,
 				4C4313732007173C00E5627D /* HPIndentViewController.m */,
-				4C4313742007173C00E5627D /* HPIndentViewController.xib */,
+				4C3BF7032057D8200010F913 /* HPCanteenTableViewController.h */,
+				4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */,
+				4C3BF7062057D83A0010F913 /* HPExpressageTableViewController.h */,
+				4C3BF7072057D83A0010F913 /* HPExpressageTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -486,7 +498,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C4313762007173C00E5627D /* HPIndentViewController.xib in Resources */,
 				4C91EA521FFE479C007C6C05 /* LaunchScreen.storyboard in Resources */,
 				4C922A4E20493E05004DFD20 /* HPLoginViewController.xib in Resources */,
 				4C43136C2007138F00E5627D /* HPCanteenViewController.xib in Resources */,
@@ -583,14 +594,17 @@
 			files = (
 				4C431367200711AD00E5627D /* HPOperationBomb.m in Sources */,
 				4C43137A2007176100E5627D /* HPMineViewController.m in Sources */,
+				4C3BF70B2057F0530010F913 /* HPCanteenTableViewCell.m in Sources */,
 				4C43136B2007138F00E5627D /* HPCanteenViewController.m in Sources */,
 				4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */,
 				4C5BC670205130C10021AA0D /* HPUser.m in Sources */,
 				4C91EA551FFE479C007C6C05 /* main.m in Sources */,
+				4C3BF7082057D83A0010F913 /* HPExpressageTableViewController.m in Sources */,
 				4C91EA471FFE479C007C6C05 /* AppDelegate.m in Sources */,
 				4C616960200DFDB200696BEC /* HPCanteen.m in Sources */,
 				4C922A5120494024004DFD20 /* HPUserViewController.m in Sources */,
 				4C43136120070BA700E5627D /* HPTabBarController.m in Sources */,
+				4C3BF7052057D8200010F913 /* HPCanteenTableViewController.m in Sources */,
 				4C616963200DFDD600696BEC /* HPFood.m in Sources */,
 				4C431370200713B900E5627D /* HPExpressageViewController.m in Sources */,
 				4C5BC673205159230021AA0D /* HPUserNameViewController.m in Sources */,
