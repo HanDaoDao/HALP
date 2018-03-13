@@ -10,7 +10,7 @@
 #import "HPUserNameViewController.h"
 #import "HPUser.h"
 #import "SDWebImage-umbrella.h"
-//#import "ReactiveObjC.h"
+#import "ReactiveObjC.h"
 
 @interface HPUserViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
@@ -28,11 +28,12 @@
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
-    //添加通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(modifiyName:)
-                                                 name:@"changeNameTongzhi"
-                                               object:nil];
+    //使用RAC添加通知
+    @weakify(self);
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"changeNameTongzhi" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self);
+        [self.userTableView reloadData];
+    }];
     
     self.user = [HPUser sharedHPUser];
     [self initUserTableView];

@@ -35,7 +35,6 @@
                                              selector:@selector(modifiy)
                                                  name:@"changeNameTongzhi"
                                                object:nil];
-    
     [self initMineNavigationBar];
     [self initMineTableView];
 }

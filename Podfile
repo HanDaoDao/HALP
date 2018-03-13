@@ -10,7 +10,7 @@ target 'HALP' do
    pod 'BmobSDK'
    pod 'SDWebImage'
 #   pod 'ReactiveCocoa'
-#   pod 'ReactiveObjC'
+   pod 'ReactiveObjC'
    pod 'UITableView+FDTemplateLayoutCell'
 
 end
