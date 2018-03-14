@@ -9,6 +9,7 @@
 #import "HPMineViewController.h"
 #import "HPHonorViewController.h"
 #import "HPUserViewController.h"
+#import "HPAddressViewController.h"
 #import "HPUser.h"
 #import "AFNetworking.h"
 
@@ -135,14 +136,22 @@
     userViewController.hidesBottomBarWhenPushed = YES;
     HPHonorViewController *honorViewController = [[HPHonorViewController alloc] init];
     honorViewController.hidesBottomBarWhenPushed = YES;
+    HPAddressViewController *addressViewController = [[HPAddressViewController alloc] init];
+    addressViewController.hidesBottomBarWhenPushed = YES;
     
     if (indexPath.section == 0) {
         [self.navigationController pushViewController:userViewController animated:YES];
     }
     
     if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            [self.navigationController pushViewController:honorViewController animated:YES];
+        switch (indexPath.row) {
+            case 0:
+                [self.navigationController pushViewController:honorViewController animated:YES];
+                break;
+            case 1:
+                [self.navigationController pushViewController:addressViewController animated:YES];
+            default:
+                break;
         }
     }
 }

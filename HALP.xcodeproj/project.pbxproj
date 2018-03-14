@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C365487205928A900046DB1 /* HPAddressViewController.m */; };
 		4C3BF7052057D8200010F913 /* HPCanteenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */; };
 		4C3BF7082057D83A0010F913 /* HPExpressageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF7072057D83A0010F913 /* HPExpressageTableViewController.m */; };
 		4C3BF70B2057F0530010F913 /* HPCanteenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF70A2057F0530010F913 /* HPCanteenTableViewCell.m */; };
@@ -55,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C365486205928A900046DB1 /* HPAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPAddressViewController.h; sourceTree = "<group>"; };
+		4C365487205928A900046DB1 /* HPAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPAddressViewController.m; sourceTree = "<group>"; };
 		4C3BF7032057D8200010F913 /* HPCanteenTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteenTableViewController.h; sourceTree = "<group>"; };
 		4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteenTableViewController.m; sourceTree = "<group>"; };
 		4C3BF7062057D83A0010F913 /* HPExpressageTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpressageTableViewController.h; sourceTree = "<group>"; };
@@ -305,6 +308,8 @@
 				4C5BC672205159230021AA0D /* HPUserNameViewController.m */,
 				4C922A4620481C06004DFD20 /* HPHonorViewController.h */,
 				4C922A4720481C06004DFD20 /* HPHonorViewController.m */,
+				4C365486205928A900046DB1 /* HPAddressViewController.h */,
+				4C365487205928A900046DB1 /* HPAddressViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -609,6 +614,7 @@
 				4C431370200713B900E5627D /* HPExpressageViewController.m in Sources */,
 				4C5BC673205159230021AA0D /* HPUserNameViewController.m in Sources */,
 				4C922A4D20493E05004DFD20 /* HPLoginViewController.m in Sources */,
+				4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */,
 				4C4313752007173C00E5627D /* HPIndentViewController.m in Sources */,
 				4C616966200E16EC00696BEC /* HPMTableViewCell.m in Sources */,
 			);

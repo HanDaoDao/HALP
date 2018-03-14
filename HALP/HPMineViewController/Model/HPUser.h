@@ -10,7 +10,14 @@
 
 @interface HPUser : NSObject
 
+typedef NS_ENUM(NSInteger,Sex)
+{
+    gilr = 0,
+    boy
+};
+
 @property(nonatomic,copy) NSString *name;           //姓名
+@property(nonatomic,assign) Sex sex;                 //性别
 @property(nonatomic,copy) NSString *ID;             //学号
 @property(nonatomic,copy) NSString *password;       //登录密码
 @property(nonatomic,copy) NSString *phone;          //电话
