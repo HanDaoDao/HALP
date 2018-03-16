@@ -7,8 +7,19 @@
 //
 
 #import "HPExpressageViewController.h"
+#import "Masonry.h"
+#import "HPListTableViewCell.h"
+#import "HPExpDetailViewController.h"
 
-@interface HPExpressageViewController ()
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+
+#define hpRGBHex(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+@interface HPExpressageViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong) UIButton *button;
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -19,24 +30,82 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"导航栏"] forBarMetrics:(UIBarMetrics)UIBarMetricsDefault];
-    
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [UIFont fontWithName:@"PingFang SC" size:18], NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    
+    [self setupView];
 }
+
+-(void)setupView{
+    _button = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    _button.backgroundColor = hpRGBHex(0xFFE4B5);
+    _button.layer.cornerRadius = 20;
+    _button.layer.masksToBounds = YES;
+    [_button setTitle:@"找人帮取快递" forState:UIControlStateNormal];
+    [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_button setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
+    [_button addTarget:self action:@selector(buttonCompleted) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:_button];
+    
+    [_button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view.mas_left).offset(30);
+        make.top.mas_equalTo(self.view.mas_top).offset(10);
+        make.right.mas_equalTo(self.view.mas_right).offset(-30);
+        make.height.mas_equalTo(40);
+    }];
+    
+    _tableView = [[UITableView alloc] init];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+    
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        make.top.equalTo(self.button.mas_bottom).offset(10);
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
+}
+
+-(void)buttonCompleted{
+    NSLog(@"hhh");
+}
+#pragma mark - Tableview datasource and delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *indentifier = @"cell";
+    HPListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+    
+    if (cell == nil) {
+        cell = [[HPListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:indentifier];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    HPExpDetailViewController *expDetailVC = [[HPExpDetailViewController alloc] init];
+    expDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:expDetailVC animated:YES];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
