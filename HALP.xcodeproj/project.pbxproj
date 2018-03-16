@@ -65,6 +65,7 @@
 		4C36548E205BB8A400046DB1 /* HPExpCustomer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpCustomer.m; sourceTree = "<group>"; };
 		4C365494205BC15300046DB1 /* HPExpDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpDetailViewController.h; sourceTree = "<group>"; };
 		4C365495205BC15300046DB1 /* HPExpDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpDetailViewController.m; sourceTree = "<group>"; };
+		4C365498205BC7D900046DB1 /* headFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = headFile.pch; sourceTree = "<group>"; };
 		4C3BF7032057D8200010F913 /* HPCanteenTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteenTableViewController.h; sourceTree = "<group>"; };
 		4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteenTableViewController.m; sourceTree = "<group>"; };
 		4C3BF7062057D83A0010F913 /* HPExpressageTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpressageTableViewController.h; sourceTree = "<group>"; };
@@ -371,6 +372,7 @@
 				4C91EA501FFE479C007C6C05 /* LaunchScreen.storyboard */,
 				4C91EA531FFE479C007C6C05 /* Info.plist */,
 				4C91EA541FFE479C007C6C05 /* main.m */,
+				4C365498205BC7D900046DB1 /* headFile.pch */,
 			);
 			path = HALP;
 			sourceTree = "<group>";
@@ -799,6 +801,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/HALP/headFile.pch";
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.HALP;
@@ -814,6 +817,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/HALP/headFile.pch";
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.HALP;
