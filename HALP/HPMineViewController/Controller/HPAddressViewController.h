@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPAddress.h"
 
 @interface HPAddressViewController : UIViewController
+
+@property(nonatomic,strong) HPAddress *appendAddress;
 
 @end

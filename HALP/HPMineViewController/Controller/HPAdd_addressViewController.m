@@ -8,13 +8,14 @@
 
 #import "HPAdd_addressViewController.h"
 #import "HPNewAddressTableViewCell.h"
+#import "HPAddress.h"
 
 @interface HPAdd_addressViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSArray *contactsArray;
 @property(nonatomic,strong) NSArray *addressArray;
-
+@property(nonatomic,strong) HPAddress *oneAddress;
 
 @end
 
@@ -25,6 +26,9 @@
 
     self.navigationController.navigationBar.topItem.title = @" ";
     self.navigationItem.title = @"新增地址";
+    
+    UIBarButtonItem *saveBarButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:(UIBarButtonItemStyleDone) target:self action:@selector(saveOneAddress)];
+    self.navigationItem.rightBarButtonItem = saveBarButton;
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, VIEW_WIDTH, VIEW_HEIGHT) style:(UITableViewStyleGrouped)];
     _tableView.delegate = self;
@@ -37,6 +41,22 @@
 -(void)initArrayList{
     _contactsArray = @[@"姓名：",@"电话："];
     _addressArray = @[@"东/西 区:",@"楼号宿舍号:"];
+}
+
+-(void)saveOneAddress{
+    if (!_oneAddress) {
+        NSLog(@"没有地址信息");
+        NSArray *array = [_tableView indexPathsForVisibleRows];
+        _oneAddress = [[HPAddress alloc] init];
+        _oneAddress.name = array[0];
+        _oneAddress.tel = array[1];
+        _oneAddress.area = array[2];
+        _oneAddress.detail = array[3];
+    }
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_oneAddress,@"appendAddress", nil];
+    NSNotification *notification = [NSNotification notificationWithName:@"appendAddressTongzhi" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -75,10 +95,6 @@
     }
 
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
 }
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{

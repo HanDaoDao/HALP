@@ -9,7 +9,9 @@
 #import "HPAddressViewController.h"
 #import "headFile.pch"
 #import "Masonry.h"
+#import "HPAddressListTableViewCell.h"
 #import "HPAdd_addressViewController.h"
+#import "ReactiveObjC.h"
 
 @interface HPAddressViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,6 +27,26 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self setupView];
+    
+    
+    
+    /**
+     值没有传过来。。
+     */
+    @weakify(self);
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"appendAddressTongzhi" object:nil] subscribeNext:^(NSNotification *noti) {
+        @strongify(self);
+        self.appendAddress = noti.object;
+        NSLog(@"%@",self.appendAddress);
+    }];
+    
+}
+
+-(NSMutableArray *)addressArray{
+    if (!_addressArray) {
+        _addressArray = [NSMutableArray array];
+    }
+    return _addressArray;
 }
 
 -(void)setupView{
@@ -34,9 +56,9 @@
     [_addButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_addButton setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
     [_addButton addTarget:self action:@selector(addAddressButton) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.view addSubview:_addButton];
+    [self.view addSubview:self.addButton];
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:(UITableViewStylePlain)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectNull style:(UITableViewStylePlain)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -62,10 +84,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *indentifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+    HPAddressListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:indentifier];
+        cell = [[HPAddressListTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:indentifier];
     }
 
     
