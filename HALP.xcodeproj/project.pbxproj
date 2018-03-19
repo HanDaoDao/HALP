@@ -11,6 +11,8 @@
 		4C36548C205A9B5F00046DB1 /* HPListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C36548B205A9B5F00046DB1 /* HPListTableViewCell.m */; };
 		4C36548F205BB8A400046DB1 /* HPExpCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C36548E205BB8A400046DB1 /* HPExpCustomer.m */; };
 		4C365496205BC15300046DB1 /* HPExpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C365495205BC15300046DB1 /* HPExpDetailViewController.m */; };
+		4C36549B205F672300046DB1 /* HPAdd_addressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C36549A205F672300046DB1 /* HPAdd_addressViewController.m */; };
+		4C36549E205FA4D100046DB1 /* HPNewAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C36549D205FA4D100046DB1 /* HPNewAddressTableViewCell.m */; };
 		4C3BF7052057D8200010F913 /* HPCanteenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */; };
 		4C3BF7082057D83A0010F913 /* HPExpressageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF7072057D83A0010F913 /* HPExpressageTableViewController.m */; };
 		4C3BF70B2057F0530010F913 /* HPCanteenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BF70A2057F0530010F913 /* HPCanteenTableViewCell.m */; };
@@ -66,6 +68,10 @@
 		4C365494205BC15300046DB1 /* HPExpDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpDetailViewController.h; sourceTree = "<group>"; };
 		4C365495205BC15300046DB1 /* HPExpDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpDetailViewController.m; sourceTree = "<group>"; };
 		4C365498205BC7D900046DB1 /* headFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = headFile.pch; sourceTree = "<group>"; };
+		4C365499205F672300046DB1 /* HPAdd_addressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPAdd_addressViewController.h; sourceTree = "<group>"; };
+		4C36549A205F672300046DB1 /* HPAdd_addressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPAdd_addressViewController.m; sourceTree = "<group>"; };
+		4C36549C205FA4D100046DB1 /* HPNewAddressTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPNewAddressTableViewCell.h; sourceTree = "<group>"; };
+		4C36549D205FA4D100046DB1 /* HPNewAddressTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPNewAddressTableViewCell.m; sourceTree = "<group>"; };
 		4C3BF7032057D8200010F913 /* HPCanteenTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteenTableViewController.h; sourceTree = "<group>"; };
 		4C3BF7042057D8200010F913 /* HPCanteenTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteenTableViewController.m; sourceTree = "<group>"; };
 		4C3BF7062057D83A0010F913 /* HPExpressageTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpressageTableViewController.h; sourceTree = "<group>"; };
@@ -310,6 +316,8 @@
 			children = (
 				4C616964200E16EC00696BEC /* HPMTableViewCell.h */,
 				4C616965200E16EC00696BEC /* HPMTableViewCell.m */,
+				4C36549C205FA4D100046DB1 /* HPNewAddressTableViewCell.h */,
+				4C36549D205FA4D100046DB1 /* HPNewAddressTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -327,6 +335,8 @@
 				4C922A4720481C06004DFD20 /* HPHonorViewController.m */,
 				4C365486205928A900046DB1 /* HPAddressViewController.h */,
 				4C365487205928A900046DB1 /* HPAddressViewController.m */,
+				4C365499205F672300046DB1 /* HPAdd_addressViewController.h */,
+				4C36549A205F672300046DB1 /* HPAdd_addressViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -619,6 +629,7 @@
 				4C3BF70B2057F0530010F913 /* HPCanteenTableViewCell.m in Sources */,
 				4C43136B2007138F00E5627D /* HPCanteenViewController.m in Sources */,
 				4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */,
+				4C36549B205F672300046DB1 /* HPAdd_addressViewController.m in Sources */,
 				4C5BC670205130C10021AA0D /* HPUser.m in Sources */,
 				4C91EA551FFE479C007C6C05 /* main.m in Sources */,
 				4C3BF7082057D83A0010F913 /* HPExpressageTableViewController.m in Sources */,
@@ -629,6 +640,7 @@
 				4C3BF7052057D8200010F913 /* HPCanteenTableViewController.m in Sources */,
 				4C36548F205BB8A400046DB1 /* HPExpCustomer.m in Sources */,
 				4C616963200DFDD600696BEC /* HPFood.m in Sources */,
+				4C36549E205FA4D100046DB1 /* HPNewAddressTableViewCell.m in Sources */,
 				4C431370200713B900E5627D /* HPExpressageViewController.m in Sources */,
 				4C5BC673205159230021AA0D /* HPUserNameViewController.m in Sources */,
 				4C922A4D20493E05004DFD20 /* HPLoginViewController.m in Sources */,
