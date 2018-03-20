@@ -29,23 +29,31 @@
     [self setupView];
     
     
-    
-    /**
-     值没有传过来。。
-     */
     @weakify(self);
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"appendAddressTongzhi" object:nil] subscribeNext:^(NSNotification *noti) {
         @strongify(self);
-        self.appendAddress = noti.object;
-        NSLog(@"%@",self.appendAddress);
+        HPAddress *address = noti.userInfo[@"appendAddress"];
+        [self appendAddress:address];
+        [self.tableView reloadData];
     }];
     
+}
+
+-(void)appendAddress:(HPAddress *)appendAddress{
+    [self.addressArray addObject:appendAddress];
 }
 
 -(NSMutableArray *)addressArray{
     if (!_addressArray) {
         _addressArray = [NSMutableArray array];
+        HPAddress *address = [[HPAddress alloc] init];
+        address.name = @"韩";
+        address.tel = @"18989899898";
+        address.area = @"东区";
+        address.detail = @"2427";
+        [self.addressArray addObject:address];
     }
+
     return _addressArray;
 }
 
@@ -79,7 +87,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return _addressArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -90,9 +98,19 @@
         cell = [[HPAddressListTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:indentifier];
     }
 
-    
+    HPAddress *address = [_addressArray objectAtIndex:indexPath.row];
+    cell.nameLabel.text = [address.name stringByAppendingString:@" 同学"];
+    cell.telLabel.text = address.tel;
+    NSString *addressString = [self addressStringMerge:address.area and:address.detail];
+    cell.addressLabel.text = addressString;
     
     return cell;
+}
+
+-(NSString *)addressStringMerge:(NSString *)string1 and:(NSString *)string2{
+    NSString *addressString = [NSString stringWithFormat:@"%@  ", string1];
+    addressString = [addressString stringByAppendingString:string2];
+    return addressString;
 }
 
 -(void)addAddressButton{

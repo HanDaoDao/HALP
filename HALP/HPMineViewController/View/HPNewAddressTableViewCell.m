@@ -54,7 +54,7 @@
     [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(5);
         make.right.equalTo(self.contentView).offset(-5);
-        make.bottom.equalTo(self.contentView).offset(-10);
+        make.bottom.equalTo(self.contentView).offset(-5);
         make.left.equalTo(_titleLabel.mas_right).offset(5);
     }];
 }

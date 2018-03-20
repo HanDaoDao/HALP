@@ -9,6 +9,7 @@
 #import "HPAdd_addressViewController.h"
 #import "HPNewAddressTableViewCell.h"
 #import "HPAddress.h"
+#import "HPAddressViewController.h"
 
 @interface HPAdd_addressViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -40,19 +41,31 @@
 
 -(void)initArrayList{
     _contactsArray = @[@"姓名：",@"电话："];
-    _addressArray = @[@"东/西 区:",@"楼号宿舍号:"];
+    _addressArray = @[@"东 / 西 区:",@"楼号宿舍号:"];
 }
 
 -(void)saveOneAddress{
     if (!_oneAddress) {
-        NSLog(@"没有地址信息");
         NSArray *array = [_tableView indexPathsForVisibleRows];
+        NSMutableArray *arrayText = [[NSMutableArray alloc]init];
+        int i = 0;
+        for (NSIndexPath *indexPath in array) {
+            HPNewAddressTableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
+            if (cell.textField.text.length == 0) {
+                return ;
+            }
+            arrayText[i] = cell.textField.text;
+            i++;
+        }
         _oneAddress = [[HPAddress alloc] init];
-        _oneAddress.name = array[0];
-        _oneAddress.tel = array[1];
-        _oneAddress.area = array[2];
-        _oneAddress.detail = array[3];
+        _oneAddress.name = arrayText[0];
+        _oneAddress.tel = arrayText[1];
+        _oneAddress.area = arrayText[2];
+        _oneAddress.detail = arrayText[3];
     }
+    
+    
+    
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_oneAddress,@"appendAddress", nil];
     NSNotification *notification = [NSNotification notificationWithName:@"appendAddressTongzhi" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -92,6 +105,11 @@
     else if (indexPath.section == 1){
         [cell setupAddressView];
         cell.titleLabel.text = [_addressArray objectAtIndex:indexPath.row];
+        if (indexPath.row == 0) {
+            cell.textField.placeholder = @"如：东区";
+        } else {
+            cell.textField.placeholder = @"如：安悦公寓北区 427";
+        }
     }
 
     return cell;
