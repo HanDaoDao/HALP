@@ -20,6 +20,7 @@
     [self.contentView addSubview:_titleLabel];
     
     _textField = [[UITextField alloc] init];
+    _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.contentView addSubview:_textField];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -42,6 +43,7 @@
     [self.contentView addSubview:_titleLabel];
     
     _textField = [[UITextField alloc] init];
+    _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.contentView addSubview:_textField];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -52,7 +52,8 @@
         for (NSIndexPath *indexPath in array) {
             HPNewAddressTableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
             if (cell.textField.text.length == 0) {
-                return ;
+                [self showDismissWithTitle:NULL message:@"信息不全,请填写完整"];
+                return;
             }
             arrayText[i] = cell.textField.text;
             i++;
@@ -63,13 +64,31 @@
         _oneAddress.area = arrayText[2];
         _oneAddress.detail = arrayText[3];
     }
-    
-    
-    
+
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_oneAddress,@"appendAddress", nil];
     NSNotification *notification = [NSNotification notificationWithName:@"appendAddressTongzhi" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)showDismissWithTitle:(NSString *)title message:(NSString *)message{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(creatAlert:) userInfo:alert repeats:NO];
+    
+}
+
+- (void)creatAlert:(NSTimer *)timer{
+    
+    UIAlertController * alert = (UIAlertController *)[timer userInfo];
+    
+    [alert dismissViewControllerAnimated:YES completion:nil];
+    
+    alert = nil;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

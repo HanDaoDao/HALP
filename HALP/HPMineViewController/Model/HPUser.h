@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger,Sex)
 @property(nonatomic,copy) NSString *phone;          //电话
 @property(nonatomic,copy) NSString *professional;   //专业班级
 @property(nonatomic,assign) NSInteger money;        //拥有的名誉值（钱）
-@property(nonatomic,copy) NSString *imagePath;          //头像
+@property(nonatomic,copy) NSString *imagePath;      //头像
 
 +(HPUser *)sharedHPUser;
 
