@@ -49,6 +49,7 @@
         NSArray *array = [_tableView indexPathsForVisibleRows];
         NSMutableArray *arrayText = [[NSMutableArray alloc]init];
         int i = 0;
+        
         for (NSIndexPath *indexPath in array) {
             HPNewAddressTableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
             if (cell.textField.text.length == 0) {
@@ -64,7 +65,6 @@
         _oneAddress.area = arrayText[2];
         _oneAddress.detail = arrayText[3];
     }
-
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_oneAddress,@"appendAddress", nil];
     NSNotification *notification = [NSNotification notificationWithName:@"appendAddressTongzhi" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -72,21 +72,14 @@
 }
 
 - (void)showDismissWithTitle:(NSString *)title message:(NSString *)message{
-    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    
     [self presentViewController:alert animated:YES completion:nil];
-    
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(creatAlert:) userInfo:alert repeats:NO];
-    
 }
 
 - (void)creatAlert:(NSTimer *)timer{
-    
     UIAlertController * alert = (UIAlertController *)[timer userInfo];
-    
     [alert dismissViewControllerAnimated:YES completion:nil];
-    
     alert = nil;
     
 }

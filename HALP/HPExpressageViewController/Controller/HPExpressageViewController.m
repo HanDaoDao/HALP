@@ -11,6 +11,7 @@
 #import "HPListTableViewCell.h"
 #import "HPExpDetailViewController.h"
 #import "headFile.pch"
+#import "HPWriteOrderViewController.h"
 
 @interface HPExpressageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -64,7 +65,8 @@
 }
 
 -(void)buttonCompleted{
-    NSLog(@"hhh");
+    HPWriteOrderViewController *writeOderVC = [[HPWriteOrderViewController alloc] init];
+    [self.navigationController pushViewController:writeOderVC animated:YES];
 }
 #pragma mark - Tableview datasource and delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

@@ -11,7 +11,7 @@ target 'HALP' do
    pod 'SDWebImage'
    pod 'ReactiveObjC'
    pod 'UITableView+FDTemplateLayoutCell'
-#   pod 'MJRefresh'
+   pod 'MJRefresh'
 #   pod 'SVProgressHUD'
 
 end
