@@ -8,8 +8,14 @@
 
 #import "HPWriteOrderTableViewCell.h"
 #import "Masonry.h"
+#import <QuartzCore/QuartzCore.h>
+#import "headFile.pch"
 
 @interface HPWriteOrderTableViewCell ()
+
+@property(nonatomic,strong) UILabel *remarkLabel;
+@property(nonatomic,strong) UITextView *remarkTextView;
+@property(nonatomic,strong) UILabel *makeSureLabel;
 
 @end
 
@@ -45,7 +51,6 @@
 
 -(void)initExpressNumberCell{
     _expNumberLabel = [[UILabel alloc] init];
-    //    _expNumberLabel.backgroundColor = [UIColor yellowColor];
     _expNumberLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_expNumberLabel];
     
@@ -57,8 +62,6 @@
     }];
     
     _numberTextField = [[UITextField alloc] init];
-    //    _numberTextField.backgroundColor = [UIColor redColor];
-    [_numberTextField setBorderStyle:(UITextBorderStyleRoundedRect)];
     [self.contentView addSubview:_numberTextField];
     
     [_numberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,6 +69,47 @@
         make.top.equalTo(self.contentView).offset(5);
         make.right.equalTo(self.contentView).offset(-80);
         make.bottom.equalTo(self.contentView).offset(-5);
+    }];
+}
+
+-(void)initRemarkCell{
+    _remarkLabel = [[UILabel alloc] init];
+    _remarkLabel.text = @"备注:";
+    _remarkLabel.textAlignment = NSTextAlignmentCenter;
+    [self.contentView addSubview:_remarkLabel];
+    
+    _remarkTextView = [[UITextView alloc] init];
+    _remarkTextView.font = [UIFont systemFontOfSize:14.f];
+    [self.contentView addSubview:_remarkTextView];
+    
+    [_remarkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(60);
+        make.top.equalTo(self.contentView).offset(5);
+        make.width.mas_equalTo(90);
+        make.height.mas_equalTo(30);
+    }];
+    
+    [_remarkTextView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.remarkLabel.mas_right);
+        make.top.equalTo(self.contentView).offset(5);
+        make.right.equalTo(self.contentView).offset(-60);
+        make.bottom.equalTo(self.contentView).offset(-5);
+    }];
+}
+
+-(void)initMakeSureOrderCell{
+    
+    self.contentView.backgroundColor = hpRGBHex(0xFFB400);
+    _makeSureLabel = [[UILabel alloc] init];
+    _makeSureLabel.text = @"确     认";
+    _makeSureLabel.font = [UIFont systemFontOfSize:18];
+    _makeSureLabel.textAlignment = NSTextAlignmentCenter;
+    _makeSureLabel.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:_makeSureLabel];
+    
+    [_makeSureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.and.top.bottom.equalTo(self.contentView);
+        make.width.equalTo(self.contentView).multipliedBy(0.5);
     }];
 }
 

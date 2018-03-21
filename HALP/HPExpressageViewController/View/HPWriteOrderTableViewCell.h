@@ -17,6 +17,8 @@
 
 -(void)initChooseAreaCell;
 -(void)initExpressNumberCell;
+-(void)initRemarkCell;
+-(void)initMakeSureOrderCell;
 
 @end
 

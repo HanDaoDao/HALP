@@ -11,6 +11,7 @@
 #import "HPWriteOrderTableViewCell.h"
 #import "HPPopViewViewController.h"
 #import "ReactiveObjC.h"
+#import "Masonry.h"
 
 @interface HPWriteOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate>
 
@@ -56,10 +57,14 @@
 }
 
 -(void)setupView{
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, VIEW_WIDTH, VIEW_HEIGHT) style:(UITableViewStyleGrouped)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:(UITableViewStyleGrouped)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.and.top.bottom.equalTo(self.view);
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -101,10 +106,10 @@
             }
         }
     }else if (indexPath.section == 1) {
-        
+        [cell initRemarkCell];
     }
     else{
-        
+        [cell initMakeSureOrderCell];
     }
     
     return cell;
@@ -120,7 +125,6 @@
     self.popViewVC.popoverPresentationController.sourceRect = sender.bounds;
     [self presentViewController:_popViewVC animated:YES completion:nil];
 }
-
 /**
  配置popView
  */
@@ -139,6 +143,10 @@
         self.chosseAreaString = notification.userInfo[@"chooseArea"];
         [_tableView reloadData];
     }];
+    
+    //注册键盘通知
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection
@@ -149,6 +157,33 @@
 -(void)touchesBegan{
     [self.view endEditing:YES];
 }
+
+/**
+ 键盘弹出隐藏tableview的更新
+ 
+ */
+/*
+ -(void)keyboardWillChangeFrameNotification:(NSNotification *)notification{
+     [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top).offset(-100);
+         make.bottom.equalTo(self.view.mas_bottom).offset(-100);
+     }];
+ 
+     [UIView animateWithDuration:0.25 animations:^{
+         [self.tableView layoutIfNeeded];
+     }];
+ }
+ 
+ - (void)keyboardWillHideNotification:(NSNotification *)notification{
+     [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+         make.left.and.right.and.top.bottom.equalTo(self.view);
+     }];
+ 
+     [UIView animateWithDuration:0.25 animations:^{
+         [self.tableView layoutIfNeeded];
+     }];
+ }
+*/
 
 @end
 
