@@ -54,10 +54,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:_listArray[indexPath.row],@"chooseArea", nil];
     NSNotification *notification = [NSNotification notificationWithName:@"chooseAreaTongZhi" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
+

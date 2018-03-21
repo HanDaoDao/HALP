@@ -11,6 +11,12 @@
 @interface HPWriteOrderTableViewCell : UITableViewCell
 
 @property(nonatomic,strong) UIButton *chooseButton;
+@property(nonatomic,strong) UITextField *numberTextField;
+@property(nonatomic,strong) UILabel *expNumberLabel;
+@property(nonatomic,strong) UILabel *areaLabel;
+
 -(void)initChooseAreaCell;
+-(void)initExpressNumberCell;
 
 @end
+

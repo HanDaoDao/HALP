@@ -17,6 +17,7 @@
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) HPPopViewViewController *popViewVC;
 @property(nonatomic,copy) NSString *chosseAreaString;
+@property(nonatomic,copy) NSArray *array;
 
 @end
 
@@ -24,10 +25,7 @@
 
 -(NSString *)chosseAreaString{
     if(!_chosseAreaString){
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            _chosseAreaString = @"体育场东南角";
-        });
+        _chosseAreaString = @"体育场东南角";
     }
     return _chosseAreaString ;
 }
@@ -39,6 +37,10 @@
     return _popViewVC;
 }
 
+-(void)initArrayList{
+    _array = @[@"姓名:",@"电话:",@"取货号:"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -46,6 +48,11 @@
     [self setupView];
     [self chosseAreaString];
     [self notificationAction];
+    [self initArrayList];
+    
+    //添加手势，键盘隐藏
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesBegan)];
+    [self.view addGestureRecognizer:tap];
 }
 
 -(void)setupView{
@@ -55,8 +62,16 @@
     [self.view addSubview:_tableView];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 3;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return section == 0 ? 4 : 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return indexPath.section == 1 ? 80 : 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -65,6 +80,7 @@
     
     if (cell == nil) {
         cell = [[HPWriteOrderTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else{
         //cell中本来就有一个subview，如果是重用cell，则把cell中自己添加的subview清除掉，避免出现重叠问题
         for (UIView *subView in cell.contentView.subviews)
@@ -72,14 +88,24 @@
             [subView removeFromSuperview];
         }
     }
-    
-    if (indexPath.row == 0) {
-        [cell initChooseAreaCell];
-        NSLog(@"%@",_chosseAreaString);
-        [cell.chooseButton setTitle:_chosseAreaString forState:(UIControlStateNormal)];
-        [cell.chooseButton addTarget:self action:@selector(initChooseArea:) forControlEvents:(UIControlEventTouchUpInside)];
+    if(indexPath.section == 0){
+        if (indexPath.row == 3) {
+            [cell initChooseAreaCell];
+            [cell.chooseButton setTitle:_chosseAreaString forState:(UIControlStateNormal)];
+            [cell.chooseButton addTarget:self action:@selector(initChooseArea:) forControlEvents:(UIControlEventTouchUpInside)];
+        }else{
+            [cell initExpressNumberCell];
+            cell.expNumberLabel.text = _array[indexPath.row];
+            if(indexPath.row == 1){
+                cell.numberTextField.placeholder = @"手机后四位";
+            }
+        }
+    }else if (indexPath.section == 1) {
+        
     }
-    
+    else{
+        
+    }
     
     return cell;
 }
@@ -118,7 +144,11 @@
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection
 {
     return UIModalPresentationNone;
-    
+}
+
+-(void)touchesBegan{
+    [self.view endEditing:YES];
 }
 
 @end
+
