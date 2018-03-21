@@ -11,7 +11,6 @@
 
 @interface HPWriteOrderTableViewCell ()
 
-@property(nonatomic,strong) UIButton *chooseButton;
 @property(nonatomic,strong) UILabel *areaLabel;
 
 @end
@@ -19,25 +18,29 @@
 @implementation HPWriteOrderTableViewCell
 
 -(void)initChooseAreaCell{
-    _chooseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    _chooseButton.backgroundColor = [UIColor redColor];
-    [self.contentView addSubview:_chooseButton];
     
     _areaLabel = [[UILabel alloc] init];
-    _areaLabel.backgroundColor = [UIColor yellowColor];
+//    _areaLabel.backgroundColor = [UIColor yellowColor];
+    _areaLabel.text = @"快递点:";
+    _areaLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_areaLabel];
+
+    _chooseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+//    _chooseButton.backgroundColor = [UIColor redColor];
+    [_chooseButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [self.contentView addSubview:_chooseButton];
     
-    [_chooseButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).offset(-5);
-        make.left.equalTo(self.contentView).offset(20);
-        make.width.mas_equalTo(30);
+    [_areaLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(5);
+        make.left.equalTo(self.contentView).offset(60);
+        make.width.mas_equalTo(90);
         make.bottom.equalTo(self.contentView).offset(-5);
     }];
     
-    [_areaLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.chooseButton.mas_right).offset(10);
+    [_chooseButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.areaLabel.mas_right);
         make.top.equalTo(self.contentView).offset(5);
-        make.right.equalTo(self.contentView).offset(-10);
+        make.right.equalTo(self.contentView).offset(-80);
         make.bottom.equalTo(self.contentView).offset(-5);
     }];
 }

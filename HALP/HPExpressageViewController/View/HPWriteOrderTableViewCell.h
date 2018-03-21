@@ -10,6 +10,7 @@
 
 @interface HPWriteOrderTableViewCell : UITableViewCell
 
+@property(nonatomic,strong) UIButton *chooseButton;
 -(void)initChooseAreaCell;
 
 @end

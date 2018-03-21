@@ -91,11 +91,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *indentifier = @"cell";
-    HPAddressListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+    static NSString *identifier = @"cell";
+    HPAddressListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        cell = [[HPAddressListTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:indentifier];
+        cell = [[HPAddressListTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:identifier];
     }
 
     HPAddress *address = [_addressArray objectAtIndex:indexPath.row];
