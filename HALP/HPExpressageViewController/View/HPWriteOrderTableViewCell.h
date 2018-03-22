@@ -15,10 +15,12 @@
 @property(nonatomic,strong) UILabel *expNumberLabel;
 @property(nonatomic,strong) UILabel *areaLabel;
 @property(nonatomic,strong) UIButton *makeSureButton;
+@property(nonatomic,strong) UILabel *markLabel;
+@property(nonatomic,strong) UIButton *sendToButton;
 
 -(void)initChooseAreaCell;
 -(void)initExpressNumberCell;
--(void)initRemarkCell;
+-(void)initSendToCell;
 -(void)initMakeSureOrderCell;
 
 @end

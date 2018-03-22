@@ -16,7 +16,6 @@
 @property(nonatomic,copy) NSString* expNumber;
 @property(nonatomic,copy) NSString* expArea;
 @property(nonatomic,copy) NSString* expMark;
-
--(BOOL)saveOneOrder:(HPExpOrder *)oneOrder fromTableView:(UITableView *)tableView andCellText:(HPWriteOrderTableViewCell *)orderCell;
+@property(nonatomic,copy) NSString* expSendTo;
 
 @end

@@ -13,6 +13,7 @@
 #import "ReactiveObjC.h"
 #import "Masonry.h"
 #import "HPExpOrder.h"
+#import "HPAddressViewController.h"
 
 @interface HPWriteOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -20,7 +21,12 @@
 @property(nonatomic,strong) HPPopViewViewController *popViewVC;
 @property(nonatomic,copy) NSString *chosseAreaString;
 @property(nonatomic,copy) NSArray *array;
-@property(nonatomic,strong) HPWriteOrderTableViewCell *orderCell;
+@property(nonatomic,strong) HPExpOrder *oneOrder;
+@property(nonatomic,strong) UIButton *areaButton;
+@property(nonatomic,strong) UITextField *nameTextField;
+@property(nonatomic,strong) UITextField *telTextField;
+@property(nonatomic,strong) UITextField *numberTextField;
+@property(nonatomic,strong) UITextField *markTextField;
 
 @end
 
@@ -41,7 +47,7 @@
 }
 
 -(void)initArrayList{
-    _array = @[@"姓名:",@"电话:",@"取货号:"];
+    _array = @[@"姓名:",@"电话:",@"取货号:",@"备注:"];
 }
 
 - (void)viewDidLoad {
@@ -74,11 +80,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return section == 0 ? 4 : 1;
+    return section == 0 ? 5 : 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 1 ? 80 : 44;
+    return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -98,36 +104,75 @@
         if (indexPath.row == 0) {
             [cell initChooseAreaCell];
             [cell.chooseButton setTitle:_chosseAreaString forState:(UIControlStateNormal)];
-            [cell.chooseButton addTarget:self action:@selector(initChooseArea:) forControlEvents:(UIControlEventTouchUpInside)];
+            [cell.chooseButton addTarget:self action:@selector(ChooseArea:) forControlEvents:(UIControlEventTouchUpInside)];
+            self.areaButton = cell.chooseButton;
         }else{
             [cell initExpressNumberCell];
             cell.expNumberLabel.text = _array[indexPath.row - 1];
+            switch (indexPath.row) {
+                    case 1:
+                    self.nameTextField = cell.numberTextField;break;
+                    case 2:
+                    self.telTextField = cell.numberTextField;break;
+                    case 3:
+                    self.numberTextField = cell.numberTextField;break;
+                    case 4:
+                    self.markTextField = cell.numberTextField;break;
+                default:
+                    break;
+            }
         }
     }else if (indexPath.section == 1) {
-        [cell initRemarkCell];
+        [cell initSendToCell];
+        [cell.sendToButton addTarget:self action:@selector(sendToWhereAction) forControlEvents:UIControlEventTouchUpInside];
     }
     else{
         [cell initMakeSureOrderCell];
-        [cell.makeSureButton addTarget:self action:@selector(btnAction) forControlEvents:(UIControlEventTouchUpInside)];
+        [cell.makeSureButton addTarget:self action:@selector(makeSureOrderAction) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return cell;
 }
 
--(void)btnAction{
-    HPExpOrder *oneOrder ;
-    BOOL sureOrder = [oneOrder saveOneOrder:oneOrder fromTableView:_tableView andCellText:_orderCell];
-    if (sureOrder){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"生成订单" preferredStyle:(UIAlertControllerStyleAlert)];
-        [alert addAction:[UIAlertAction actionWithTitle:@"否" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"是" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
+/**
+ 快递点按钮点击事件
+ @param sender 传入的按钮对象
+ */
+-(void)ChooseArea:(UIButton *)sender{
+    [self popConfig];
+    self.popViewVC.popoverPresentationController.sourceView = sender;
+    self.popViewVC.popoverPresentationController.sourceRect = sender.bounds;
+    [self presentViewController:_popViewVC animated:YES completion:nil];
+}
+
+-(void)sendToWhereAction{
+    HPAddressViewController *addressVC = [[HPAddressViewController alloc] init];
+    addressVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:addressVC animated:YES];
+}
+
+-(void)makeSureOrderAction{
+    if (!_oneOrder) {
+        if ((self.nameTextField.text.length == 0) || (self.telTextField.text.length == 0) || (self.numberTextField.text.length == 0)){
+            [self showDismissWithTitle:NULL message:@"信息不全,请填写完整"];
+            return;
+        }
+        _oneOrder = [[HPExpOrder alloc] init];
+        _oneOrder.expArea = self.areaButton.titleLabel.text;
+        _oneOrder.name = self.nameTextField.text;
+        _oneOrder.tel = self.telTextField.text;
+        _oneOrder.expNumber = self.numberTextField.text;
+        _oneOrder.expMark = self.markTextField.text;
+        NSLog(@"%@",_oneOrder.expMark);
     }
-    else{
-        [self showDismissWithTitle:NULL message:@"信息不全,请填写完整"];
-    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"生成订单" preferredStyle:(UIAlertControllerStyleAlert)];
+    [alert addAction:[UIAlertAction actionWithTitle:@"否" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"是" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_oneOrder,@"appendOneOrder", nil];
+        NSNotification *notification = [NSNotification notificationWithName:@"appendOneOrderTongzhi" object:nil userInfo:dict];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)showDismissWithTitle:(NSString *)title message:(NSString *)message{
@@ -142,16 +187,6 @@
     alert = nil;
 }
 
-/**
- 快递点按钮点击事件
- @param sender 传入的按钮对象
- */
--(void)initChooseArea:(UIButton *)sender{
-    [self popConfig];
-    self.popViewVC.popoverPresentationController.sourceView = sender;
-    self.popViewVC.popoverPresentationController.sourceRect = sender.bounds;
-    [self presentViewController:_popViewVC animated:YES completion:nil];
-}
 /**
  配置popView
  */

@@ -13,9 +13,6 @@
 
 @interface HPWriteOrderTableViewCell ()
 
-@property(nonatomic,strong) UILabel *remarkLabel;
-@property(nonatomic,strong) UITextView *remarkTextView;
-
 @end
 
 @implementation HPWriteOrderTableViewCell
@@ -71,27 +68,29 @@
     }];
 }
 
--(void)initRemarkCell{
-    _remarkLabel = [[UILabel alloc] init];
-    _remarkLabel.text = @"备注:";
-    _remarkLabel.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:_remarkLabel];
+-(void)initSendToCell{
+    _markLabel = [[UILabel alloc] init];
+    _markLabel.text = @"送往:";
+    _markLabel.textAlignment = NSTextAlignmentCenter;
+    [self.contentView addSubview:_markLabel];
     
-    _remarkTextView = [[UITextView alloc] init];
-    _remarkTextView.font = [UIFont systemFontOfSize:14.f];
-    [self.contentView addSubview:_remarkTextView];
+    _sendToButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    _sendToButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_sendToButton setTitle:@"送到这" forState:(UIControlStateNormal)];
+    [_sendToButton setTitleColor:hpRGBHex(0xA9A9A9) forState:(UIControlStateNormal)];
+    [self.contentView addSubview:_sendToButton];
     
-    [_remarkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_markLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(60);
         make.top.equalTo(self.contentView).offset(5);
         make.width.mas_equalTo(90);
         make.height.mas_equalTo(30);
     }];
     
-    [_remarkTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.remarkLabel.mas_right);
+    [_sendToButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.markLabel.mas_right);
         make.top.equalTo(self.contentView).offset(5);
-        make.right.equalTo(self.contentView).offset(-60);
+        make.right.equalTo(self.contentView).offset(-5);
         make.bottom.equalTo(self.contentView).offset(-5);
     }];
 }
