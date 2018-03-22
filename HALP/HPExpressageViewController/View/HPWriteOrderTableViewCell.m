@@ -15,7 +15,6 @@
 
 @property(nonatomic,strong) UILabel *remarkLabel;
 @property(nonatomic,strong) UITextView *remarkTextView;
-@property(nonatomic,strong) UILabel *makeSureLabel;
 
 @end
 
@@ -100,14 +99,12 @@
 -(void)initMakeSureOrderCell{
     
     self.contentView.backgroundColor = hpRGBHex(0xFFB400);
-    _makeSureLabel = [[UILabel alloc] init];
-    _makeSureLabel.text = @"确     认";
-    _makeSureLabel.font = [UIFont systemFontOfSize:18];
-    _makeSureLabel.textAlignment = NSTextAlignmentCenter;
-    _makeSureLabel.backgroundColor = [UIColor clearColor];
-    [self.contentView addSubview:_makeSureLabel];
+    _makeSureButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [_makeSureButton setTitle:@"确      认" forState:(UIControlStateNormal)];
+    [_makeSureButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [self.contentView addSubview:_makeSureButton];
     
-    [_makeSureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_makeSureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.and.top.bottom.equalTo(self.contentView);
         make.width.equalTo(self.contentView).multipliedBy(0.5);
     }];

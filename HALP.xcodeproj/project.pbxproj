@@ -10,6 +10,7 @@
 		4C2F476A20610EF600875E5F /* HPWriteOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F476920610EF600875E5F /* HPWriteOrderViewController.m */; };
 		4C2F476D206123EF00875E5F /* HPWriteOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F476C206123EF00875E5F /* HPWriteOrderTableViewCell.m */; };
 		4C2F47702061FD0200875E5F /* HPPopViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F476F2061FD0200875E5F /* HPPopViewViewController.m */; };
+		4C2F47732063541700875E5F /* HPExpOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F47722063541700875E5F /* HPExpOrder.m */; };
 		4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C365487205928A900046DB1 /* HPAddressViewController.m */; };
 		4C36548C205A9B5F00046DB1 /* HPListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C36548B205A9B5F00046DB1 /* HPListTableViewCell.m */; };
 		4C36548F205BB8A400046DB1 /* HPExpCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C36548E205BB8A400046DB1 /* HPExpCustomer.m */; };
@@ -70,6 +71,8 @@
 		4C2F476C206123EF00875E5F /* HPWriteOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPWriteOrderTableViewCell.m; sourceTree = "<group>"; };
 		4C2F476E2061FD0200875E5F /* HPPopViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPPopViewViewController.h; sourceTree = "<group>"; };
 		4C2F476F2061FD0200875E5F /* HPPopViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPPopViewViewController.m; sourceTree = "<group>"; };
+		4C2F47712063541700875E5F /* HPExpOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpOrder.h; sourceTree = "<group>"; };
+		4C2F47722063541700875E5F /* HPExpOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpOrder.m; sourceTree = "<group>"; };
 		4C365486205928A900046DB1 /* HPAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPAddressViewController.h; sourceTree = "<group>"; };
 		4C365487205928A900046DB1 /* HPAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPAddressViewController.m; sourceTree = "<group>"; };
 		4C36548A205A9B5F00046DB1 /* HPListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPListTableViewCell.h; sourceTree = "<group>"; };
@@ -266,6 +269,8 @@
 			children = (
 				4C36548D205BB8A400046DB1 /* HPExpCustomer.h */,
 				4C36548E205BB8A400046DB1 /* HPExpCustomer.m */,
+				4C2F47712063541700875E5F /* HPExpOrder.h */,
+				4C2F47722063541700875E5F /* HPExpOrder.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -679,6 +684,7 @@
 				4C365496205BC15300046DB1 /* HPExpDetailViewController.m in Sources */,
 				4C4313752007173C00E5627D /* HPIndentViewController.m in Sources */,
 				4C616966200E16EC00696BEC /* HPMTableViewCell.m in Sources */,
+				4C2F47732063541700875E5F /* HPExpOrder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

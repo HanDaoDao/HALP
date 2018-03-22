@@ -12,13 +12,15 @@
 #import "HPPopViewViewController.h"
 #import "ReactiveObjC.h"
 #import "Masonry.h"
+#import "HPExpOrder.h"
 
-@interface HPWriteOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate>
+@interface HPWriteOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) HPPopViewViewController *popViewVC;
 @property(nonatomic,copy) NSString *chosseAreaString;
 @property(nonatomic,copy) NSArray *array;
+@property(nonatomic,strong) HPWriteOrderTableViewCell *orderCell;
 
 @end
 
@@ -87,32 +89,57 @@
         cell = [[HPWriteOrderTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else{
-        //cell中本来就有一个subview，如果是重用cell，则把cell中自己添加的subview清除掉，避免出现重叠问题
         for (UIView *subView in cell.contentView.subviews)
         {
             [subView removeFromSuperview];
         }
     }
     if(indexPath.section == 0){
-        if (indexPath.row == 3) {
+        if (indexPath.row == 0) {
             [cell initChooseAreaCell];
             [cell.chooseButton setTitle:_chosseAreaString forState:(UIControlStateNormal)];
             [cell.chooseButton addTarget:self action:@selector(initChooseArea:) forControlEvents:(UIControlEventTouchUpInside)];
         }else{
             [cell initExpressNumberCell];
-            cell.expNumberLabel.text = _array[indexPath.row];
-            if(indexPath.row == 1){
-                cell.numberTextField.placeholder = @"手机后四位";
-            }
+            cell.expNumberLabel.text = _array[indexPath.row - 1];
         }
     }else if (indexPath.section == 1) {
         [cell initRemarkCell];
     }
     else{
         [cell initMakeSureOrderCell];
+        [cell.makeSureButton addTarget:self action:@selector(btnAction) forControlEvents:(UIControlEventTouchUpInside)];
     }
-    
     return cell;
+}
+
+-(void)btnAction{
+    HPExpOrder *oneOrder ;
+    BOOL sureOrder = [oneOrder saveOneOrder:oneOrder fromTableView:_tableView andCellText:_orderCell];
+    if (sureOrder){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"生成订单" preferredStyle:(UIAlertControllerStyleAlert)];
+        [alert addAction:[UIAlertAction actionWithTitle:@"否" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"是" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else{
+        [self showDismissWithTitle:NULL message:@"信息不全,请填写完整"];
+    }
+}
+
+- (void)showDismissWithTitle:(NSString *)title message:(NSString *)message{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(creatAlert:) userInfo:alert repeats:NO];
+}
+
+- (void)creatAlert:(NSTimer *)timer{
+    UIAlertController * alert = (UIAlertController *)[timer userInfo];
+    [alert dismissViewControllerAnimated:YES completion:nil];
+    alert = nil;
 }
 
 /**
@@ -143,10 +170,6 @@
         self.chosseAreaString = notification.userInfo[@"chooseArea"];
         [_tableView reloadData];
     }];
-    
-    //注册键盘通知
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection
@@ -157,33 +180,6 @@
 -(void)touchesBegan{
     [self.view endEditing:YES];
 }
-
-/**
- 键盘弹出隐藏tableview的更新
- 
- */
-/*
- -(void)keyboardWillChangeFrameNotification:(NSNotification *)notification{
-     [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).offset(-100);
-         make.bottom.equalTo(self.view.mas_bottom).offset(-100);
-     }];
- 
-     [UIView animateWithDuration:0.25 animations:^{
-         [self.tableView layoutIfNeeded];
-     }];
- }
- 
- - (void)keyboardWillHideNotification:(NSNotification *)notification{
-     [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-         make.left.and.right.and.top.bottom.equalTo(self.view);
-     }];
- 
-     [UIView animateWithDuration:0.25 animations:^{
-         [self.tableView layoutIfNeeded];
-     }];
- }
-*/
 
 @end
 

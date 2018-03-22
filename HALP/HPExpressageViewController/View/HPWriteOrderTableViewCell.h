@@ -14,6 +14,7 @@
 @property(nonatomic,strong) UITextField *numberTextField;
 @property(nonatomic,strong) UILabel *expNumberLabel;
 @property(nonatomic,strong) UILabel *areaLabel;
+@property(nonatomic,strong) UIButton *makeSureButton;
 
 -(void)initChooseAreaCell;
 -(void)initExpressNumberCell;
