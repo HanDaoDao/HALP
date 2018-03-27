@@ -114,6 +114,8 @@
             image = [UIImage imageWithContentsOfFile:_user.imagePath];
         }
         _headImageView = [[UIImageView alloc] initWithImage:image];
+        _headImageView.layer.cornerRadius = 30;
+        _headImageView.layer.masksToBounds = YES;
         [_headImageView setFrame:CGRectMake(0, 0, 60, 60)];
         cell.accessoryView = _headImageView;
     }else if (indexPath.row == 1){

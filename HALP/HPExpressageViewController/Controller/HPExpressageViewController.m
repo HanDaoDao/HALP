@@ -74,11 +74,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *indentifier = @"cell";
-    HPListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+    static NSString *identifier = @"cell";
+    HPListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        cell = [[HPListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:indentifier];
+        cell = [[HPListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
     }
     
     return cell;

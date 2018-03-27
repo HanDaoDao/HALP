@@ -15,7 +15,14 @@
 //    UIImage *placeholder = [UIImage imageNamed:@"路飞"];
     _headImageView = [[UIImageView alloc] init];
 //    [_headImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:placeholder];
+    _headImageView.layer.cornerRadius = 30;
+    _headImageView.layer.masksToBounds = YES;
     [self.contentView addSubview:_headImageView];
+    
+    _sexView = [[UIImageView alloc] init];
+    _sexView.layer.cornerRadius = 10;
+    _sexView.image = [UIImage imageNamed:@"性别男"];
+    [self.contentView addSubview:_sexView];
     
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
@@ -38,8 +45,14 @@
         make.width.height.mas_equalTo(60);
     }];
     
+    [_sexView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImageView.mas_right).offset(5);
+        make.top.equalTo(self.contentView.mas_top).offset(15);
+        make.size.mas_equalTo(CGSizeMake(20, 20));
+    }];
+    
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_headImageView.mas_right).offset(20);
+        make.left.mas_equalTo(self.sexView.mas_right).offset(10);
         make.top.mas_equalTo(self.contentView.mas_top).offset(15);
         make.width.mas_equalTo(150);
         make.height.mas_equalTo(30);
@@ -47,7 +60,7 @@
     
     [_majorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_nameLabel.mas_bottom).offset(5);
-        make.left.mas_equalTo(_headImageView.mas_right).offset(20);
+        make.left.mas_equalTo(self.sexView.mas_right).offset(10);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(18);
     }];
