@@ -107,6 +107,25 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return TRUE;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle ==UITableViewCellEditingStyleDelete) {//如果编辑样式为删除样式
+        if (indexPath.row<[self.addressArray count]) {
+            [self.addressArray removeObjectAtIndex:indexPath.row];//移除数据源的数据
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
+        }
+    }
+}
+
 -(NSString *)addressStringMerge:(NSString *)string1 and:(NSString *)string2{
     NSString *addressString = [NSString stringWithFormat:@"%@  ", string1];
     addressString = [addressString stringByAppendingString:string2];

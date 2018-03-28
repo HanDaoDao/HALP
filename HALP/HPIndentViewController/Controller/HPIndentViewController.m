@@ -134,7 +134,6 @@
 //scrollview 的协议方法
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     NSInteger index = scrollView.contentOffset.x / SCREEN_WIDTH;
-    NSLog(@"%ld",(long)index);
     UITableViewController *tableVC = self.childViewControllers[index];
     tableVC.tableView.frame = CGRectMake(index * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.indentScrollView addSubview:tableVC.tableView];

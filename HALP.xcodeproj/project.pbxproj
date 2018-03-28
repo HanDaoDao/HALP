@@ -44,6 +44,7 @@
 		4C922A4D20493E05004DFD20 /* HPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A4B20493E04004DFD20 /* HPLoginViewController.m */; };
 		4C922A4E20493E05004DFD20 /* HPLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C922A4C20493E04004DFD20 /* HPLoginViewController.xib */; };
 		4C922A5120494024004DFD20 /* HPUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A5020494024004DFD20 /* HPUserViewController.m */; };
+		4CD51347206A48E0008F6ED3 /* HPExpDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */; };
 		C395481E31B62673E9570381 /* Pods_HALP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */; };
 /* End PBXBuildFile section */
 
@@ -139,6 +140,8 @@
 		4C922A4C20493E04004DFD20 /* HPLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HPLoginViewController.xib; sourceTree = "<group>"; };
 		4C922A4F20494024004DFD20 /* HPUserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPUserViewController.h; sourceTree = "<group>"; };
 		4C922A5020494024004DFD20 /* HPUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPUserViewController.m; sourceTree = "<group>"; };
+		4CD51345206A48E0008F6ED3 /* HPExpDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpDetailCell.h; sourceTree = "<group>"; };
+		4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpDetailCell.m; sourceTree = "<group>"; };
 		5F3040345BAABD5F48F82309 /* Pods-HALP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.debug.xcconfig"; sourceTree = "<group>"; };
 		62F2E0AE2762FD5B749F494A /* Pods-HALP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.release.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.release.xcconfig"; sourceTree = "<group>"; };
 		7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HALP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,8 +185,6 @@
 		4C365489205A9B3B00046DB1 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
-				4C36548A205A9B5F00046DB1 /* HPListTableViewCell.h */,
-				4C36548B205A9B5F00046DB1 /* HPListTableViewCell.m */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -278,8 +279,12 @@
 		4C616956200DFAF200696BEC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4C36548A205A9B5F00046DB1 /* HPListTableViewCell.h */,
+				4C36548B205A9B5F00046DB1 /* HPListTableViewCell.m */,
 				4C2F476B206123EF00875E5F /* HPWriteOrderTableViewCell.h */,
 				4C2F476C206123EF00875E5F /* HPWriteOrderTableViewCell.m */,
+				4CD51345206A48E0008F6ED3 /* HPExpDetailCell.h */,
+				4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -680,6 +685,7 @@
 				4C2F476D206123EF00875E5F /* HPWriteOrderTableViewCell.m in Sources */,
 				4C922A4D20493E05004DFD20 /* HPLoginViewController.m in Sources */,
 				4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */,
+				4CD51347206A48E0008F6ED3 /* HPExpDetailCell.m in Sources */,
 				4C36548C205A9B5F00046DB1 /* HPListTableViewCell.m in Sources */,
 				4C365496205BC15300046DB1 /* HPExpDetailViewController.m in Sources */,
 				4C4313752007173C00E5627D /* HPIndentViewController.m in Sources */,
