@@ -97,7 +97,7 @@
 
 -(void)initMakeSureOrderCell{
     
-    self.contentView.backgroundColor = hpRGBHex(0xFFB400);
+    self.contentView.backgroundColor = hpRGBHex(0xAFEEEE);//0xFFB400(食堂确认的颜色)
     _makeSureButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [_makeSureButton setTitle:@"确      认" forState:(UIControlStateNormal)];
     [_makeSureButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];

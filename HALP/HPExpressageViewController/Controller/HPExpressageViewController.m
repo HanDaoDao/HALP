@@ -35,12 +35,12 @@
 
 -(void)setupView{
     _button = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    _button.backgroundColor = hpRGBHex(0xFFE4B5);
+    _button.backgroundColor = hpRGBHex(0xAFEEEE);
     _button.layer.cornerRadius = 20;
     _button.layer.masksToBounds = YES;
-    [_button setTitle:@"找人帮取快递" forState:UIControlStateNormal];
+    [_button setTitle:@"帮取快递" forState:UIControlStateNormal];
     [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_button setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
+    [_button setTitleColor:hpRGBHex(0x00CED1) forState:UIControlStateHighlighted];
     [_button addTarget:self action:@selector(buttonCompleted) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_button];
     

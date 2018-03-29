@@ -136,7 +136,7 @@
 }
 
 -(void)acceptCell{
-    self.contentView.backgroundColor = hpRGBHex(0xFFB400);
+    self.contentView.backgroundColor = hpRGBHex(0xAFEEEE);
     _acceptButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [_acceptButton setTitle:@"确   认   接   单" forState:(UIControlStateNormal)];
     [_acceptButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
