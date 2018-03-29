@@ -26,7 +26,6 @@
     
     _chooseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [_chooseButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    [_chooseButton setImage:[UIImage imageNamed:@"选择地点1"] forState:(UIControlStateHighlighted)];
     [_chooseButton setImage:[UIImage imageNamed:@"选择地点"] forState:(UIControlStateNormal)];
     [self.contentView addSubview:_chooseButton];
     
