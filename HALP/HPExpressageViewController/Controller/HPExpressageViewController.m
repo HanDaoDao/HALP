@@ -66,6 +66,7 @@
 
 -(void)buttonCompleted{
     HPWriteOrderViewController *writeOderVC = [[HPWriteOrderViewController alloc] init];
+    writeOderVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:writeOderVC animated:YES];
 }
 #pragma mark - Tableview datasource and delegate

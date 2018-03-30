@@ -66,6 +66,7 @@
 
 -(void)buttonCompleted{
     HPCantOrderViewController *cantOderVC = [[HPCantOrderViewController alloc] init];
+    cantOderVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:cantOderVC animated:YES];
 }
 
