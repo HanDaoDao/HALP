@@ -42,7 +42,6 @@
 		4C91EA6A1FFE479D007C6C05 /* HALPUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C91EA691FFE479D007C6C05 /* HALPUITests.m */; };
 		4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A4720481C06004DFD20 /* HPHonorViewController.m */; };
 		4C922A4D20493E05004DFD20 /* HPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A4B20493E04004DFD20 /* HPLoginViewController.m */; };
-		4C922A4E20493E05004DFD20 /* HPLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C922A4C20493E04004DFD20 /* HPLoginViewController.xib */; };
 		4C922A5120494024004DFD20 /* HPUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A5020494024004DFD20 /* HPUserViewController.m */; };
 		4CD51347206A48E0008F6ED3 /* HPExpDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */; };
 		4CD5134A206CE9B6008F6ED3 /* HPCantOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */; };
@@ -140,7 +139,6 @@
 		4C922A4720481C06004DFD20 /* HPHonorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPHonorViewController.m; sourceTree = "<group>"; };
 		4C922A4A20493E04004DFD20 /* HPLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPLoginViewController.h; sourceTree = "<group>"; };
 		4C922A4B20493E04004DFD20 /* HPLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPLoginViewController.m; sourceTree = "<group>"; };
-		4C922A4C20493E04004DFD20 /* HPLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HPLoginViewController.xib; sourceTree = "<group>"; };
 		4C922A4F20494024004DFD20 /* HPUserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPUserViewController.h; sourceTree = "<group>"; };
 		4C922A5020494024004DFD20 /* HPUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPUserViewController.m; sourceTree = "<group>"; };
 		4CD51345206A48E0008F6ED3 /* HPExpDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpDetailCell.h; sourceTree = "<group>"; };
@@ -191,13 +189,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		4C365489205A9B3B00046DB1 /* BaseView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BaseView;
-			sourceTree = "<group>";
-		};
 		4C4313642007112C00E5627D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +203,7 @@
 			children = (
 				4C616953200DFA9A00696BEC /* Controller */,
 				4C616954200DFA9A00696BEC /* Model */,
-				4C616952200DFA9A00696BEC /* View */,
+				4CE0AC10207357CF00DCB21D /* View */,
 			);
 			path = HPCanteenViewController;
 			sourceTree = "<group>";
@@ -241,17 +232,11 @@
 			isa = PBXGroup;
 			children = (
 				4C61695D200DFB7800696BEC /* Controller */,
+				4CE0AC112073580C00DCB21D /* BaseView */,
 				4C61695B200DFB7800696BEC /* Model */,
 				4C61695C200DFB7800696BEC /* View */,
 			);
 			path = HPMineViewController;
-			sourceTree = "<group>";
-		};
-		4C616952200DFA9A00696BEC /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		4C616953200DFA9A00696BEC /* Controller */ = {
@@ -424,7 +409,6 @@
 				4C61694F200DF9C400696BEC /* HPExpressageViewController */,
 				4C616950200DF9CD00696BEC /* HPIndentViewController */,
 				4C616951200DF9CD00696BEC /* HPMineViewController */,
-				4C365489205A9B3B00046DB1 /* BaseView */,
 				4C922A4920493DC6004DFD20 /* Tools */,
 				4C4313642007112C00E5627D /* Model */,
 				4C91EA4B1FFE479C007C6C05 /* Main.storyboard */,
@@ -460,10 +444,24 @@
 			children = (
 				4C922A4A20493E04004DFD20 /* HPLoginViewController.h */,
 				4C922A4B20493E04004DFD20 /* HPLoginViewController.m */,
-				4C922A4C20493E04004DFD20 /* HPLoginViewController.xib */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
+		};
+		4CE0AC10207357CF00DCB21D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4CE0AC112073580C00DCB21D /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = BaseView;
+			path = HALP/BaseView;
+			sourceTree = SOURCE_ROOT;
 		};
 		99D2D99241A1DF8019549F2C /* Frameworks */ = {
 			isa = PBXGroup;
@@ -583,7 +581,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C91EA521FFE479C007C6C05 /* LaunchScreen.storyboard in Resources */,
-				4C922A4E20493E05004DFD20 /* HPLoginViewController.xib in Resources */,
 				4C91EA4F1FFE479C007C6C05 /* Assets.xcassets in Resources */,
 				4C91EA4D1FFE479C007C6C05 /* Main.storyboard in Resources */,
 			);
@@ -875,10 +872,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HALP/headFile.pch";
 				INFOPLIST_FILE = HALP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.HALP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Debug;
@@ -891,10 +889,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HALP/headFile.pch";
 				INFOPLIST_FILE = HALP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.HALP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Release;
