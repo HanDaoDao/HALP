@@ -14,33 +14,51 @@ PODS:
   - AFNetworking/Serialization (3.2.0)
   - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
-  - BmobSDK (2.2.8)
+  - BmobSDK (2.2.9)
   - Masonry (1.1.0)
+  - MJRefresh (3.1.15.3)
   - ReactiveObjC (3.1.0)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
-  - UITableView+FDTemplateLayoutCell (1.6)
+  - SVProgressHUD (2.2.5)
+  - "UITableView+FDTemplateLayoutCell (1.6)"
   - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking
   - BmobSDK
   - Masonry
+  - MJRefresh
   - ReactiveObjC
   - SDWebImage
-  - UITableView+FDTemplateLayoutCell
+  - SVProgressHUD
+  - "UITableView+FDTemplateLayoutCell"
   - YYModel
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - BmobSDK
+    - Masonry
+    - MJRefresh
+    - ReactiveObjC
+    - SDWebImage
+    - SVProgressHUD
+    - "UITableView+FDTemplateLayoutCell"
+    - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
-  BmobSDK: 8ee987736c9b766a688ea8e0274ce4748db2255e
+  BmobSDK: b520e1669193ae7945ee3280f07c7bad1869df85
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
-  UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 08534ba1eb60fcffe2044239873657cdb506026a
+PODFILE CHECKSUM: 4cd3a44c9dc86efaf82f0822875a4c1166832975
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.0

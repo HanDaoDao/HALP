@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '09FD2E429DA185F70CB165473D52ADBF'
-               BlueprintName = 'ReactiveObjC'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ReactiveObjC.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "68FBDA8460CA2EF58BF7E833DB32DD20"
+               BlueprintName = "ReactiveObjC"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "ReactiveObjC.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

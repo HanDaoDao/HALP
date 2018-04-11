@@ -20,7 +20,36 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [Bmob registerWithAppKey:@"5ba2860c3aa6e23b6d58841be2ed7158"];
+    [Bmob registerWithAppKey:@"af88b97664a492f9374e5f0eed092c75"];
+    
+//    BmobObject  *user = [BmobObject objectWithClassName:@"_User"];
+//    NSDictionary * dic = @{@"username":@"小黑黑",@"password":@"123",@"mobilePhoneNumber":@"19989278900",@"stuName":@"傻子"};
+//    [user saveAllWithDictionary:dic];
+//    [user saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+//        if (isSuccessful) {
+//            NSLog(@"成功");
+//        }
+//        else if (error){
+//            NSLog(@"%@",error); 
+//        }
+//        else{
+//            NSLog(@"not found error");
+//        }
+//    }];
+    
+//    BmobUser *bUser = [[BmobUser alloc] init];
+//    [bUser setUsername:@"小明"];
+//    [bUser setPassword:@"123456"];
+//    [bUser setObject:@"傻子" forKey:@"stuName"];
+//    NSDictionary * dic = @{@"username":@"小小明",@"password":@"123456",@"mobilePhoneNumber":@"19989278900",@"stuName":@"傻子"};
+//    [bUser signUpInBackgroundWithBlock:^ (BOOL isSuccessful, NSError *error){
+//        if (isSuccessful){
+//            NSLog(@"Sign up successfully");
+//        } else {
+//            NSLog(@"%@",error);
+//        }
+//    }];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

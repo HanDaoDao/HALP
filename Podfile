@@ -1,4 +1,4 @@
-platform:ios,'9.0'
+platform:ios,'10.0'
 
 use_frameworks!
 
@@ -12,6 +12,6 @@ target 'HALP' do
    pod 'ReactiveObjC'
    pod 'UITableView+FDTemplateLayoutCell'
    pod 'MJRefresh'
-#   pod 'SVProgressHUD'
+   pod 'SVProgressHUD'
 
 end

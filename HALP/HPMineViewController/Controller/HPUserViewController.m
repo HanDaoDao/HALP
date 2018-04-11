@@ -18,6 +18,8 @@
 @property(nonatomic,strong) NSArray *userSetterList;
 @property(nonatomic,strong) UIImageView *headImageView;
 @property(nonatomic,strong) HPUser *user;
+@property (nonatomic,strong) UIImagePickerController *imagePickerController;
+
 
 @end
 
@@ -37,6 +39,7 @@
     
     self.user = [HPUser sharedHPUser];
     [self initUserTableView];
+    [self initPickerView];
     
 }
 
@@ -46,6 +49,19 @@
     _userTableView.dataSource = self;
     [self.view addSubview:_userTableView];
     _userSetterList = @[@"头像",@"昵称",@"ID",@"更多"];
+}
+
+-(void)initPickerView{
+    _imagePickerController = [[UIImagePickerController alloc] init];
+    _imagePickerController.delegate = self;
+    
+    //打开相册时的动画效果
+    _imagePickerController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    _imagePickerController.allowsEditing = YES;
+    
+    //不设置contentMode，图片会被压扁
+    _headImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [_headImageView setClipsToBounds:YES];
 }
 
 #pragma mark - tableView delegate
@@ -68,16 +84,14 @@
         UIAlertController *headImageAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
         [headImageAlert addAction:[UIAlertAction actionWithTitle:@"从相册选取" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
             if ([UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceTypePhotoLibrary)]) {
-                UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
-                imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                imagePickerVC.allowsEditing = YES;
-                imagePickerVC.delegate = self;
-                [self presentViewController:imagePickerVC animated:YES completion:nil];
+                [self selectImageFromPhoto];
             }
         }]];
         [headImageAlert addAction:[UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
             //拍照获得头像
-            
+            if ([UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceTypeCamera)]) {
+                [self selectImageFromCamera];
+            }
         }]];
         [headImageAlert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
             
@@ -133,22 +147,84 @@
     [self.userTableView reloadData];
 }
 
+-(void)selectImageFromPhoto{
+    _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:_imagePickerController animated:YES completion:nil];
+}
+
+-(void)selectImageFromCamera{
+    _imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:_imagePickerController animated:YES completion:nil];
+}
+
 #pragma mark - UIImagePickerControllerDelegate
+
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
+//    NSLog(@"选择完毕----image:%@-----info:%@",image,editingInfo);
+//}
+//
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+//{
+//    [picker dismissViewControllerAnimated:YES completion:^{
+//
+//    }];
+//
+//    UIImage *saveImage = info[UIImagePickerControllerEditedImage];
+//    self.headImageView.image = saveImage;
+//
+//    //将照片存到媒体库
+//    UIImageWriteToSavedPhotosAlbum(saveImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+//    [self saveImage:saveImage];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    //通知给“我的”页面的头像
+//    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:saveImage,@"modifyHead", nil];
+//    NSNotification *notification = [NSNotification notificationWithName:@"changeHeadTongzhi" object:nil userInfo:dict];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//}
+//
+//#pragma mark - 照片存到本地后的回调
+//- (void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo{
+//    if (!error) {
+//        NSLog(@"存储成功");
+//    } else {
+//        NSLog(@"存储失败：%@", error);
+//    }
+//}
+//
+//#pragma mark - 保存图片
+//- (void) saveImage:(UIImage *)currentImage {
+//    //    设置照片的品质
+//    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+//
+//    NSLog(@"%@",NSHomeDirectory());
+//    //     获取沙盒目录
+//    NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/currentImage.png"];
+//    //     将图片写入文件
+//    [imageData writeToFile:filePath atomically:NO];
+//
+//    self.user.imagePath = filePath;
+//
+//}
+
+
+
+
+
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info;
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
+
     //获取选择的照片并保存
     UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
     [self saveImage:image withName:@"headImage.jpg"];
-    
+
     //获取沙盒中名为headImage.jpg的照片路径
     NSString *imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"headImage.jpg"];
     self.user.imagePath = imagePath;
     UIImage *saveImage = [[UIImage alloc] initWithContentsOfFile:imagePath];
     self.headImageView.image = saveImage;
-    
+
     //通知给“我的”页面的头像
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:saveImage,@"modifyHead", nil];
     NSNotification *notification = [NSNotification notificationWithName:@"changeHeadTongzhi" object:nil userInfo:dict];
