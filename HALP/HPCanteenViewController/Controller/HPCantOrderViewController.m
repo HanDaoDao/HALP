@@ -9,6 +9,7 @@
 #import "HPCantOrderViewController.h"
 #import "HPCantPopViewController.h"
 #import "ReactiveObjC.h"
+#import "BmobSDK.framework/Headers/Bmob.h"
 
 @interface HPCantOrderViewController ()<UIPopoverPresentationControllerDelegate>
 
@@ -35,6 +36,43 @@
 
     [self setupTopButton];
     [self notificationAction];
+    [self lookupOrderMessage];
+}
+
+-(void)addOrderMessage{
+    BmobObject  *order = [BmobObject objectWithClassName:@"Order"];
+    [order setObject:@90 forKey:@"validTime"];
+    BmobUser *creator = [BmobUser objectWithoutDataWithClassName:@"_User" objectId:@"0fa760708f"];
+    [order setObject:creator forKey:@"creator"];
+    
+    [order saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+        if (isSuccessful) {
+            //创建成功，返回objectId，updatedAt，createdAt等信息
+            //打印objectId
+            NSLog(@"objectid :%@",order.objectId);
+        }else{
+            if (error) {
+                NSLog(@"%@",error);
+            }
+        }
+    }];
+}
+
+-(void)lookupOrderMessage{
+    BmobQuery *order = [BmobQuery queryWithClassName:@"Order"];
+    //构建objectId为vbhGAAAY 的作者
+    BmobUser *creator = [BmobUser objectWithoutDataWithClassName:@"_User" objectId:@"0fa760708f"];
+    //添加作者是objectId为vbhGAAAY条件
+    [order whereKey:@"creator" equalTo:creator];
+    [order findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+        } else if (array){
+            for (BmobObject *order in array) {
+                NSLog(@"%@",[order objectForKey:@"orderHonor"]);
+            }
+        }
+    }];
 }
 
 -(void)setupTopButton{

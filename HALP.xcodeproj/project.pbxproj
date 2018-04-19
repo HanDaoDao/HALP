@@ -43,6 +43,9 @@
 		4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A4720481C06004DFD20 /* HPHonorViewController.m */; };
 		4C922A4D20493E05004DFD20 /* HPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A4B20493E04004DFD20 /* HPLoginViewController.m */; };
 		4C922A5120494024004DFD20 /* HPUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C922A5020494024004DFD20 /* HPUserViewController.m */; };
+		4C9E8AF42085C210003CF17B /* HPOrderDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E8AF32085C210003CF17B /* HPOrderDAO.m */; };
+		4C9E8AF72085C346003CF17B /* HPUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E8AF62085C346003CF17B /* HPUserDAO.m */; };
+		4C9E8AFA2085C52E003CF17B /* HPDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E8AF92085C52E003CF17B /* HPDictionary.m */; };
 		4CD51347206A48E0008F6ED3 /* HPExpDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */; };
 		4CD5134A206CE9B6008F6ED3 /* HPCantOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */; };
 		4CD5134D206CEA48008F6ED3 /* HPCantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5134C206CEA48008F6ED3 /* HPCantDetailViewController.m */; };
@@ -141,6 +144,12 @@
 		4C922A4B20493E04004DFD20 /* HPLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPLoginViewController.m; sourceTree = "<group>"; };
 		4C922A4F20494024004DFD20 /* HPUserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPUserViewController.h; sourceTree = "<group>"; };
 		4C922A5020494024004DFD20 /* HPUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPUserViewController.m; sourceTree = "<group>"; };
+		4C9E8AF22085C210003CF17B /* HPOrderDAO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPOrderDAO.h; sourceTree = "<group>"; };
+		4C9E8AF32085C210003CF17B /* HPOrderDAO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPOrderDAO.m; sourceTree = "<group>"; };
+		4C9E8AF52085C346003CF17B /* HPUserDAO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPUserDAO.h; sourceTree = "<group>"; };
+		4C9E8AF62085C346003CF17B /* HPUserDAO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPUserDAO.m; sourceTree = "<group>"; };
+		4C9E8AF82085C52E003CF17B /* HPDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPDictionary.h; sourceTree = "<group>"; };
+		4C9E8AF92085C52E003CF17B /* HPDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPDictionary.m; sourceTree = "<group>"; };
 		4CD51345206A48E0008F6ED3 /* HPExpDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpDetailCell.h; sourceTree = "<group>"; };
 		4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpDetailCell.m; sourceTree = "<group>"; };
 		4CD51348206CE9B6008F6ED3 /* HPCantOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCantOrderViewController.h; sourceTree = "<group>"; };
@@ -194,6 +203,12 @@
 			children = (
 				4C431365200711AD00E5627D /* HPOperationBomb.h */,
 				4C431366200711AD00E5627D /* HPOperationBomb.m */,
+				4C9E8AF22085C210003CF17B /* HPOrderDAO.h */,
+				4C9E8AF32085C210003CF17B /* HPOrderDAO.m */,
+				4C9E8AF52085C346003CF17B /* HPUserDAO.h */,
+				4C9E8AF62085C346003CF17B /* HPUserDAO.m */,
+				4C9E8AF82085C52E003CF17B /* HPDictionary.h */,
+				4C9E8AF92085C52E003CF17B /* HPDictionary.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -232,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				4C61695D200DFB7800696BEC /* Controller */,
-				4CE0AC112073580C00DCB21D /* BaseView */,
 				4C61695B200DFB7800696BEC /* Model */,
 				4C61695C200DFB7800696BEC /* View */,
 			);
@@ -410,6 +424,7 @@
 				4C616950200DF9CD00696BEC /* HPIndentViewController */,
 				4C616951200DF9CD00696BEC /* HPMineViewController */,
 				4C922A4920493DC6004DFD20 /* Tools */,
+				4CE0AC112073580C00DCB21D /* BaseView */,
 				4C4313642007112C00E5627D /* Model */,
 				4C91EA4B1FFE479C007C6C05 /* Main.storyboard */,
 				4C91EA4E1FFE479C007C6C05 /* Assets.xcassets */,
@@ -661,6 +676,8 @@
 			files = (
 				4C431367200711AD00E5627D /* HPOperationBomb.m in Sources */,
 				4C2F476A20610EF600875E5F /* HPWriteOrderViewController.m in Sources */,
+				4C9E8AF72085C346003CF17B /* HPUserDAO.m in Sources */,
+				4C9E8AFA2085C52E003CF17B /* HPDictionary.m in Sources */,
 				4C43137A2007176100E5627D /* HPMineViewController.m in Sources */,
 				4C3BF70B2057F0530010F913 /* HPCanteenTableViewCell.m in Sources */,
 				4C43136B2007138F00E5627D /* HPCanteenViewController.m in Sources */,
@@ -683,6 +700,7 @@
 				4C431370200713B900E5627D /* HPExpressageViewController.m in Sources */,
 				4C5BC673205159230021AA0D /* HPUserNameViewController.m in Sources */,
 				4C2F476D206123EF00875E5F /* HPWriteOrderTableViewCell.m in Sources */,
+				4C9E8AF42085C210003CF17B /* HPOrderDAO.m in Sources */,
 				4C922A4D20493E05004DFD20 /* HPLoginViewController.m in Sources */,
 				4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */,
 				4CD51350206DDB11008F6ED3 /* HPCantPopViewController.m in Sources */,

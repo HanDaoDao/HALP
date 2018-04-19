@@ -208,9 +208,6 @@
 
 
 
-
-
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info;
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -244,7 +241,7 @@
     [imageData writeToFile:fullPath atomically:NO];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+- (void)imagePickerControllerDidCancel:(UIImagePickerController * )picker{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
