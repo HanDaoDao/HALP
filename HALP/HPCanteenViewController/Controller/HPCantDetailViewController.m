@@ -7,6 +7,7 @@
 //
 
 #import "HPCantDetailViewController.h"
+#import "headFile.pch"
 
 @interface HPCantDetailViewController ()
 
@@ -18,6 +19,7 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
 }
 
 @end

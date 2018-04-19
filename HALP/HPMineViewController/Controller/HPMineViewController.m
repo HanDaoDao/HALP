@@ -12,6 +12,7 @@
 #import "HPAddressViewController.h"
 #import "HPUser.h"
 #import "AFNetworking.h"
+#import "HPLoginViewController.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -138,6 +139,8 @@
     honorViewController.hidesBottomBarWhenPushed = YES;
     HPAddressViewController *addressViewController = [[HPAddressViewController alloc] init];
     addressViewController.hidesBottomBarWhenPushed = YES;
+    HPLoginViewController *loginViewController = [[HPLoginViewController alloc] init];
+    loginViewController.hidesBottomBarWhenPushed = YES;
     
     if (indexPath.section == 0) {
         [self.navigationController pushViewController:userViewController animated:YES];
@@ -150,6 +153,10 @@
                 break;
             case 1:
                 [self.navigationController pushViewController:addressViewController animated:YES];
+                break;
+            case 4:
+                [self.navigationController pushViewController:loginViewController animated:YES];
+                break;
             default:
                 break;
         }
