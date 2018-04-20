@@ -8,6 +8,7 @@
 
 #import "HPLoginViewController.h"
 #import "headFile.pch"
+#import "HPSignUpViewController.h"
 
 @interface HPLoginViewController ()
 
@@ -16,7 +17,6 @@
 @property(nonatomic,strong) UILabel *passwordLabel;
 @property(nonatomic,strong) UITextField *passwordTextFiled;
 @property(nonatomic,strong) UIButton *loginButton;
-@property(nonatomic,strong) UIButton *signUpButton;
 
 @end
 
@@ -55,9 +55,13 @@
     [_loginButton setTitle:@"登  录" forState:UIControlStateNormal];
     [_loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [_loginButton addTarget:self action:@selector(loginAction) forControlEvents:(UIControlEventTouchUpInside)];
     
-    _signUpButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    _signUpButton.titleLabel.text = @"注册";
+    UIBarButtonItem *signUpButton = [[UIBarButtonItem alloc] initWithTitle:@"注册"
+                                                                        style:(UIBarButtonItemStylePlain)
+                                                                       target:self
+                                                                       action:@selector(signUpAction)];
+    self.navigationItem.rightBarButtonItem = signUpButton;
     
     UIView *view1 = [[UIView alloc] init];
     view1.backgroundColor = [UIColor blackColor];
@@ -72,7 +76,6 @@
     [self.view addSubview:_nameTextFiled];
     [self.view addSubview:_passwordTextFiled];
     [self.view addSubview:_loginButton];
-    [self.view addSubview:_signUpButton];
     
     [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.view.mas_top).offset(120);
@@ -122,7 +125,28 @@
         make.width.mas_equalTo(120);
         make.height.mas_equalTo(40);
     }];
-    
+}
+
+-(void)loginAction{
+    NSLog(@"123...");
+    NSString *username = _nameTextFiled.text;
+    NSString *password = _passwordTextFiled.text;
+//    [BmobUser loginWithUsernameInBackground:username
+//                                   password:password];
+    [BmobUser loginInbackgroundWithAccount:username andPassword:password block:^(BmobUser *user, NSError *error) {
+        if (user) {
+            NSLog(@"%@",user);
+        } else {
+            NSLog(@"%@",error);
+        }
+    }];
+
+}
+
+-(void)signUpAction{
+    NSLog(@"123.456..");
+    HPSignUpViewController *signupViewController = [[HPSignUpViewController alloc] init];
+    [self.navigationController pushViewController:signupViewController animated:YES];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

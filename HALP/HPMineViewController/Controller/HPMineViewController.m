@@ -13,6 +13,7 @@
 #import "HPUser.h"
 #import "AFNetworking.h"
 #import "HPLoginViewController.h"
+#import "headFile.pch"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -37,6 +38,9 @@
                                              selector:@selector(modifiy)
                                                  name:@"changeNameTongzhi"
                                                object:nil];
+    
+//    BmobUser *bUser = [BmobUser currentUser];
+
     [self initMineNavigationBar];
     [self initMineTableView];
 }

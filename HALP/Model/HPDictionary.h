@@ -17,4 +17,6 @@
 @property(nonatomic,copy) NSDate *createAt;
 @property(nonatomic,copy) NSDate *updateAt;
 
++(void)findAllDictionary;
+
 @end

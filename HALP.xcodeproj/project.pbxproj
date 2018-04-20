@@ -46,6 +46,7 @@
 		4C9E8AF42085C210003CF17B /* HPOrderDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E8AF32085C210003CF17B /* HPOrderDAO.m */; };
 		4C9E8AF72085C346003CF17B /* HPUserDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E8AF62085C346003CF17B /* HPUserDAO.m */; };
 		4C9E8AFA2085C52E003CF17B /* HPDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E8AF92085C52E003CF17B /* HPDictionary.m */; };
+		4C9E8AFD2089D7E7003CF17B /* HPSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E8AFC2089D7E7003CF17B /* HPSignUpViewController.m */; };
 		4CD51347206A48E0008F6ED3 /* HPExpDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */; };
 		4CD5134A206CE9B6008F6ED3 /* HPCantOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */; };
 		4CD5134D206CEA48008F6ED3 /* HPCantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5134C206CEA48008F6ED3 /* HPCantDetailViewController.m */; };
@@ -150,6 +151,8 @@
 		4C9E8AF62085C346003CF17B /* HPUserDAO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPUserDAO.m; sourceTree = "<group>"; };
 		4C9E8AF82085C52E003CF17B /* HPDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPDictionary.h; sourceTree = "<group>"; };
 		4C9E8AF92085C52E003CF17B /* HPDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPDictionary.m; sourceTree = "<group>"; };
+		4C9E8AFB2089D7E7003CF17B /* HPSignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPSignUpViewController.h; sourceTree = "<group>"; };
+		4C9E8AFC2089D7E7003CF17B /* HPSignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPSignUpViewController.m; sourceTree = "<group>"; };
 		4CD51345206A48E0008F6ED3 /* HPExpDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpDetailCell.h; sourceTree = "<group>"; };
 		4CD51346206A48E0008F6ED3 /* HPExpDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpDetailCell.m; sourceTree = "<group>"; };
 		4CD51348206CE9B6008F6ED3 /* HPCantOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCantOrderViewController.h; sourceTree = "<group>"; };
@@ -459,6 +462,8 @@
 			children = (
 				4C922A4A20493E04004DFD20 /* HPLoginViewController.h */,
 				4C922A4B20493E04004DFD20 /* HPLoginViewController.m */,
+				4C9E8AFB2089D7E7003CF17B /* HPSignUpViewController.h */,
+				4C9E8AFC2089D7E7003CF17B /* HPSignUpViewController.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -683,6 +688,7 @@
 				4C43136B2007138F00E5627D /* HPCanteenViewController.m in Sources */,
 				4C2F47702061FD0200875E5F /* HPPopViewViewController.m in Sources */,
 				4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */,
+				4C9E8AFD2089D7E7003CF17B /* HPSignUpViewController.m in Sources */,
 				4C36549B205F672300046DB1 /* HPAdd_addressViewController.m in Sources */,
 				4C5BC670205130C10021AA0D /* HPUser.m in Sources */,
 				4C91EA551FFE479C007C6C05 /* main.m in Sources */,

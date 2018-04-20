@@ -10,4 +10,17 @@
 
 @implementation HPDictionary
 
++(void)findAllDictionary{
+    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
+    //查找GameScore表的数据
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        for (BmobObject *obj in array) {
+            //打印playerName
+            NSLog(@"obj.dataName = %@", [obj objectForKey:@"dataName"]);
+            //打印objectId,createdAt,updatedAt
+            NSLog(@"obj.dicType = %@\n", [obj objectForKey:@"dicType"]);
+        }
+    }];
+}
+
 @end
