@@ -12,11 +12,39 @@
 @implementation HPDictionary
 
 //懒加载dataArray
--(NSArray *)sexList{
+-(NSMutableArray *)sexList{
     if (!_sexList) {
         _sexList = [NSMutableArray array];
     }
     return _sexList;
+}
+
+-(NSMutableArray *)orderTypeList{
+    if (!_orderTypeList) {
+        _orderTypeList = [NSMutableArray array];
+    }
+    return _orderTypeList;
+}
+
+-(NSMutableArray *)orderStatusList{
+    if (!_orderStatusList) {
+        _orderStatusList = [NSMutableArray array];
+    }
+    return _orderStatusList;
+}
+
+-(NSMutableArray *)bagTypeList{
+    if (!_bagTypeList) {
+        _bagTypeList = [NSMutableArray array];
+    }
+    return _bagTypeList;
+}
+
+-(NSMutableDictionary *)schoolList{
+    if (!_schoolList) {
+        _schoolList = [[NSMutableDictionary alloc] init];
+    }
+    return _schoolList;
 }
 
 +(void)findAllDictionary{
@@ -32,7 +60,7 @@
     }];
 }
 
-//查找出性别列表
+//性别列表
 -(void)findSexListWithCallBack:(findBlock)callBack{
     BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
     bquery.cachePolicy = kBmobCachePolicyNetworkElseCache;
@@ -77,6 +105,22 @@
             }
         }
         callBack(self.orderTypeList,error);
+    }];
+}
+
+//学校列表
+-(void)findSchoolListWithCallBack:(findSchoolBlock)callBack{
+    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
+    bquery.cachePolicy = kBmobCachePolicyNetworkElseCache;
+    @weakify(self)
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        @strongify(self)
+        for (BmobObject *obj in array) {
+            if ([[obj objectForKey:@"dicType"] intValue] == 4) {
+                [self.schoolList setValue:[obj objectForKey:@"dataName"] forKey:[obj objectForKey:@"dataType"]];
+            }
+        }
+        callBack(self.schoolList,error);
     }];
 }
 

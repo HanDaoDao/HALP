@@ -22,11 +22,14 @@
     // Override point for customization after application launch.
     
     [Bmob registerWithAppKey:@"af88b97664a492f9374e5f0eed092c75"];
-//    [HPDictionary findAllDictionary];
     HPDictionary *dic = [[HPDictionary alloc] init];
     [dic findSexListWithCallBack:^(NSArray *array, NSError *error) {
         dic.sexList = (NSMutableArray*)array;
         NSLog(@"===%@",dic.sexList);
+    }];
+    [dic findSchoolListWithCallBack:^(NSMutableDictionary *dictionary, NSError *error) {
+        dic.schoolList = dictionary;
+        NSLog(@"===%@",dic.schoolList);
     }];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

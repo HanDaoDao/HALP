@@ -11,6 +11,7 @@
 @interface HPDictionary : NSObject
 
 typedef void(^findBlock)(NSArray *array, NSError *error);
+typedef void(^findSchoolBlock)(NSMutableDictionary *dictionary, NSError *error);
 
 @property(nonatomic,copy) NSString *objectID;
 @property(nonatomic,assign) NSNumber *dicType;
@@ -23,11 +24,13 @@ typedef void(^findBlock)(NSArray *array, NSError *error);
 @property(nonatomic,copy) NSMutableArray *orderTypeList;
 @property(nonatomic,copy) NSMutableArray *orderStatusList;
 @property(nonatomic,copy) NSMutableArray *bagTypeList;
-@property(nonatomic,copy) NSDictionary *schollList;
+@property(nonatomic,copy) NSMutableDictionary *schoolList;
 
 +(void)findAllDictionary;
 -(void)findSexListWithCallBack:(findBlock)callBack;
 -(void)findOrderTypeListWithCallBack:(findBlock)callBack;
--(void)findOrderTypeListWithCallBack:(findBlock)callBack;
+-(void)findorderStatusListWithCallBack:(findBlock)callBack;
+-(void)findBagTypeListWithCallBack:(findBlock)callBack;
+-(void)findSchoolListWithCallBack:(findSchoolBlock)callBack;
 
 @end
