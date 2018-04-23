@@ -22,7 +22,12 @@
     // Override point for customization after application launch.
     
     [Bmob registerWithAppKey:@"af88b97664a492f9374e5f0eed092c75"];
-    [HPDictionary findAllDictionary];
+//    [HPDictionary findAllDictionary];
+    HPDictionary *dic = [[HPDictionary alloc] init];
+    [dic findSexListWithCallBack:^(NSArray *array, NSError *error) {
+        dic.sexList = (NSMutableArray*)array;
+        NSLog(@"===%@",dic.sexList);
+    }];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
