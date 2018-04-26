@@ -14,6 +14,7 @@
 #import "AFNetworking.h"
 #import "HPLoginViewController.h"
 #import "headFile.pch"
+#import "HPLoginViewController.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -21,6 +22,7 @@
 @property(nonatomic,copy) NSArray *mineListNames;
 @property(nonatomic,copy) NSDictionary *personData;
 @property(nonatomic,strong) HPUser *user;
+@property(nonatomic,strong) BmobUser *bUser;
 
 @end
 
@@ -29,6 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //获取缓存的用户信息
+    _bUser = [BmobUser currentUser];
+    self.user = [HPUser sharedHPUser];
+    [_user initUser];
+ 
     //添加通知（头像，昵称）
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(modifiy)
@@ -39,10 +46,12 @@
                                                  name:@"changeNameTongzhi"
                                                object:nil];
     
-//    BmobUser *bUser = [BmobUser currentUser];
-
     [self initMineNavigationBar];
     [self initMineTableView];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [self.mineTableView reloadData];
 }
 
 //通知方法
@@ -65,18 +74,6 @@
     
     [self.view addSubview:_mineTableView];
     [self initMineListNames];
-    [self mockSomethingData];
-}
-
--(void)mockSomethingData{
-    self.user = [HPUser sharedHPUser];
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _user.name = @"我是小明啊";
-        _user.ID = @"04143137";
-        _user.professional = @"软件1404";
-        _user.money = 100;
-    });
 }
 
 -(void)initMineListNames{
@@ -106,26 +103,31 @@
             [subView removeFromSuperview];
         }
     }
-    
     //设置cell显示右边的小箭头
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     if (indexPath.section == 0) {
-        [cell initMineInfomationCell];
         UIImage *image = [[UIImage alloc] init];
-        if (_user.imagePath == NULL) {
+        if (_bUser) {
+            //进行操作
+            [cell initMineInfomationCell];
+            cell.nameLabel.text = _user.nickName;
+            cell.majorLabel.text = _user.mobilePhoneNumber;
+            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:_user.icon] placeholderImage:[UIImage imageNamed:@"路飞"]];
+            if (_user.sex == 0) {
+                cell.sexView.image = [UIImage imageNamed:@"性别男"];
+            }
+            else
+                cell.sexView.image = [UIImage imageNamed:@"性别女"];
+        }else{
+            [cell initUnSignUpMineInfomationCell];
             image = [UIImage imageNamed:@"路飞"];//默认为路飞头像
+            cell.headImageView.image = image;
         }
-        else{
-            image = [UIImage imageWithContentsOfFile:_user.imagePath];
-        }
-        cell.headImageView.image = image;
-        cell.nameLabel.text = _user.name;
-        cell.majorLabel.text = _user.professional;
-        cell.IDLabel.text = _user.ID;
     }else if (indexPath.section == 1){
         cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
         if (indexPath.row == 0) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",(long)_user.money];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", _user.stuHonor];
         }
     }
     
@@ -147,7 +149,12 @@
     loginViewController.hidesBottomBarWhenPushed = YES;
     
     if (indexPath.section == 0) {
-        [self.navigationController pushViewController:userViewController animated:YES];
+        if (_bUser) {
+            [self.navigationController pushViewController:userViewController animated:YES];
+        }else{
+            [self.navigationController pushViewController:loginViewController animated:YES];
+        }
+        
     }
     
     if (indexPath.section == 1) {
@@ -159,7 +166,7 @@
                 [self.navigationController pushViewController:addressViewController animated:YES];
                 break;
             case 4:
-                [self.navigationController pushViewController:loginViewController animated:YES];
+                [BmobUser logout];
                 break;
             default:
                 break;

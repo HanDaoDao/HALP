@@ -18,5 +18,9 @@
 @property(nonatomic,strong) UILabel *majorLabel;
 @property(nonatomic,strong) UILabel *IDLabel;
 
+@property(nonatomic,strong) UILabel *label;
+
 -(void)initMineInfomationCell;
+-(void)initUnSignUpMineInfomationCell;
+
 @end

@@ -36,4 +36,27 @@ static HPUser* _instance;
     return _instance;
 }
 
+-(void)initUser{
+    BmobUser *bUser = [BmobUser currentUser];
+    self.nickName = [bUser objectForKey:@"nickName"];
+    
+    BmobUser *sex = [bUser objectForKey:@"sex"];
+    if ([sex.objectId isEqualToString:@"qx2fEEEM"]) {
+        self.sex = 0;
+    }
+    else
+        self.sex = 1;
+    
+    BmobFile *iconFile = (BmobFile *)[bUser objectForKey:@"userIcon"];
+    self.icon = iconFile.url;
+    
+    if ([bUser objectForKey:@"stuHonor"] == NULL) {
+        self.stuHonor = 0;
+    }else{
+        self.stuHonor =  [bUser objectForKey:@"stuHonor"];
+    }
+    self.stuID = [bUser objectForKey:@"stuId"];
+    self.mobilePhoneNumber = [bUser objectForKey:@"mobilePhoneNumber"];
+}
+
 @end

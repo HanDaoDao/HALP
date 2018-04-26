@@ -8,24 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "HPDictionary.h"
+#import "BmobSDK.framework/Headers/Bmob.h"
 
-@interface HPUserDAO : NSObject
+@interface HPUserDAO : BmobUser
 
 @property(nonatomic,copy) NSString *objectID;
-@property(nonatomic,copy) NSString *userName;         //用户名
-@property(nonatomic,copy) NSString *password;       //登录密码
-@property(nonatomic,copy) NSString *phone;          //电话
-@property(nonatomic,strong) HPDictionary *stuSchool;     //学号
 @property(nonatomic,copy) NSString *stuName;        //姓名
 @property(nonatomic,copy) NSString *stuID;             //学号
 @property(nonatomic,copy) NSString *stuHonor;       //荣誉值
 @property(nonatomic,strong) HPDictionary *sex;        //性别
 @property(nonatomic,copy) NSString *nickName;       //昵称
 @property(nonatomic,copy) NSString *icon;           //头像
-@property(nonatomic,assign) Boolean emailVerified;
-@property(nonatomic,copy) NSString *email;
-@property(nonatomic,strong) NSDate *createdAt;
-@property(nonatomic,strong) NSDate *updatedAt;
 
 
 

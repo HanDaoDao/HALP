@@ -39,7 +39,7 @@
     _modifyName.backgroundColor = [UIColor whiteColor];
     _modifyName.borderStyle = UITextBorderStyleRoundedRect;
     _modifyName.placeholder = @"昵称";
-    _modifyName.text = _user.name;
+    _modifyName.text = _user.nickName;
     _modifyName.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:_modifyName];
     
@@ -50,7 +50,13 @@
 
 -(void)compeleteAction{
     [self.navigationController popViewControllerAnimated:YES];
-    self.user.name = _modifyName.text;
+    self.user.nickName = _modifyName.text;
+    
+    BmobUser *bUser = [BmobUser currentUser];
+    [bUser setObject:_modifyName.text forKey:@"nickName"];
+    [bUser updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+        NSLog(@"error %@",[error description]);
+    }];
     
     //通知“个人信息”页面的昵称进行修改
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.modifyName.text,@"modifyName", nil];

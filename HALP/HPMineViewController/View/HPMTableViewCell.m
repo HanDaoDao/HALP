@@ -12,16 +12,13 @@
 
 -(void)initMineInfomationCell{
     
-//    UIImage *placeholder = [UIImage imageNamed:@"路飞"];
     _headImageView = [[UIImageView alloc] init];
-//    [_headImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:placeholder];
     _headImageView.layer.cornerRadius = 30;
     _headImageView.layer.masksToBounds = YES;
     [self.contentView addSubview:_headImageView];
     
     _sexView = [[UIImageView alloc] init];
     _sexView.layer.cornerRadius = 10;
-    _sexView.image = [UIImage imageNamed:@"性别男"];
     [self.contentView addSubview:_sexView];
     
     _nameLabel = [[UILabel alloc] init];
@@ -71,5 +68,38 @@
 //        make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
 //        make.height.mas_equalTo(18);
 //    }];
+}
+
+-(void)initUnSignUpMineInfomationCell{
+    _headImageView = [[UIImageView alloc] init];
+    _headImageView.layer.cornerRadius = 30;
+    _headImageView.layer.masksToBounds = YES;
+    [self.contentView addSubview:_headImageView];
+    
+    _label = [[UILabel alloc] init];
+    _label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
+    _label.text = @"登录/注册";
+    _label.textColor = hpRGBHex(0x6495ED);
+    [self.contentView addSubview:_label];
+
+    [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.contentView.mas_left).offset(20);
+        make.top.mas_equalTo(self.contentView.mas_top).offset(10);
+        make.width.height.mas_equalTo(60);
+    }];
+    
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.sexView.mas_right).offset(10);
+        make.top.mas_equalTo(self.contentView.mas_top).offset(15);
+        make.width.mas_equalTo(150);
+        make.height.mas_equalTo(30);
+    }];
+    
+    [_label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.contentView).offset(20);
+        make.left.mas_equalTo(_headImageView.mas_right).offset(20);
+        make.width.mas_equalTo(150);
+        make.height.mas_equalTo(30);
+    }];
 }
 @end

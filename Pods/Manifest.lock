@@ -14,7 +14,8 @@ PODS:
   - AFNetworking/Serialization (3.2.0)
   - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
-  - BmobSDK (2.2.9)
+  - BEMCheckBox (1.4.1)
+  - BmobSDK (2.3.1)
   - Masonry (1.1.0)
   - MJRefresh (3.1.15.3)
   - ReactiveObjC (3.1.0)
@@ -27,6 +28,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - BEMCheckBox
   - BmobSDK
   - Masonry
   - MJRefresh
@@ -39,6 +41,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - BEMCheckBox
     - BmobSDK
     - Masonry
     - MJRefresh
@@ -50,7 +53,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
-  BmobSDK: b520e1669193ae7945ee3280f07c7bad1869df85
+  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
+  BmobSDK: e0f9e4b451233a80af63a8ae4f2d239474bf567b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
@@ -59,6 +63,6 @@ SPEC CHECKSUMS:
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 4cd3a44c9dc86efaf82f0822875a4c1166832975
+PODFILE CHECKSUM: cd3c7dbfe377c495b52cb2553e4e0162de3f49b0
 
 COCOAPODS: 1.5.0

@@ -51,6 +51,7 @@
 		4CD5134A206CE9B6008F6ED3 /* HPCantOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */; };
 		4CD5134D206CEA48008F6ED3 /* HPCantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5134C206CEA48008F6ED3 /* HPCantDetailViewController.m */; };
 		4CD51350206DDB11008F6ED3 /* HPCantPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5134F206DDB11008F6ED3 /* HPCantPopViewController.m */; };
+		4CEC7BB3208F0D7900D62432 /* HPSignUpNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BB2208F0D7900D62432 /* HPSignUpNextViewController.m */; };
 		C395481E31B62673E9570381 /* Pods_HALP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */; };
 /* End PBXBuildFile section */
 
@@ -161,6 +162,8 @@
 		4CD5134C206CEA48008F6ED3 /* HPCantDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCantDetailViewController.m; sourceTree = "<group>"; };
 		4CD5134E206DDB11008F6ED3 /* HPCantPopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCantPopViewController.h; sourceTree = "<group>"; };
 		4CD5134F206DDB11008F6ED3 /* HPCantPopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCantPopViewController.m; sourceTree = "<group>"; };
+		4CEC7BB1208F0D7900D62432 /* HPSignUpNextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPSignUpNextViewController.h; sourceTree = "<group>"; };
+		4CEC7BB2208F0D7900D62432 /* HPSignUpNextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPSignUpNextViewController.m; sourceTree = "<group>"; };
 		5F3040345BAABD5F48F82309 /* Pods-HALP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.debug.xcconfig"; sourceTree = "<group>"; };
 		62F2E0AE2762FD5B749F494A /* Pods-HALP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.release.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.release.xcconfig"; sourceTree = "<group>"; };
 		7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HALP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -464,6 +467,8 @@
 				4C922A4B20493E04004DFD20 /* HPLoginViewController.m */,
 				4C9E8AFB2089D7E7003CF17B /* HPSignUpViewController.h */,
 				4C9E8AFC2089D7E7003CF17B /* HPSignUpViewController.m */,
+				4CEC7BB1208F0D7900D62432 /* HPSignUpNextViewController.h */,
+				4CEC7BB2208F0D7900D62432 /* HPSignUpNextViewController.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -630,6 +635,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HALP/Pods-HALP-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/BEMCheckBox/BEMCheckBox.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
@@ -641,6 +647,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BEMCheckBox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
@@ -690,6 +697,7 @@
 				4C922A4820481C06004DFD20 /* HPHonorViewController.m in Sources */,
 				4C9E8AFD2089D7E7003CF17B /* HPSignUpViewController.m in Sources */,
 				4C36549B205F672300046DB1 /* HPAdd_addressViewController.m in Sources */,
+				4CEC7BB3208F0D7900D62432 /* HPSignUpNextViewController.m in Sources */,
 				4C5BC670205130C10021AA0D /* HPUser.m in Sources */,
 				4C91EA551FFE479C007C6C05 /* main.m in Sources */,
 				4C3654A1205FB94800046DB1 /* HPAddressListTableViewCell.m in Sources */,

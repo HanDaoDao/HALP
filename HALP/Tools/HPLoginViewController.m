@@ -9,6 +9,7 @@
 #import "HPLoginViewController.h"
 #import "headFile.pch"
 #import "HPSignUpViewController.h"
+#import "HPMineViewController.h"
 
 @interface HPLoginViewController ()
 
@@ -42,10 +43,12 @@
     _passwordLabel.font = [UIFont fontWithName:@"PingFang SC" size:18];
     
     _nameTextFiled = [[UITextField alloc] init];
+    _nameTextFiled.keyboardType = UIKeyboardTypeNumberPad;
     _nameTextFiled.font = [UIFont fontWithName:@"PingFang SC" size:18];
     
     _passwordTextFiled = [[UITextField alloc] init];
     _passwordTextFiled.secureTextEntry = true;
+    _passwordTextFiled.keyboardType = UIKeyboardTypeNumberPad;
     _passwordTextFiled.font = [UIFont fontWithName:@"PingFang SC" size:18];
     
     _loginButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -128,14 +131,26 @@
 }
 
 -(void)loginAction{
-    NSLog(@"123...");
-    NSString *username = _nameTextFiled.text;
     NSString *password = _passwordTextFiled.text;
-//    [BmobUser loginWithUsernameInBackground:username
-//                                   password:password];
-    [BmobUser loginInbackgroundWithAccount:username andPassword:password block:^(BmobUser *user, NSError *error) {
+    NSString *nameIDString = @"11664_";
+    NSString *IDString = _nameTextFiled.text;
+    nameIDString = [nameIDString stringByAppendingString:IDString];
+
+
+    [BmobUser loginWithUsernameInBackground:nameIDString password:password block:^(BmobUser *user, NSError *error) {
         if (user) {
             NSLog(@"%@",user);
+            //成功之后跳转到我的页面
+            UINavigationController *navigationVC = self.navigationController;
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+            for (UIViewController *vc in navigationVC.viewControllers) {
+                [viewControllers addObject:vc];
+                if ([vc isKindOfClass:[HPMineViewController class]]) {
+                    break;
+                }
+            }
+            [navigationVC setViewControllers:viewControllers animated:YES];
+            [navigationVC popViewControllerAnimated:YES];
         } else {
             NSLog(@"%@",error);
         }
@@ -144,7 +159,6 @@
 }
 
 -(void)signUpAction{
-    NSLog(@"123.456..");
     HPSignUpViewController *signupViewController = [[HPSignUpViewController alloc] init];
     [self.navigationController pushViewController:signupViewController animated:YES];
 }

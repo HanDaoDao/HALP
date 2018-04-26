@@ -13,5 +13,6 @@ target 'HALP' do
    pod 'UITableView+FDTemplateLayoutCell'
    pod 'MJRefresh'
    pod 'SVProgressHUD'
+   pod 'BEMCheckBox'
 
 end

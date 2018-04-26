@@ -18,6 +18,7 @@
 @property(nonatomic,strong) NSArray *userSetterList;
 @property(nonatomic,strong) UIImageView *headImageView;
 @property(nonatomic,strong) HPUser *user;
+@property(nonatomic,strong) BmobUser *bUser;
 @property (nonatomic,strong) UIImagePickerController *imagePickerController;
 
 
@@ -38,6 +39,7 @@
     }];
     
     self.user = [HPUser sharedHPUser];
+    [self.user initUser];
     [self initUserTableView];
     [self initPickerView];
     
@@ -52,6 +54,11 @@
 }
 
 -(void)initPickerView{
+    _headImageView = [[UIImageView alloc] init];
+    _headImageView.layer.cornerRadius = 30;
+    _headImageView.layer.masksToBounds = YES;
+    [_headImageView setFrame:CGRectMake(0, 0, 60, 60)];
+    
     _imagePickerController = [[UIImagePickerController alloc] init];
     _imagePickerController.delegate = self;
     
@@ -120,22 +127,13 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     //换头像
     if (indexPath.row == 0) {
-        UIImage *image = [[UIImage alloc] init];
-        if (_user.imagePath == NULL) {
-            image = [UIImage imageNamed:@"路飞"];//默认为路飞头像
-        }
-        else{
-            image = [UIImage imageWithContentsOfFile:_user.imagePath];
-        }
-        _headImageView = [[UIImageView alloc] initWithImage:image];
-        _headImageView.layer.cornerRadius = 30;
-        _headImageView.layer.masksToBounds = YES;
-        [_headImageView setFrame:CGRectMake(0, 0, 60, 60)];
+
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_user.icon] placeholderImage:[UIImage imageNamed:@"路飞"]];
         cell.accessoryView = _headImageView;
     }else if (indexPath.row == 1){
-        cell.detailTextLabel.text = _user.name;
+        cell.detailTextLabel.text = _user.nickName;
     }else if (indexPath.row == 2){
-        cell.detailTextLabel.text = _user.ID;
+        cell.detailTextLabel.text = _user.stuID;
     }
     cell.textLabel.text = [_userSetterList objectAtIndex:indexPath.row];
     
@@ -159,86 +157,48 @@
 
 #pragma mark - UIImagePickerControllerDelegate
 
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
-//    NSLog(@"选择完毕----image:%@-----info:%@",image,editingInfo);
-//}
-//
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-//{
-//    [picker dismissViewControllerAnimated:YES completion:^{
-//
-//    }];
-//
-//    UIImage *saveImage = info[UIImagePickerControllerEditedImage];
-//    self.headImageView.image = saveImage;
-//
-//    //将照片存到媒体库
-//    UIImageWriteToSavedPhotosAlbum(saveImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-//    [self saveImage:saveImage];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    //通知给“我的”页面的头像
-//    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:saveImage,@"modifyHead", nil];
-//    NSNotification *notification = [NSNotification notificationWithName:@"changeHeadTongzhi" object:nil userInfo:dict];
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
-//}
-//
-//#pragma mark - 照片存到本地后的回调
-//- (void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo{
-//    if (!error) {
-//        NSLog(@"存储成功");
-//    } else {
-//        NSLog(@"存储失败：%@", error);
-//    }
-//}
-//
-//#pragma mark - 保存图片
-//- (void) saveImage:(UIImage *)currentImage {
-//    //    设置照片的品质
-//    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
-//
-//    NSLog(@"%@",NSHomeDirectory());
-//    //     获取沙盒目录
-//    NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/currentImage.png"];
-//    //     将图片写入文件
-//    [imageData writeToFile:filePath atomically:NO];
-//
-//    self.user.imagePath = filePath;
-//
-//}
-
-
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info;
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    //获取选择的照片并保存
-    UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
-    [self saveImage:image withName:@"headImage.jpg"];
-
-    //获取沙盒中名为headImage.jpg的照片路径
-    NSString *imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"headImage.jpg"];
-    self.user.imagePath = imagePath;
-    UIImage *saveImage = [[UIImage alloc] initWithContentsOfFile:imagePath];
-    self.headImageView.image = saveImage;
-
-    //通知给“我的”页面的头像
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:saveImage,@"modifyHead", nil];
-    NSNotification *notification = [NSNotification notificationWithName:@"changeHeadTongzhi" object:nil userInfo:dict];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
+    NSLog(@"选择完毕----image:%@-----info:%@",image,editingInfo);
 }
 
-
-/**
- 照片使用imageName名写入在沙盒中
-
- @param currentImage 保存的照片
- @param imageName 保存名
- */
--(void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName{
-    NSData *imageData = UIImageJPEGRepresentation(currentImage, 1);
-    NSString *fullPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:imageName];
-    [imageData writeToFile:fullPath atomically:NO];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+    }];
+    NSString *imagePath;
+//    NSLog(@"%@",info);
+    int randomValue = arc4random() % 1000;
+    imagePath = [NSString stringWithFormat:@"%d.png", randomValue];
+    if (@available(iOS 11.0, *)) {
+        if (_imagePickerController.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+            NSURL *string = info[UIImagePickerControllerImageURL];
+            NSArray *arr = [[string absoluteString] componentsSeparatedByString:@"/"];
+            imagePath = arr[11];
+            NSLog(@"图像路径完整路径~~%@",(NSString *)info[UIImagePickerControllerImageURL]);
+        }
+    }
+    
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    self.headImageView.image = image;
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
+    BmobFile *file = [[BmobFile alloc]initWithFileName:imagePath withFileData:imageData];
+    BmobObject *obj = [[BmobObject alloc] initWithClassName:@"_User"];
+    [file saveInBackground:^(BOOL isSuccessful, NSError *error) {
+        if (isSuccessful) {
+            //上传文件的URL地址
+            [obj setObject:file.url forKey:@"userIcon"];
+            [obj saveInBackground];
+            NSLog(@"头像保存成功！！！%@",file.url);
+            _user.icon = file.url;
+            BmobUser *bUser = [BmobUser currentUser];
+            [bUser setObject:file forKey:@"userIcon"];
+            [bUser updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                NSLog(@"error %@",[error description]);
+            }];
+        }else{
+            //进行处理
+        }
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController * )picker{

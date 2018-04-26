@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HPDictionary.h"
+#import "BmobSDK.framework/Headers/Bmob.h"
 
-@interface HPUser : NSObject
+@interface HPUser : BmobUser
 
 typedef NS_ENUM(NSInteger,Sex)
 {
@@ -16,15 +18,15 @@ typedef NS_ENUM(NSInteger,Sex)
     boy
 };
 
-@property(nonatomic,copy) NSString *name;           //姓名
-@property(nonatomic,assign) Sex sex;                 //性别
-@property(nonatomic,copy) NSString *ID;             //学号
-@property(nonatomic,copy) NSString *password;       //登录密码
-@property(nonatomic,copy) NSString *phone;          //电话
-@property(nonatomic,copy) NSString *professional;   //专业班级
-@property(nonatomic,assign) NSInteger money;        //拥有的名誉值（钱）
-@property(nonatomic,copy) NSString *imagePath;      //头像
+@property(nonatomic,copy) NSString *objectID;
+@property(nonatomic,copy) NSString *stuName;        //姓名
+@property(nonatomic,copy) NSString *nickName;       //昵称
+@property(nonatomic,assign) Sex sex;                //性别
+@property(nonatomic,copy) NSString *stuID;          //学号
+@property(nonatomic,copy) NSString *stuHonor;       //荣誉值
+@property(nonatomic,copy) NSString *icon;           //头像
 
 +(HPUser *)sharedHPUser;
+-(void)initUser;
 
 @end
