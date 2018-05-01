@@ -14,7 +14,6 @@
 #import "AFNetworking.h"
 #import "HPLoginViewController.h"
 #import "headFile.pch"
-#import "HPLoginViewController.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 

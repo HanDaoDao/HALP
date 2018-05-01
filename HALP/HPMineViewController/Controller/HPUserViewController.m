@@ -157,16 +157,11 @@
 
 #pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
-    NSLog(@"选择完毕----image:%@-----info:%@",image,editingInfo);
-}
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:^{
     }];
     NSString *imagePath;
-//    NSLog(@"%@",info);
     int randomValue = arc4random() % 1000;
     imagePath = [NSString stringWithFormat:@"%d.png", randomValue];
     if (@available(iOS 11.0, *)) {

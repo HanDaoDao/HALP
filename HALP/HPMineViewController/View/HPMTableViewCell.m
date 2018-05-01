@@ -58,7 +58,7 @@
     [_majorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_nameLabel.mas_bottom).offset(5);
         make.left.mas_equalTo(self.sexView.mas_right).offset(10);
-        make.width.mas_equalTo(100);
+        make.width.mas_equalTo(120);
         make.height.mas_equalTo(18);
     }];
     

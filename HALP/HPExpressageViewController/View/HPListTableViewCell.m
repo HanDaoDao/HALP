@@ -15,12 +15,20 @@
 
 @implementation HPListTableViewCell
 
+-(UIView *)HPbackgroundView{
+    if (_HPbackgroundView) {
+        _HPbackgroundView = [[UIView alloc] init];
+        _HPbackgroundView.backgroundColor = hpRGBHex(0xA9A9A9);
+    }
+    return _HPbackgroundView;
+}
+
 -(UIImageView *)headView{
     if (!_headView) {
         _headView = [[UIImageView alloc] init];
         _headView.layer.cornerRadius = 25;
         _headView.layer.masksToBounds = YES;
-        _headView.image = [UIImage imageNamed:@"路飞"];
+//        _headView.image = [UIImage imageNamed:@"路飞"];
     }
     return _headView;
 }
@@ -30,7 +38,7 @@
         _sexView = [[UIImageView alloc] init];
 //        _sexView.backgroundColor = [UIColor yellowColor];
         _sexView.layer.cornerRadius = 10;
-        _sexView.image = [UIImage imageNamed:@"性别男"];
+//        _sexView.image = [UIImage imageNamed:@"性别男"];
     }
     return _sexView;
 }
@@ -38,28 +46,49 @@
 -(UILabel *)nameLabel{
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.text = @"漩涡鸣人";
-        _nameLabel.font = [UIFont fontWithName:@"PingFang SC" size:20];
+//        _nameLabel.text = @"漩涡鸣人";
+//        _nameLabel.backgroundColor = [UIColor yellowColor];
+        _nameLabel.font = [UIFont fontWithName:@"PingFang SC" size:18];
     }
     return _nameLabel;
 }
 
--(UILabel *)professionalLabel{
-    if (!_professionalLabel) {
-        _professionalLabel = [[UILabel alloc] init];
-        _professionalLabel.text = @"软件1404";
-        _professionalLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
+-(UILabel *)honorLabel{
+    if (!_honorLabel) {
+        _honorLabel = [[UILabel alloc] init];
+        //        _nameLabel.text = @"漩涡鸣人";
+//        _honorLabel.backgroundColor = [UIColor blueColor];
+        _honorLabel.font = [UIFont fontWithName:@"PingFang SC" size:18];
     }
-    return _professionalLabel;
+    return _honorLabel;
 }
 
--(UILabel *)addressLabel{
-    if (!_addressLabel) {
-        _addressLabel = [[UILabel alloc] init];
-        _addressLabel.text = @"东升苑 - 安悦北区 427";
-        _addressLabel.font = [UIFont fontWithName:@"PingFang SC" size:14];
+-(UILabel *)labelOne{
+    if (!_labelOne) {
+        _labelOne = [[UILabel alloc] init];
+//        _labelOne.backgroundColor = [UIColor redColor];
+        _labelOne.font = [UIFont fontWithName:@"PingFang SC" size:14];
     }
-    return _addressLabel;
+    return _labelOne;
+}
+
+-(UILabel *)labelTwo{
+    if (!_labelTwo) {
+        _labelTwo = [[UILabel alloc] init];
+//        _labelTwo.backgroundColor = [UIColor yellowColor];
+        _labelTwo.font = [UIFont fontWithName:@"PingFang SC" size:14];
+    }
+    return _labelTwo;
+}
+
+-(UILabel *)labelThree{
+    if (!_labelThree) {
+        _labelThree = [[UILabel alloc] init];
+        //        _labelOne.text = @"东升苑 - 安悦北区 427";
+//        _labelThree.backgroundColor = [UIColor redColor];
+        _labelThree.font = [UIFont fontWithName:@"PingFang SC" size:14];
+    }
+    return _labelThree;
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -74,11 +103,18 @@
 }
 
 -(void)setupCell{
+    [self.contentView addSubview:self.HPbackgroundView];
     [self.contentView addSubview:self.headView];
     [self.contentView addSubview:self.sexView];
     [self.contentView addSubview:self.nameLabel];
-    [self.contentView addSubview:self.professionalLabel];
-    [self.contentView addSubview:self.addressLabel];
+    [self.contentView addSubview:self.labelOne];
+    [self.contentView addSubview:self.labelTwo];
+    [self.contentView addSubview:self.labelThree];
+    [self.contentView addSubview:self.honorLabel];
+
+    [_HPbackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(self.contentView);
+    }];
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(15);
@@ -98,18 +134,31 @@
         make.size.mas_equalTo(CGSizeMake(120, 30));
     }];
     
-    [_professionalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.nameLabel.mas_right).offset(15);
-        make.top.equalTo(self.contentView.mas_top).offset(10);
-        make.right.equalTo(self.contentView.mas_right).offset(-15);
-        make.height.mas_equalTo(30);
+    [_honorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(10);
+        make.right.equalTo(self.contentView).offset(-15);
+        make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
     
-    [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
+    [_labelOne mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(5);
         make.left.equalTo(self.nameLabel.mas_left);
         make.right.equalTo(self.contentView.mas_right).offset(-15);
-        make.height.mas_equalTo(20);
+        make.height.mas_equalTo(27);
+    }];
+    
+    [_labelTwo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.labelOne.mas_bottom);
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.right.equalTo(self.contentView.mas_right).offset(-15);
+        make.height.mas_equalTo(27);
+    }];
+    
+    [_labelThree mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.labelTwo.mas_bottom);
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.right.equalTo(self.contentView.mas_right).offset(-15);
+        make.height.mas_equalTo(27);
     }];
     
 }

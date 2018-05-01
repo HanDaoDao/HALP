@@ -18,9 +18,11 @@ typedef NS_ENUM(NSInteger,Sex)
     boy
 };
 
+typedef void(^findUserBlock)(HPUser *user, NSError *error);
+
 @property(nonatomic,copy) NSString *objectID;
 @property(nonatomic,copy) NSString *stuName;        //姓名
-@property(nonatomic,copy) NSString *nickName;       //昵称
+@property(nonatomic,strong) NSString *nickName;       //昵称
 @property(nonatomic,assign) Sex sex;                //性别
 @property(nonatomic,copy) NSString *stuID;          //学号
 @property(nonatomic,copy) NSString *stuHonor;       //荣誉值

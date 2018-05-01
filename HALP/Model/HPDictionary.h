@@ -10,6 +10,28 @@
 
 @interface HPDictionary : NSObject
 
+typedef NS_ENUM(NSInteger,OrderType)
+{
+    other = 0,
+    canteen ,
+    express
+};
+
+typedef NS_ENUM(NSInteger,orderStatus)
+{
+    waitingReceiving = 0,
+    receiving ,
+    cancelReceiving ,
+    completeReceiving
+};
+
+typedef NS_ENUM(NSInteger,bagSize)
+{
+    small = 0,
+    middle,
+    big
+};
+
 typedef void(^findBlock)(NSArray *array, NSError *error);
 typedef void(^findSchoolBlock)(NSMutableDictionary *dictionary, NSError *error);
 

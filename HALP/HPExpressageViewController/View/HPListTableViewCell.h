@@ -10,10 +10,14 @@
 
 @interface HPListTableViewCell : UITableViewCell
 
+@property(nonatomic,strong) UIView *HPbackgroundView;         //背景阴影
+//@property(nonatomic,strong) UIView *HPbackgroundView;         //背景阴影
 @property(nonatomic,strong) UIImageView *headView;          //头像
 @property(nonatomic,strong) UIImageView *sexView;           //性别展示View
 @property(nonatomic,strong) UILabel *nameLabel;             //姓名
-@property(nonatomic,strong) UILabel *professionalLabel;     //专业
-@property(nonatomic,strong) UILabel *addressLabel;            //始发地
+@property(nonatomic,strong) UILabel *honorLabel;            //荣誉
+@property(nonatomic,strong) UILabel *labelOne;            
+@property(nonatomic,strong) UILabel *labelTwo;
+@property(nonatomic,strong) UILabel *labelThree;
 
 @end

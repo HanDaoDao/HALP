@@ -81,7 +81,7 @@
     if (cell == nil) {
         cell = [[HPListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
     }
-    cell.addressLabel.text = @"东升苑 - 安悦北区 427";
+    cell.labelOne.text = @"东升苑 - 安悦北区 427";
     
     return cell;
 }
