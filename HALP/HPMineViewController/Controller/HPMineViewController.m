@@ -120,6 +120,7 @@
                 cell.sexView.image = [UIImage imageNamed:@"性别女"];
         }else{
             [cell initUnSignUpMineInfomationCell];
+            cell.label.text = @"登录/注册";
             image = [UIImage imageNamed:@"路飞"];//默认为路飞头像
             cell.headImageView.image = image;
         }

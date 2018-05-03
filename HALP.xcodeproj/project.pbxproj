@@ -51,6 +51,8 @@
 		4CEC7BB620949EA000D62432 /* HPCanteenContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BB520949EA000D62432 /* HPCanteenContent.m */; };
 		4CEC7BBC2094A20B00D62432 /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BBB2094A20B00D62432 /* NSString+JSON.m */; };
 		4CEC7BBF209ADD7300D62432 /* HPExpressContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BBE209ADD7300D62432 /* HPExpressContent.m */; };
+		4CEC7BC2209AE71F00D62432 /* HPExpOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BC1209AE71F00D62432 /* HPExpOrder.m */; };
+		4CEC7BC9209B075C00D62432 /* HPOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BC8209B075C00D62432 /* HPOtherViewController.m */; };
 		C395481E31B62673E9570381 /* Pods_HALP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */; };
 /* End PBXBuildFile section */
 
@@ -161,6 +163,10 @@
 		4CEC7BBB2094A20B00D62432 /* NSString+JSON.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
 		4CEC7BBD209ADD7300D62432 /* HPExpressContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpressContent.h; sourceTree = "<group>"; };
 		4CEC7BBE209ADD7300D62432 /* HPExpressContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpressContent.m; sourceTree = "<group>"; };
+		4CEC7BC0209AE71F00D62432 /* HPExpOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPExpOrder.h; sourceTree = "<group>"; };
+		4CEC7BC1209AE71F00D62432 /* HPExpOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPExpOrder.m; sourceTree = "<group>"; };
+		4CEC7BC7209B075C00D62432 /* HPOtherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPOtherViewController.h; sourceTree = "<group>"; };
+		4CEC7BC8209B075C00D62432 /* HPOtherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPOtherViewController.m; sourceTree = "<group>"; };
 		5F3040345BAABD5F48F82309 /* Pods-HALP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.debug.xcconfig"; sourceTree = "<group>"; };
 		62F2E0AE2762FD5B749F494A /* Pods-HALP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HALP.release.xcconfig"; path = "Pods/Target Support Files/Pods-HALP/Pods-HALP.release.xcconfig"; sourceTree = "<group>"; };
 		7C2825F7F632450F7B0AF41C /* Pods_HALP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HALP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,10 +267,10 @@
 			children = (
 				4C4313682007138F00E5627D /* HPCanteenViewController.h */,
 				4C4313692007138F00E5627D /* HPCanteenViewController.m */,
-				4CD51348206CE9B6008F6ED3 /* HPCantOrderViewController.h */,
-				4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */,
 				4CD5134B206CEA48008F6ED3 /* HPCantDetailViewController.h */,
 				4CD5134C206CEA48008F6ED3 /* HPCantDetailViewController.m */,
+				4CD51348206CE9B6008F6ED3 /* HPCantOrderViewController.h */,
+				4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */,
 				4CD5134E206DDB11008F6ED3 /* HPCantPopViewController.h */,
 				4CD5134F206DDB11008F6ED3 /* HPCantPopViewController.m */,
 			);
@@ -285,6 +291,8 @@
 		4C616955200DFAF200696BEC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CEC7BC0209AE71F00D62432 /* HPExpOrder.h */,
+				4CEC7BC1209AE71F00D62432 /* HPExpOrder.m */,
 				4CEC7BBD209ADD7300D62432 /* HPExpressContent.h */,
 				4CEC7BBE209ADD7300D62432 /* HPExpressContent.m */,
 			);
@@ -422,6 +430,7 @@
 				4C43136020070BA700E5627D /* HPTabBarController.m */,
 				4C61694E200DF9C300696BEC /* HPCanteenViewController */,
 				4C61694F200DF9C400696BEC /* HPExpressageViewController */,
+				4CEC7BC3209AFF1A00D62432 /* HPOtherViewController */,
 				4C616950200DF9CD00696BEC /* HPIndentViewController */,
 				4C616951200DF9CD00696BEC /* HPMineViewController */,
 				4C922A4920493DC6004DFD20 /* Tools */,
@@ -482,6 +491,40 @@
 			name = BaseView;
 			path = HALP/BaseView;
 			sourceTree = SOURCE_ROOT;
+		};
+		4CEC7BC3209AFF1A00D62432 /* HPOtherViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4CEC7BC5209B072600D62432 /* Controller */,
+				4CEC7BC4209B072600D62432 /* Model */,
+				4CEC7BC6209B072600D62432 /* View */,
+			);
+			name = HPOtherViewController;
+			path = HALP/HPOtherViewController;
+			sourceTree = SOURCE_ROOT;
+		};
+		4CEC7BC4209B072600D62432 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4CEC7BC5209B072600D62432 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4CEC7BC7209B075C00D62432 /* HPOtherViewController.h */,
+				4CEC7BC8209B075C00D62432 /* HPOtherViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4CEC7BC6209B072600D62432 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
 		};
 		99D2D99241A1DF8019549F2C /* Frameworks */ = {
 			isa = PBXGroup;
@@ -685,6 +728,7 @@
 				4C2F476A20610EF600875E5F /* HPWriteOrderViewController.m in Sources */,
 				4C9E8AF72085C346003CF17B /* HPUserDAO.m in Sources */,
 				4C9E8AFA2085C52E003CF17B /* HPDictionary.m in Sources */,
+				4CEC7BC9209B075C00D62432 /* HPOtherViewController.m in Sources */,
 				4C43137A2007176100E5627D /* HPMineViewController.m in Sources */,
 				4C3BF70B2057F0530010F913 /* HPCanteenTableViewCell.m in Sources */,
 				4C43136B2007138F00E5627D /* HPCanteenViewController.m in Sources */,
@@ -713,6 +757,7 @@
 				4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */,
 				4CD51350206DDB11008F6ED3 /* HPCantPopViewController.m in Sources */,
 				4CD51347206A48E0008F6ED3 /* HPExpDetailCell.m in Sources */,
+				4CEC7BC2209AE71F00D62432 /* HPExpOrder.m in Sources */,
 				4C36548C205A9B5F00046DB1 /* HPListTableViewCell.m in Sources */,
 				4CEC7BBF209ADD7300D62432 /* HPExpressContent.m in Sources */,
 				4C365496205BC15300046DB1 /* HPExpDetailViewController.m in Sources */,

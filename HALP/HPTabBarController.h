@@ -11,6 +11,7 @@
 #import "HPExpressageViewController.h"
 #import "HPIndentViewController.h"
 #import "HPMineViewController.h"
+#import "HPOtherViewController.h"
 
 @interface HPTabBarController : UITabBarController
 

@@ -36,8 +36,8 @@
     experssageVC.title = @"快递";
     UINavigationController *experssageNC = [[UINavigationController alloc] initWithRootViewController:experssageVC];
     
-    HPIndentViewController *intendVC = [[HPIndentViewController alloc] init];
-    intendVC.title = @"订单";
+    HPOtherViewController *intendVC = [[HPOtherViewController alloc] init];
+    intendVC.title = @"万能帮";
     UINavigationController *intendNC = [[UINavigationController alloc] initWithRootViewController:intendVC];
     
     HPMineViewController *mineVC = [[HPMineViewController alloc] init];

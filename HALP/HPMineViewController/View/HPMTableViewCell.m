@@ -78,7 +78,6 @@
     
     _label = [[UILabel alloc] init];
     _label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
-    _label.text = @"登录/注册";
     _label.textColor = hpRGBHex(0x6495ED);
     [self.contentView addSubview:_label];
 

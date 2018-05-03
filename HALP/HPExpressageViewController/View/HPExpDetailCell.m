@@ -16,7 +16,6 @@
         _headView = [[UIImageView alloc] init];
         _headView.layer.cornerRadius = 25;
         _headView.layer.masksToBounds = YES;
-        _headView.image = [UIImage imageNamed:@"路飞"];
     }
     return _headView;
 }
@@ -34,27 +33,30 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.text = @"漩涡鸣人";
+//        _nameLabel.backgroundColor = [UIColor redColor];
         _nameLabel.font = [UIFont fontWithName:@"PingFang SC" size:20];
     }
     return _nameLabel;
 }
 
--(UILabel *)professionalLabel{
-    if (!_professionalLabel) {
-        _professionalLabel = [[UILabel alloc] init];
-        _professionalLabel.text = @"软件1404";
-        _professionalLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
+-(UILabel *)hornorLabel{
+    if (!_hornorLabel) {
+        _hornorLabel = [[UILabel alloc] init];
+        _hornorLabel.text = @"悬赏：10";
+        _hornorLabel.textColor = hpRGBHex(0xFFA500);
+//        _hornorLabel.backgroundColor = [UIColor yellowColor];
+        _hornorLabel.font = [UIFont fontWithName:@"PingFang SC" size:24];
     }
-    return _professionalLabel;
+    return _hornorLabel;
 }
 
--(UILabel *)IDLabel{
-    if (!_IDLabel) {
-        _IDLabel = [[UILabel alloc] init];
-        _IDLabel.text = @"15991776945";
-        _IDLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
+-(UILabel *)phoneLabel{
+    if (!_phoneLabel) {
+        _phoneLabel = [[UILabel alloc] init];
+//        _phoneLabel.backgroundColor = [UIColor redColor];
+        _phoneLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
     }
-    return _IDLabel;
+    return _phoneLabel;
 }
 
 -(UILabel *)expLabel{
@@ -71,7 +73,7 @@
     if (!_expDetailLabel) {
         _expDetailLabel = [[UILabel alloc] init];
 //        _expDetailLabel.backgroundColor = [UIColor yellowColor];
-        _expDetailLabel.textAlignment = NSTextAlignmentRight;
+        _expDetailLabel.textAlignment = NSTextAlignmentLeft;
         _expDetailLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
     }
     return _expDetailLabel;
@@ -81,8 +83,8 @@
     [self.contentView addSubview:self.headView];
     [self.contentView addSubview:self.sexView];
     [self.contentView addSubview:self.nameLabel];
-    [self.contentView addSubview:self.professionalLabel];
-    [self.contentView addSubview:self.IDLabel];
+    [self.contentView addSubview:self.hornorLabel];
+    [self.contentView addSubview:self.phoneLabel];
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(15);
@@ -99,21 +101,21 @@
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.sexView.mas_right).offset(15);
         make.top.equalTo(self.contentView.mas_top).offset(10);
-        make.size.mas_equalTo(CGSizeMake(120, 30));
+        make.size.mas_equalTo(CGSizeMake(120, 40));
     }];
     
-    [_professionalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_hornorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_right).offset(15);
-        make.top.equalTo(self.contentView.mas_top).offset(10);
+        make.top.equalTo(self.contentView.mas_top).offset(20);
         make.right.equalTo(self.contentView.mas_right).offset(-15);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(50);
     }];
     
-    [_IDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
+    [_phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.nameLabel.mas_bottom);
         make.left.equalTo(self.nameLabel.mas_left);
-        make.right.equalTo(self.contentView.mas_right).offset(-15);
         make.height.mas_equalTo(20);
+        make.size.mas_equalTo(CGSizeMake(120, 20));
     }];
     
 }

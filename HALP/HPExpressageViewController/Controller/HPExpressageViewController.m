@@ -47,12 +47,10 @@
     [self setupView];
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
         self.dataArray = array;
-        NSLog(@"obj ========== %@", self.dataArray);
     }];
     
     //当刚开始没有数据的时候，不显示cell的分割线
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
-    //    self.tableView.backgroundColor = hpRGBHex(0xDCDCDC);
     //设置下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     [self.tableView.mj_header beginRefreshing];
@@ -66,11 +64,11 @@
 
 -(void)targetMethod{
     NSLog(@"关闭");
-    
+
     //下拉刷新请求公告信息
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
         self.dataArray = array;
-        NSLog(@"obj ========== %@", self.dataArray);
+        NSLog(@"111111111111");
     }];
     [self.tableView reloadData];
     [self.tableView.mj_header endRefreshing];
@@ -158,6 +156,8 @@
     
     HPExpDetailViewController *expDetailVC = [[HPExpDetailViewController alloc] init];
     expDetailVC.hidesBottomBarWhenPushed = YES;
+    HPOrder* orderDetail = [_dataArray objectAtIndex:indexPath.row];
+    expDetailVC.orderDetail = orderDetail;
     [self.navigationController pushViewController:expDetailVC animated:YES];
 }
 
@@ -181,6 +181,7 @@
     [bquery includeKey:@"orderType,orderStatus,,orderSchool,creator,helper"];
     
     [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        self.dataArray = nil;
         if (error) {
             NSLog(@"ERROR");
         }else{

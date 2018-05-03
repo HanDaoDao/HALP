@@ -49,7 +49,6 @@
     [self setupView];
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
         self.dataArray = array;
-        NSLog(@"obj ========== %@", self.dataArray);
     }];
     
     //当刚开始没有数据的时候，不显示cell的分割线
@@ -72,7 +71,7 @@
     //下拉刷新请求公告信息
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
         self.dataArray = array;
-        NSLog(@"obj ========== %@", self.dataArray);
+//        NSLog(@"obj ========== %@", self.dataArray);
     }];
     [self.tableView reloadData];
     [self.tableView.mj_header endRefreshing];
@@ -130,9 +129,9 @@
         cell = [[HPListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
     }
     
-    NSLog(@"ojbk ========== %@", self.dataArray);
+//    NSLog(@"ojbk ========== %@", self.dataArray);
     HPOrder* order = [_dataArray objectAtIndex:indexPath.row];
-    NSLog(@"++++%@",[order.creator objectForKey:@"nickName"]);
+//    NSLog(@"++++%@",[order.creator objectForKey:@"nickName"]);
     cell.nameLabel.text = [order.creator objectForKey:@"nickName"];
     
     BmobFile *iconFile = (BmobFile *)[order.creator objectForKey:@"userIcon"];
@@ -162,6 +161,8 @@
     
     HPCantDetailViewController *cantDetailVC = [[HPCantDetailViewController alloc] init];
     cantDetailVC.hidesBottomBarWhenPushed = YES;
+    HPOrder* orderDetail = [_dataArray objectAtIndex:indexPath.row];
+    cantDetailVC.orderDetail = orderDetail;
     [self.navigationController pushViewController:cantDetailVC animated:YES];
 }
 
@@ -175,10 +176,10 @@
 
 -(void)findOrderList:(findOrderBlock)callBack{
     BmobQuery *bquery = [BmobQuery queryWithClassName:@"Order"];
-    //查找GameScore表的数据
     [bquery includeKey:@"orderType,orderStatus,,orderSchool,creator,helper"];
     
     [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        self.dataArray = nil;
         if (error) {
             NSLog(@"ERROR");
         }else{

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPOrder.h"
 
 @interface HPCantDetailViewController : UIViewController
+
+@property(nonatomic,strong) HPOrder* orderDetail;
 
 @end
