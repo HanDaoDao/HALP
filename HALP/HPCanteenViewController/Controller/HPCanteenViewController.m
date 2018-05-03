@@ -54,6 +54,7 @@
     
     //当刚开始没有数据的时候，不显示cell的分割线
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
+//    self.tableView.backgroundColor = hpRGBHex(0xDCDCDC);
     //设置下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     [self.tableView.mj_header beginRefreshing];
@@ -79,6 +80,7 @@
 }
 
 -(void)setupView{
+//    self.view.backgroundColor = hpRGBHex(0xDCDCDC);
     _button = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _button.backgroundColor = hpRGBHex(0xFFE4B5);
     _button.layer.cornerRadius = 20;
@@ -143,12 +145,13 @@
         cell.sexView.image = [UIImage imageNamed:@"性别女"];
     }
     
-    NSString *string ;
-    string = [[NSString alloc] initWithFormat:@"%@   楼层：%@   窗口：%@", order.content.canteen, order.content.floor,order.content.window];
-
-    cell.labelOne.text = string;
+    NSString *string1,*string2 ;
+    string1 = [[NSString alloc] initWithFormat:@"%@   楼层：%@   窗口：%@", order.content.canteen, order.content.floor,order.content.window];
+    string2 = [[NSString alloc] initWithFormat:@"送至：%@",order.content.sendTo];
+    
+    cell.labelOne.text = string1;
     cell.labelTwo.text = order.content.food;
-    cell.labelThree.text = order.content.sendTo;
+    cell.labelThree.text = string2;
     cell.honorLabel.text = [order.orderHonor stringValue];
 
     return cell;

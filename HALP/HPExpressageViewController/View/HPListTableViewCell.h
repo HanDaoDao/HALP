@@ -10,8 +10,7 @@
 
 @interface HPListTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) UIView *HPbackgroundView;         //背景阴影
-//@property(nonatomic,strong) UIView *HPbackgroundView;         //背景阴影
+@property(nonatomic,strong) UIView *whiteBackgroudView;      //白色背景
 @property(nonatomic,strong) UIImageView *headView;          //头像
 @property(nonatomic,strong) UIImageView *sexView;           //性别展示View
 @property(nonatomic,strong) UILabel *nameLabel;             //姓名

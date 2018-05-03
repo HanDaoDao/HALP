@@ -12,4 +12,6 @@
 
 @interface HPExpressageViewController : UIViewController
 
+typedef void(^findOrderBlock)(NSMutableArray *array, NSError *error);
+
 @end

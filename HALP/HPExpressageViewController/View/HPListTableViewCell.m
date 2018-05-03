@@ -15,12 +15,12 @@
 
 @implementation HPListTableViewCell
 
--(UIView *)HPbackgroundView{
-    if (_HPbackgroundView) {
-        _HPbackgroundView = [[UIView alloc] init];
-        _HPbackgroundView.backgroundColor = hpRGBHex(0xA9A9A9);
+-(UIView *)whiteBackgroudView{
+    if (_whiteBackgroudView) {
+        _whiteBackgroudView = [[UIView alloc] init];
+        _whiteBackgroudView.backgroundColor = [UIColor whiteColor];
     }
-    return _HPbackgroundView;
+    return _whiteBackgroudView;
 }
 
 -(UIImageView *)headView{
@@ -56,7 +56,7 @@
 -(UILabel *)honorLabel{
     if (!_honorLabel) {
         _honorLabel = [[UILabel alloc] init];
-        //        _nameLabel.text = @"漩涡鸣人";
+        _honorLabel.textColor = hpRGBHex(0xFFA500);
 //        _honorLabel.backgroundColor = [UIColor blueColor];
         _honorLabel.font = [UIFont fontWithName:@"PingFang SC" size:18];
     }
@@ -96,6 +96,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+//        self.backgroundColor = hpRGBHex(0xDCDCDC);
         [self setupCell];
     }
     
@@ -103,7 +104,8 @@
 }
 
 -(void)setupCell{
-    [self.contentView addSubview:self.HPbackgroundView];
+    
+//    [self.contentView addSubview:self.whiteBackgroudView];
     [self.contentView addSubview:self.headView];
     [self.contentView addSubview:self.sexView];
     [self.contentView addSubview:self.nameLabel];
@@ -111,9 +113,11 @@
     [self.contentView addSubview:self.labelTwo];
     [self.contentView addSubview:self.labelThree];
     [self.contentView addSubview:self.honorLabel];
-
-    [_HPbackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(self.contentView);
+    
+    [_whiteBackgroudView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.top.equalTo(self.contentView).offset(10);
+        make.right.equalTo(self.contentView).offset(-10);
+        make.bottom.equalTo(self.contentView);
     }];
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
