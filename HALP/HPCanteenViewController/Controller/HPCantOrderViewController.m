@@ -31,9 +31,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:view];
+    
     [self setupTopButton];
     [self notificationAction];
 }

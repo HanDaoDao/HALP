@@ -68,16 +68,18 @@
     NSLog(@"关闭");
     //下拉刷新请求公告信息
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
-        self.dataArray = array;
+        if (error) {
+            NSLog(@"error:%@",error);
+        }
+        else{
+            self.dataArray = array;
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView reloadData];
+        }
     }];
-    if (self.dataArray) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView reloadData];
-    }
 }
 
 -(void)setupView{
-//    self.view.backgroundColor = hpRGBHex(0xDCDCDC);
     _button = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _button.backgroundColor = hpRGBHex(0xFFE4B5);
     _button.layer.cornerRadius = 20;
