@@ -46,11 +46,10 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [UIFont fontWithName:@"PingFang SC" size:18], NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
-    [self setupView];
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
         self.dataArray = array;
     }];
-    
+    [self setupView];
     //当刚开始没有数据的时候，不显示cell的分割线
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 //    self.tableView.backgroundColor = hpRGBHex(0xDCDCDC);
@@ -67,15 +66,14 @@
 
 -(void)targetMethod{
     NSLog(@"关闭");
-    
     //下拉刷新请求公告信息
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
         self.dataArray = array;
-//        NSLog(@"obj ========== %@", self.dataArray);
     }];
-    [self.tableView reloadData];
-    [self.tableView.mj_header endRefreshing];
-    
+    if (self.dataArray) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+    }
 }
 
 -(void)setupView{
@@ -129,9 +127,10 @@
         cell = [[HPListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
     }
     
-//    NSLog(@"ojbk ========== %@", self.dataArray);
-    HPOrder* order = [_dataArray objectAtIndex:indexPath.row];
-//    NSLog(@"++++%@",[order.creator objectForKey:@"nickName"]);
+    HPOrder* order = nil;
+    if (indexPath.row < [_dataArray count]) {//无论你武功有多高，有时也会忘记加
+        order = [_dataArray objectAtIndex:indexPath.row];
+    }
     cell.nameLabel.text = [order.creator objectForKey:@"nickName"];
     
     BmobFile *iconFile = (BmobFile *)[order.creator objectForKey:@"userIcon"];
@@ -161,7 +160,11 @@
     
     HPCantDetailViewController *cantDetailVC = [[HPCantDetailViewController alloc] init];
     cantDetailVC.hidesBottomBarWhenPushed = YES;
-    HPOrder* orderDetail = [_dataArray objectAtIndex:indexPath.row];
+    
+    HPOrder* orderDetail = nil;
+    if (indexPath.row < [_dataArray count]) {//无论你武功有多高，有时也会忘记加
+        orderDetail = [_dataArray objectAtIndex:indexPath.row];
+    }
     cantDetailVC.orderDetail = orderDetail;
     [self.navigationController pushViewController:cantDetailVC animated:YES];
 }
@@ -185,15 +188,18 @@
         }else{
             for (BmobObject *obj in array) {
                 if ([[[obj objectForKey:@"orderType"] objectForKey:@"dataType"] intValue] == 1) {
-                    NSLog(@"obj ========== %@", obj);
-                    HPOrder *addOrder = [[HPOrder alloc] init];
-                    NSDictionary *dic = [NSString parseJSONStringToNSDictionary:[obj objectForKey:@"content"]];
-                    HPCanteenContent* cantCont = [HPCanteenContent yy_modelWithDictionary:dic];
-                    
-                    addOrder.content = cantCont;
-                    addOrder.orderHonor = [obj objectForKey:@"orderHonor"];
-                    addOrder.creator = [obj objectForKey:@"creator"];
-                    [self.dataArray addObject:addOrder];
+                    if ([[[obj objectForKey:@"orderStatus"] objectForKey:@"dataType"] integerValue] == 0) {
+                        NSLog(@"obj ========== %@", obj);
+                        HPOrder *addOrder = [[HPOrder alloc] init];
+                        NSDictionary *dic = [NSString parseJSONStringToNSDictionary:[obj objectForKey:@"content"]];
+                        HPCanteenContent* cantCont = [HPCanteenContent yy_modelWithDictionary:dic];
+                        
+                        addOrder.objectID = obj.objectId;
+                        addOrder.content = cantCont;
+                        addOrder.orderHonor = [obj objectForKey:@"orderHonor"];
+                        addOrder.creator = [obj objectForKey:@"creator"];
+                        [self.dataArray addObject:addOrder];
+                    }
                 }
             }
         }

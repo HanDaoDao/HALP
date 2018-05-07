@@ -9,6 +9,10 @@
 #import "HPCantDetailViewController.h"
 #import "headFile.pch"
 #import "HPExpDetailCell.h"
+#import "NSDate+Time.h"
+#import "SVProgressHUD.h"
+#import "HPLoginViewController.h"
+#import "HPDetaileCompleteViewController.h"
 
 @interface HPCantDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -111,9 +115,52 @@
 }
 
 -(void)acceptButtonAction{
+    
+    NSDate *dateTime = [NSDate getCurrentTimes];
+    BmobUser *user = [BmobUser currentUser];
+    if (user) {
+        NSLog(@"~~~~~~~%@",user.objectId);
 
-    
-    
+        BmobQuery *bquery = [BmobQuery queryWithClassName:@"Order"];
+        [bquery includeKey:@"orderStatus"];
+        [bquery getObjectInBackgroundWithId:_orderDetail.objectID block:^(BmobObject *object, NSError *error) {
+
+            BmobObject *orderStatud = [object objectForKey:@"orderStatus"];
+            NSLog(@"objectId:%@",orderStatud.objectId);
+            NSLog(@"name:%@",[orderStatud objectForKey:@"dataType"]);
+            if ([[orderStatud objectForKey:@"dataType"] intValue] == 0) {
+                BmobObject *orderChange = [BmobObject objectWithoutDataWithClassName:@"Order" objectId:_orderDetail.objectID];
+                [orderChange setObject:dateTime forKey:@"startAt"];
+
+                BmobObject *dic = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"zWN3EEEM"];
+                [orderChange setObject:dic forKey:@"orderStatus"];
+
+                BmobUser *helper = [BmobUser objectWithoutDataWithClassName:@"_User" objectId:user.objectId];
+                [orderChange setObject:helper forKey:@"helper"];
+
+                [orderChange updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                    if (isSuccessful) {
+                        HPDetaileCompleteViewController *completeVC = [[HPDetaileCompleteViewController alloc] init];
+                        [self.navigationController pushViewController:completeVC animated:YES];
+                    } else {
+                        NSLog(@"%@",error);
+                    }
+                }];
+            }else{
+                [SVProgressHUD showInfoWithStatus:@"已经被接单啦"];
+                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                [SVProgressHUD dismissWithDelay:1.5];
+            }
+        }];
+    }else{
+        [SVProgressHUD showInfoWithStatus:@"请先进行登录"];
+        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+        [SVProgressHUD dismissWithDelay:1.5];
+        HPLoginViewController *loginVC = [[HPLoginViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
 }
 
 @end

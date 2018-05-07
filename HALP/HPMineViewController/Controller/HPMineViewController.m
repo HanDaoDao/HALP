@@ -14,6 +14,7 @@
 #import "AFNetworking.h"
 #import "HPLoginViewController.h"
 #import "headFile.pch"
+#import "SVProgressHUD.h"
 
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -165,8 +166,13 @@
             case 1:
                 [self.navigationController pushViewController:addressViewController animated:YES];
                 break;
+            case 3:
+                break;
             case 4:
                 [BmobUser logout];
+                [SVProgressHUD showSuccessWithStatus:@"退出登录"];
+                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
                 break;
             default:
                 break;

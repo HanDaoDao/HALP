@@ -123,8 +123,10 @@
     if (cell == nil) {
         cell = [[HPListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
     }
-    
-    HPOrder* order = [_dataArray objectAtIndex:indexPath.row];
+    HPOrder* order = nil;
+    if (indexPath.row < [_dataArray count]) {//无论你武功有多高，有时也会忘记加
+        order = [_dataArray objectAtIndex:indexPath.row];
+    }
     NSLog(@"++++%@",[order.creator objectForKey:@"nickName"]);
     cell.nameLabel.text = [order.creator objectForKey:@"nickName"];
     
@@ -156,7 +158,10 @@
     
     HPExpDetailViewController *expDetailVC = [[HPExpDetailViewController alloc] init];
     expDetailVC.hidesBottomBarWhenPushed = YES;
-    HPOrder* orderDetail = [_dataArray objectAtIndex:indexPath.row];
+    HPOrder* orderDetail = nil;
+    if (indexPath.row < [_dataArray count]) {//无论你武功有多高，有时也会忘记加
+        orderDetail = [_dataArray objectAtIndex:indexPath.row];
+    }
     expDetailVC.orderDetail = orderDetail;
     [self.navigationController pushViewController:expDetailVC animated:YES];
 }
