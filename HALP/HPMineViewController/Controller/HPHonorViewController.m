@@ -10,6 +10,10 @@
 
 @interface HPHonorViewController ()
 
+@property(nonatomic,strong) UIImageView *honorImageView;
+@property(nonatomic,strong) UILabel *honorLabel;
+@property(nonatomic,strong) UILabel *numberLabel;
+
 @end
 
 @implementation HPHonorViewController
@@ -36,7 +40,7 @@
     
     _numberLabel = [[UILabel alloc] init];
     _numberLabel.font = [UIFont fontWithName:@"PingFang SC" size:40];
-    _numberLabel.text = @"100";
+    _numberLabel.text = self.honorString;
     _numberLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_numberLabel];
     

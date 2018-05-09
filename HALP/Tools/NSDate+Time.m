@@ -24,7 +24,7 @@
     
     //----------将nsdate按formatter格式转成nsstring
     
-//    NSString *currentTimeString = [formatter stringFrsomDate:datenow];
+    NSString *currentTimeString = [formatter stringFromDate:datenow];
     
     NSLog(@"currentTimeString =  %@",datenow);
     

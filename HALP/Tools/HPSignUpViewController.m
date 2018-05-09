@@ -129,6 +129,8 @@
     NSLog(@"===%@,%@",stuID,password);
     
     HPSignUpNextViewController *nextVC = [[HPSignUpNextViewController alloc] init];
+    nextVC.phoneNumber = stuID;
+    nextVC.passwordNumber = password;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

@@ -11,7 +11,6 @@
 #import "HPCantOrderViewController.h"
 #import "HPListTableViewCell.h"
 #import "HPCantDetailViewController.h"
-#import "HPOrder.h"
 #import "HPCanteenContent.h"
 #import "YYModel.h"
 #import "NSString+JSON.h"
@@ -194,6 +193,7 @@
                         NSLog(@"obj ========== %@", obj);
                         HPOrder *addOrder = [[HPOrder alloc] init];
                         NSDictionary *dic = [NSString parseJSONStringToNSDictionary:[obj objectForKey:@"content"]];
+                        
                         HPCanteenContent* cantCont = [HPCanteenContent yy_modelWithDictionary:dic];
                         
                         addOrder.objectID = obj.objectId;

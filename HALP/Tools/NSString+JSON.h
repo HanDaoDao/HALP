@@ -11,5 +11,7 @@
 @interface NSString (JSON)
 
 +(NSDictionary *)parseJSONStringToNSDictionary:(NSString *)JSONString;
++(NSString*)dictionaryToJson:(NSDictionary *)dic;
++(NSString*)getCurrentTimes;
 
 @end

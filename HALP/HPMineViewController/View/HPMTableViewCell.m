@@ -10,6 +10,15 @@
 
 @implementation HPMTableViewCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(nullable NSString *)reuseIdentifier {
+    self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self initMineInfomationCell];
+        [self initUnSignUpMineInfomationCell];
+    }
+    return self;
+}
+
 -(void)initMineInfomationCell{
     
     _headImageView = [[UIImageView alloc] init];
@@ -71,28 +80,11 @@
 }
 
 -(void)initUnSignUpMineInfomationCell{
-    _headImageView = [[UIImageView alloc] init];
-    _headImageView.layer.cornerRadius = 30;
-    _headImageView.layer.masksToBounds = YES;
-    [self.contentView addSubview:_headImageView];
     
     _label = [[UILabel alloc] init];
     _label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
     _label.textColor = hpRGBHex(0x6495ED);
     [self.contentView addSubview:_label];
-
-    [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.contentView.mas_left).offset(20);
-        make.top.mas_equalTo(self.contentView.mas_top).offset(10);
-        make.width.height.mas_equalTo(60);
-    }];
-    
-    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.sexView.mas_right).offset(10);
-        make.top.mas_equalTo(self.contentView.mas_top).offset(15);
-        make.width.mas_equalTo(150);
-        make.height.mas_equalTo(30);
-    }];
     
     [_label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentView).offset(20);

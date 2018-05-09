@@ -18,6 +18,7 @@
 @property (nonatomic, strong) BEMCheckBoxGroup *checkBoxGroup;
 @property (nonatomic, strong) BEMCheckBox *checkBoxBoy;
 @property (nonatomic, strong) BEMCheckBox *checkBoxGirl;
+@property (nonatomic, strong) BmobObject *sex;
 
 @end
 
@@ -29,6 +30,7 @@
         _checkBoxBoy.onAnimationType = BEMAnimationTypeBounce;
         _checkBoxBoy.offAnimationType = BEMAnimationTypeBounce;
         _checkBoxBoy.animationDuration = 0.3;
+        _checkBoxBoy.tag = 0;
         _checkBoxBoy.delegate = self;
     }
     return _checkBoxBoy;
@@ -40,6 +42,7 @@
         _checkBoxGirl.onAnimationType = BEMAnimationTypeBounce;
         _checkBoxGirl.offAnimationType = BEMAnimationTypeBounce;
         _checkBoxGirl.animationDuration = 0.3;
+        _checkBoxGirl.tag = 1;
         _checkBoxGirl.delegate = self;
     }
     return _checkBoxGirl;
@@ -234,40 +237,41 @@
     
     //数据字典关联
     BmobObject *school = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"oDNOJJJR"];
-    BmobObject *sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"qx2fEEEM"];
     //添加用户
     BmobUser *bUser = [[BmobUser alloc] init];
     [bUser setUsername:nameIDString];
-    [bUser setPassword:@"123456"];
-    [bUser setObject:@"15809009005" forKey:@"mobilePhoneNumber"];
+    [bUser setPassword:_passwordNumber];
+    [bUser setObject:_phoneNumber forKey:@"mobilePhoneNumber"];
     [bUser setObject:IDString forKey:@"stuId"];
     [bUser setObject:nickNameString forKey:@"nickName"];
     [bUser setObject:@100 forKey:@"stuHonor"];
     [bUser setObject:school forKey:@"stuSchool"];
-    [bUser setObject:sex forKey:@"sex"];
+    [bUser setObject:_sex forKey:@"sex"];
 
     [bUser signUpInBackgroundWithBlock:^ (BOOL isSuccessful, NSError *error){
         if (isSuccessful){
             NSLog(@"Sign up successfully");
-        } else {
-            NSLog(@"%@",error);
-        }
-    }];
-    
-    [BmobUser loginWithUsernameInBackground:nameIDString password:@"123456" block:^(BmobUser *user, NSError *error) {
-        if (user) {
-            NSLog(@"%@",user);
-            //成功之后跳转到我的页面
-            UINavigationController *navigationVC = self.navigationController;
-            NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
-            for (UIViewController *vc in navigationVC.viewControllers) {
-                [viewControllers addObject:vc];
-                if ([vc isKindOfClass:[HPMineViewController class]]) {
-                    break;
+            [BmobUser loginWithUsernameInBackground:nameIDString password:_passwordNumber block:^(BmobUser *user, NSError *error) {
+                if (user) {
+                    NSLog(@"%@",user);
+                    //成功之后跳转到我的页面
+                    UINavigationController *navigationVC = self.navigationController;
+                    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+                    for (UIViewController *vc in navigationVC.viewControllers) {
+                        [viewControllers addObject:vc];
+                        if ([vc isKindOfClass:[HPMineViewController class]]) {
+                            break;
+                        }
+                    }
+                    [navigationVC setViewControllers:viewControllers animated:YES];
+                    [navigationVC popViewControllerAnimated:YES];
+                    NSNotification *notification = [NSNotification notificationWithName:@"changeNameTongzhi" object:nil userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                } else {
+                    NSLog(@"%@",error);
+                    
                 }
-            }
-            [navigationVC setViewControllers:viewControllers animated:YES];
-            [navigationVC popViewControllerAnimated:YES];
+            }];
         } else {
             NSLog(@"%@",error);
         }
@@ -286,6 +290,13 @@
 
 - (void)didTapCheckBox:(BEMCheckBox *)checkBox {
     [self.view endEditing:YES];
+    if (checkBox.tag == 0) {
+        self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"qx2fEEEM"];
+    }else{
+        self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"QGuB2226"];
+
+    }
+
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

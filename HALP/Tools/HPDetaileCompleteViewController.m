@@ -9,6 +9,9 @@
 #import "HPDetaileCompleteViewController.h"
 #import "Masonry.h"
 #import "HPCanteenViewController.h"
+#import "HPExpressageViewController.h"
+#import "SVProgressHUD.h"
+#import "HPOtherViewController.h"
 
 @interface HPDetaileCompleteViewController ()
 
@@ -30,6 +33,11 @@
     [self setCanteenDetailCompleteView];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [SVProgressHUD dismiss];
+}
+
 -(void)setCanteenDetailCompleteView{
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.image = [UIImage imageNamed:@"完成"];
@@ -43,7 +51,7 @@
     
     _timeLabel = [[UILabel alloc] init];
 //    _timeLabel.backgroundColor = [UIColor yellowColor];
-    _timeLabel.text = @"2018-05-04 17:09:57";
+    _timeLabel.text = _time;
     [self.view addSubview:_timeLabel];
     
     _completeButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
@@ -88,13 +96,12 @@
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     for (UIViewController *vc in navigationVC.viewControllers) {
         [viewControllers addObject:vc];
-        if ([vc isKindOfClass:[HPCanteenViewController class]]) {
+        if ([vc isKindOfClass:[HPCanteenViewController class]] || [vc isKindOfClass:[HPExpressageViewController class]] || [vc isKindOfClass:[HPOtherViewController class]]) {
             break;
         }
     }
     [navigationVC setViewControllers:viewControllers animated:YES];
     [navigationVC popViewControllerAnimated:YES];
 }
-
 
 @end

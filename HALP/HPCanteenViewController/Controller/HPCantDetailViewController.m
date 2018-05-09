@@ -8,11 +8,13 @@
 
 #import "HPCantDetailViewController.h"
 #import "headFile.pch"
-#import "HPExpDetailCell.h"
+#import "HPOrderDetailCell.h"
 #import "NSDate+Time.h"
+#import "NSString+JSON.h"
 #import "SVProgressHUD.h"
 #import "HPLoginViewController.h"
 #import "HPDetaileCompleteViewController.h"
+#import "UIImageView+HPHelper.h"
 
 @interface HPCantDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -44,12 +46,12 @@
 -(void)initArrayList{
     _array = @[@"食 堂:",@"楼 层:",@"窗 口:",@"餐 品:",@"送 至:",@"备 注:"];
 
-    [self.dataArray addObject:_orderDetail.content.canteen];
-    [self.dataArray addObject:_orderDetail.content.floor];
-    [self.dataArray addObject:_orderDetail.content.window];
-    [self.dataArray addObject:_orderDetail.content.food];
-    [self.dataArray addObject:_orderDetail.content.sendTo];
-    [self.dataArray addObject:_orderDetail.content.remark];
+    [self.dataArray addObject:(_orderDetail.content.canteen == nil ? @" " : _orderDetail.content.canteen)];
+    [self.dataArray addObject:(_orderDetail.content.floor == nil ? @" " : _orderDetail.content.floor)];
+    [self.dataArray addObject:(_orderDetail.content.window == nil ? @" " : _orderDetail.content.window)];
+    [self.dataArray addObject:(_orderDetail.content.food == nil ? @" " : _orderDetail.content.food)];
+    [self.dataArray addObject:(_orderDetail.content.sendTo == nil ? @" " : _orderDetail.content.sendTo)];
+    [self.dataArray addObject:(_orderDetail.content.remark == nil ? @" " : _orderDetail.content.remark)];
 }
 
 -(void)setupView{
@@ -65,7 +67,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    return indexPath.section == 0 ? 80 : 50;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             return 80;
@@ -80,10 +81,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"cell";
-    HPExpDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    HPOrderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        cell = [[HPExpDetailCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
+        cell = [[HPOrderDetailCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     if (indexPath.section == 0) {
@@ -93,6 +94,7 @@
             
             BmobFile *iconFile = (BmobFile *)[_orderDetail.creator objectForKey:@"userIcon"];
             [cell.headView sd_setImageWithURL:[NSURL URLWithString:iconFile.url] placeholderImage:[UIImage imageNamed:@"路飞"]];
+            [cell.headView HPHeadimageBrowser];
             
             BmobUser *sex = [_orderDetail.creator objectForKey:@"sex"];
             if ([sex.objectId isEqualToString:@"qx2fEEEM"]) {
@@ -101,11 +103,14 @@
                 cell.sexView.image = [UIImage imageNamed:@"性别女"];
             }
             cell.phoneLabel.text = _orderDetail.creator.mobilePhoneNumber;
+            cell.hornorLabel.text = [NSString stringWithFormat:@"悬赏：%@",_orderDetail.orderHonor];
             
         }else{
             [cell setupDetailCell];
-            cell.expLabel.text = _array[indexPath.row-1];
-            cell.expDetailLabel.text = _dataArray[indexPath.row - 1];
+            cell.detailLabel.hidden = NO;
+            cell.detailTextView.hidden = YES;
+            cell.titleLabel.text = _array[indexPath.row-1];
+            cell.detailLabel.text = _dataArray[indexPath.row - 1];
         }
     }else{
         [cell acceptCell];
@@ -115,7 +120,9 @@
 }
 
 -(void)acceptButtonAction{
-    
+    [SVProgressHUD showWithStatus:@"正在接单..."];
+    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
     NSDate *dateTime = [NSDate getCurrentTimes];
     BmobUser *user = [BmobUser currentUser];
     if (user) {
@@ -125,10 +132,10 @@
         [bquery includeKey:@"orderStatus"];
         [bquery getObjectInBackgroundWithId:_orderDetail.objectID block:^(BmobObject *object, NSError *error) {
 
-            BmobObject *orderStatud = [object objectForKey:@"orderStatus"];
-            NSLog(@"objectId:%@",orderStatud.objectId);
-            NSLog(@"name:%@",[orderStatud objectForKey:@"dataType"]);
-            if ([[orderStatud objectForKey:@"dataType"] intValue] == 0) {
+            BmobObject *orderStatus = [object objectForKey:@"orderStatus"];
+            NSLog(@"objectId:%@",orderStatus.objectId);
+            NSLog(@"name:%@",[orderStatus objectForKey:@"dataType"]);
+            if ([[orderStatus objectForKey:@"dataType"] intValue] == 0) {
                 BmobObject *orderChange = [BmobObject objectWithoutDataWithClassName:@"Order" objectId:_orderDetail.objectID];
                 [orderChange setObject:dateTime forKey:@"startAt"];
 
@@ -141,9 +148,14 @@
                 [orderChange updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                     if (isSuccessful) {
                         HPDetaileCompleteViewController *completeVC = [[HPDetaileCompleteViewController alloc] init];
+                        completeVC.time = [NSString getCurrentTimes];
                         [self.navigationController pushViewController:completeVC animated:YES];
                     } else {
                         NSLog(@"%@",error);
+                        [SVProgressHUD showErrorWithStatus:@"接单失败，请重试"];
+                        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+                        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                        [SVProgressHUD dismissWithDelay:1.5];
                     }
                 }];
             }else{

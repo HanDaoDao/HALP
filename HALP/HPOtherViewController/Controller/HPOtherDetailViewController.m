@@ -1,31 +1,31 @@
 //
-//  HPExpDetailViewController.m
+//  HPOtherDetailViewController.m
 //  HALP
 //
-//  Created by HanZhao on 2018/3/16.
+//  Created by 韩钊 on 2018/5/8.
 //  Copyright © 2018年 HanZhao. All rights reserved.
 //
 
-#import "HPExpDetailViewController.h"
-#import "Masonry.h"
-#import "headFile.pch"
+#import "HPOtherDetailViewController.h"
 #import "HPOrderDetailCell.h"
 #import "UIImageView+HPHelper.h"
-#import "NSDate+Time.h"
-#import "HPDetaileCompleteViewController.h"
-#import "NSString+JSON.h"
 #import "SVProgressHUD.h"
+#import "NSDate+Time.h"
+#import "NSString+JSON.h"
+#import "HPDetaileCompleteViewController.h"
 #import "HPLoginViewController.h"
 
-@interface HPExpDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+static NSString * const kHOrderDetailViewCell = @"kHOrderDetailViewCell";
+
+@interface HPOtherDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,copy) NSArray *array;
-@property(nonatomic,copy) NSMutableArray* dataArray;           //接受的显示数据
+@property(nonatomic,copy) NSMutableArray* dataArray; 
 
 @end
 
-@implementation HPExpDetailViewController
+@implementation HPOtherDetailViewController
 
 //懒加载dataArray
 -(NSMutableArray *)dataArray{
@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     [self setupView];
@@ -44,14 +45,10 @@
 }
 
 -(void)initArrayList{
-    _array = @[@"快 递:",@"位 置:",@"包 裹:",@"收件人:",@"取件号:",@"送 至:",@"备 注:"];
-    [self.dataArray addObject: (_orderDetail.expContent.company == nil ? @" " : _orderDetail.expContent.company)];
-    [self.dataArray addObject: (_orderDetail.expContent.loaction == nil ? @" " : _orderDetail.expContent.loaction)];
-    [self.dataArray addObject: (_orderDetail.expContent.size == nil ? @" " : _orderDetail.expContent.size)];
-    [self.dataArray addObject: (_orderDetail.expContent.receiver == nil ? @" " : _orderDetail.expContent.receiver)];
-    [self.dataArray addObject: (_orderDetail.expContent.number == nil ? @" " : _orderDetail.expContent.number)];
-    [self.dataArray addObject: (_orderDetail.expContent.sendTo == nil ? @" " : _orderDetail.expContent.sendTo)];
-    [self.dataArray addObject: (_orderDetail.expContent.remark == nil ? @" " : _orderDetail.expContent.remark)];
+    _array = @[@"标 题:",@"需 求:"];
+    
+    [self.dataArray addObject:(_orderDetail.otherContent.title == nil ? @" " : _orderDetail.otherContent.title)];
+    [self.dataArray addObject:(_orderDetail.otherContent.content == nil ? @" " : _orderDetail.otherContent.content)];
 
 }
 
@@ -61,6 +58,8 @@
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
+    
+    [self.tableView registerClass:[HPOrderDetailCell class] forCellReuseIdentifier:kHOrderDetailViewCell];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -72,6 +71,9 @@
         if (indexPath.row == 0) {
             return 80;
         }
+        else if(indexPath.row == 2){
+            return 80;
+        }
     }
     return 40;
 }
@@ -81,13 +83,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"cell";
-    HPOrderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-
-    if (cell == nil) {
-        cell = [[HPOrderDetailCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    }
+    
+    HPOrderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kHOrderDetailViewCell forIndexPath:indexPath];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [cell setupHeadCell];
@@ -105,11 +104,18 @@
             }
             cell.phoneLabel.text = _orderDetail.creator.mobilePhoneNumber;
             cell.hornorLabel.text = [NSString stringWithFormat:@"悬赏：%@",_orderDetail.orderHonor];
-
-        }else{
+            
+        }else  if (indexPath.row == 2) {
             [cell setupDetailCell];
-            cell.detailLabel.hidden = NO;
+            cell.detailLabel.hidden = YES;
+            cell.detailTextView.hidden = NO;
+            cell.titleLabel.text = _array[indexPath.row-1];
+            cell.detailTextView.text = _dataArray[indexPath.row - 1];
+        }
+        else{
+            [cell setupDetailCell];
             cell.detailTextView.hidden = YES;
+            cell.detailLabel.hidden = NO;
             cell.titleLabel.text = _array[indexPath.row-1];
             cell.detailLabel.text = _dataArray[indexPath.row - 1];
         }
@@ -127,7 +133,7 @@
     NSDate *dateTime = [NSDate getCurrentTimes];
     BmobUser *user = [BmobUser currentUser];
     if (user) {
-        NSLog(@"~~~~~~~%@",_orderDetail.objectID);
+        NSLog(@"~~~~~~~%@",user.objectId);
         
         BmobQuery *bquery = [BmobQuery queryWithClassName:@"Order"];
         [bquery includeKey:@"orderStatus"];
@@ -176,5 +182,5 @@
     }
 }
 
-@end
 
+@end

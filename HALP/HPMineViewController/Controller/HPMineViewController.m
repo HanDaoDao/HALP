@@ -16,6 +16,8 @@
 #import "headFile.pch"
 #import "SVProgressHUD.h"
 
+static NSString * const kHPMineViewCell = @"kHPMineViewCell";
+
 @interface HPMineViewController()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *mineTableView;
@@ -51,6 +53,8 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [SVProgressHUD dismiss];
     [self.mineTableView reloadData];
 }
 
@@ -74,10 +78,12 @@
     
     [self.view addSubview:_mineTableView];
     [self initMineListNames];
+    
+    [self.mineTableView registerClass:[HPMTableViewCell class] forCellReuseIdentifier:kHPMineViewCell];
 }
 
 -(void)initMineListNames{
-    _mineListNames = @[@"荣誉值",@"我的地址",@"我的好友",@"我的足迹",@"设置"];
+    _mineListNames = @[@"荣誉值",@"我的地址",@"我发布的",@"我帮助的",@"退出登录"];
 }
 
 #pragma mark - Tableview datasource
@@ -91,28 +97,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    static NSString *identifier = @"cell";
-    HPMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (cell == nil) {
-        cell = [[HPMTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:identifier];
-    }else{
-        //cell中本来就有一个subview，如果是重用cell，则把cell中自己添加的subview清除掉，避免出现重叠问题
-        for (UIView *subView in cell.contentView.subviews)
-        {
-            [subView removeFromSuperview];
-        }
-    }
+    HPMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kHPMineViewCell forIndexPath:indexPath];
+
     //设置cell显示右边的小箭头
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+
     if (indexPath.section == 0) {
         UIImage *image = [[UIImage alloc] init];
+        _bUser = [BmobUser currentUser];
         if (_bUser) {
-            //进行操作
-            [cell initMineInfomationCell];
             cell.nameLabel.text = _user.nickName;
             cell.majorLabel.text = _user.mobilePhoneNumber;
+            cell.nameLabel.hidden = NO;
+            cell.majorLabel.hidden = NO;
+            cell.label.hidden = YES;
+            cell.sexView.hidden = NO;
             [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:_user.icon] placeholderImage:[UIImage imageNamed:@"路飞"]];
             if (_user.sex == 0) {
                 cell.sexView.image = [UIImage imageNamed:@"性别男"];
@@ -120,16 +119,19 @@
             else
                 cell.sexView.image = [UIImage imageNamed:@"性别女"];
         }else{
-            [cell initUnSignUpMineInfomationCell];
             cell.label.text = @"登录/注册";
+            cell.label.hidden = NO;
+            cell.nameLabel.hidden = YES;
+            cell.majorLabel.hidden = YES;
+            cell.sexView.hidden = YES;
             image = [UIImage imageNamed:@"路飞"];//默认为路飞头像
             cell.headImageView.image = image;
         }
     }else if (indexPath.section == 1){
-        cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", _user.stuHonor];
         }
+        cell.textLabel.text = [_mineListNames objectAtIndex:indexPath.row];
     }
     
     return cell;
@@ -161,10 +163,13 @@
     if (indexPath.section == 1) {
         switch (indexPath.row) {
             case 0:
+                honorViewController.honorString = [NSString stringWithFormat:@"%@", _user.stuHonor];
                 [self.navigationController pushViewController:honorViewController animated:YES];
                 break;
             case 1:
                 [self.navigationController pushViewController:addressViewController animated:YES];
+                break;
+            case 2:
                 break;
             case 3:
                 break;
@@ -173,6 +178,14 @@
                 [SVProgressHUD showSuccessWithStatus:@"退出登录"];
                 [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
                 [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                [SVProgressHUD dismissWithDelay:0.8];
+                [self.mineTableView reloadData];
+                if (!_bUser) {
+                    [SVProgressHUD showSuccessWithStatus:@"已经退出登录"];
+                    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+                    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                    [SVProgressHUD dismissWithDelay:0.8];
+                }
                 break;
             default:
                 break;

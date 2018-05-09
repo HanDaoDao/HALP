@@ -1,15 +1,15 @@
 //
-//  HPExpDetailCell.m
+//  HPOrderDetailCell.m
 //  HALP
 //
 //  Created by HanZhao on 2018/3/27.
 //  Copyright © 2018年 HanZhao. All rights reserved.
 //
 
-#import "HPExpDetailCell.h"
+#import "HPOrderDetailCell.h"
 #import "Masonry.h"
 
-@implementation HPExpDetailCell
+@implementation HPOrderDetailCell
 
 -(UIImageView *)headView{
     if (!_headView) {
@@ -59,24 +59,32 @@
     return _phoneLabel;
 }
 
--(UILabel *)expLabel{
-    if (!_expLabel) {
-        _expLabel = [[UILabel alloc] init];
-//        _expLabel.backgroundColor = [UIColor redColor];
-        _expLabel.textAlignment = NSTextAlignmentRight;
-        _expLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
+-(UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.textAlignment = NSTextAlignmentRight;
+        _titleLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
     }
-    return _expLabel;
+    return _titleLabel;
 }
 
--(UILabel *)expDetailLabel{
-    if (!_expDetailLabel) {
-        _expDetailLabel = [[UILabel alloc] init];
-//        _expDetailLabel.backgroundColor = [UIColor yellowColor];
-        _expDetailLabel.textAlignment = NSTextAlignmentLeft;
-        _expDetailLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
+-(UILabel *)detailLabel{
+    if (!_detailLabel) {
+        _detailLabel = [[UILabel alloc] init];
+        _detailLabel.textAlignment = NSTextAlignmentLeft;
+        _detailLabel.font = [UIFont fontWithName:@"PingFang SC" size:16];
     }
-    return _expDetailLabel;
+    return _detailLabel;
+}
+
+-(UITextView *)detailTextView{
+    if (!_detailTextView) {
+        _detailTextView = [[UITextView alloc] init];
+        _detailTextView.textAlignment = NSTextAlignmentLeft;
+        _detailTextView.editable = NO;
+        _detailTextView.font = [UIFont fontWithName:@"PingFang SC" size:16];
+    }
+    return _detailTextView;
 }
 
 -(void)setupHeadCell{
@@ -121,17 +129,25 @@
 }
 
 -(void)setupDetailCell{
-    [self.contentView addSubview:self.expLabel];
-    [self.contentView addSubview:self.expDetailLabel];
+    [self.contentView addSubview:self.detailLabel];
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.detailTextView];
     
-    [_expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(20);
-        make.top.and.bottom.equalTo(self.contentView);
+        make.top.equalTo(self.contentView);
+        make.height.mas_equalTo(40);
         make.width.mas_equalTo(80);
     }];
     
-    [_expDetailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.expLabel.mas_right).offset(10);
+    [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleLabel.mas_right).offset(10);
+        make.top.and.bottom.equalTo(self.contentView);
+        make.right.equalTo(self.contentView).offset(-20);
+    }];
+    
+    [_detailTextView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleLabel.mas_right).offset(5);
         make.top.and.bottom.equalTo(self.contentView);
         make.right.equalTo(self.contentView).offset(-20);
     }];

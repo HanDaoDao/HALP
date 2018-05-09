@@ -10,4 +10,7 @@
 
 @interface HPSignUpNextViewController : UIViewController
 
+@property(nonatomic,strong) NSString *phoneNumber;
+@property(nonatomic,strong) NSString *passwordNumber;
+
 @end

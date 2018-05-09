@@ -46,12 +46,12 @@
 -(NSMutableArray *)addressArray{
     if (!_addressArray) {
         _addressArray = [NSMutableArray array];
-        HPAddress *address = [[HPAddress alloc] init];
-        address.name = @"韩";
-        address.tel = @"18989899898";
-        address.area = @"东区";
-        address.detail = @"2427";
-        [self.addressArray addObject:address];
+//        HPAddress *address = [[HPAddress alloc] init];
+//        address.name = @"韩";
+//        address.tel = @"18989899898";
+//        address.area = @"东区";
+//        address.detail = @"2427";
+//        [self.addressArray addObject:address];
     }
 
     return _addressArray;

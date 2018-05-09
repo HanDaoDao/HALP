@@ -11,6 +11,7 @@
 #import "HPCanteenContent.h"
 #import "HPExpressContent.h"
 #import "HPUser.h"
+#import "HPOtherContent.h"
 
 @interface HPOrder : NSObject
 
@@ -28,6 +29,7 @@
 @property(nonatomic,strong) NSDate *updatedAt;
 @property(nonatomic,strong) HPCanteenContent *content;
 @property(nonatomic,strong) HPExpressContent *expContent;
+@property(nonatomic,strong) HPOtherContent *otherContent;
 @property(nonatomic,copy) NSString *cancelReason;
 
 @end

@@ -10,6 +10,7 @@
 #import "headFile.pch"
 #import "HPSignUpViewController.h"
 #import "HPMineViewController.h"
+#import "SVProgressHUD.h"
 
 @interface HPLoginViewController ()
 
@@ -141,6 +142,10 @@
         if (user) {
             NSLog(@"%@",user);
             //成功之后跳转到我的页面
+            [SVProgressHUD showWithStatus:@"正在登陆"];
+            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+            [SVProgressHUD dismissWithDelay:1];
             UINavigationController *navigationVC = self.navigationController;
             NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
             for (UIViewController *vc in navigationVC.viewControllers) {
@@ -149,10 +154,15 @@
                     break;
                 }
             }
+            NSNotification *notification = [NSNotification notificationWithName:@"changeNameTongzhi" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
             [navigationVC setViewControllers:viewControllers animated:YES];
             [navigationVC popViewControllerAnimated:YES];
         } else {
             NSLog(@"%@",error);
+            [SVProgressHUD showSuccessWithStatus:@"用户不存在或密码错误"];
+            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
         }
     }];
 

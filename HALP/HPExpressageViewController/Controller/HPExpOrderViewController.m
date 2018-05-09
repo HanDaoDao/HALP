@@ -1,55 +1,56 @@
 //
-//  HPCantOrderViewController.m
+//  HPExpOrderViewController.m
 //  HALP
 //
-//  Created by HanZhao on 2018/3/29.
+//  Created by 韩钊 on 2018/5/8.
 //  Copyright © 2018年 HanZhao. All rights reserved.
 //
 
-#import "HPCantOrderViewController.h"
-#import "ReactiveObjC.h"
-#import "BmobSDK.framework/Headers/Bmob.h"
+#import "HPExpOrderViewController.h"
 #import "HPOrderTableViewCell.h"
+#import "HPExpOrder.h"
 #import "NSString+JSON.h"
 #import "SVProgressHUD.h"
 
-@interface HPCantOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface HPExpOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,copy) NSArray *array;
-@property(nonatomic,copy) NSString *canteenString;
-@property(nonatomic,copy) NSString *floorString;
-@property(nonatomic,copy) NSString *foodString;
-@property(nonatomic,copy) NSString *windowString;
+@property(nonatomic,copy) NSString *companyString;
+@property(nonatomic,copy) NSString *loactionString;
+@property(nonatomic,copy) NSString *sizeString;
+@property(nonatomic,copy) NSString *receiverString;
+@property(nonatomic,copy) NSString *numberString;
 @property(nonatomic,copy) NSString *sendToString;
 @property(nonatomic,copy) NSString *remarkString;
 @property(nonatomic,copy) NSString *honorString;
 
-
 @end
 
-@implementation HPCantOrderViewController
+@implementation HPExpOrderViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
+
     [self initArrayList];
     [self setupView];
-    
+
     //添加手势，键盘隐藏
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesBegan)];
     [self.view addGestureRecognizer:tap];
 }
 
 -(void)initArrayList{
-    _array = @[@"食堂：",@"楼层：",@"窗口：",@"餐品：",@"送 至：",@"备 注：",@"荣誉值："];
+    _array = @[@"快递公司：",@"快递点：",@"包裹尺寸：",@"收件人：",@"取件号：",@"送 至：",@"备 注：",@"荣誉值："];
 }
 
 -(void)setupView{
     UITableViewController* tvc=[[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self addChildViewController:tvc];
     _tableView=tvc.tableView;
+//    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:(UITableViewStyleGrouped)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -90,38 +91,42 @@
         cell.titleLabel.text = [_array objectAtIndex:indexPath.row];
         cell.textField.delegate = self;
         cell.textField.tag = indexPath.row;
-        
+
         [cell.textField addTarget:self action:@selector(textFieldWithText:) forControlEvents:UIControlEventEditingChanged];
         switch (indexPath.row) {
             case 0:
                 cell.textField.placeholder = nil;
                 cell.chooseButton.hidden = NO;
-                cell.textField.placeholder = @"可以输入亦可以选择";
-                cell.textField.text = _canteenString;
+                cell.textField.placeholder = @"快递属于哪个公司";
+                cell.textField.text = _companyString;
                 break;
             case 1:
-                cell.chooseButton.hidden = NO;
-                cell.textField.placeholder = @"可以输入亦可以选择";
-                cell.textField.text = _floorString;
+                cell.chooseButton.hidden = YES;
+                cell.textField.placeholder = @"在哪里取";
+                cell.textField.text = _loactionString;
                 break;
             case 2:
-                cell.textField.placeholder = @"可以输入亦可以选择";
+                cell.textField.placeholder = @"包裹多大";
                 cell.chooseButton.hidden = NO;
-                cell.textField.text = _windowString;
+                cell.textField.text = _sizeString;
                 break;
             case 3:
-                cell.textField.placeholder = @"可以输入亦可以选择";
-                cell.chooseButton.hidden = NO;
-                break;
-            case 4:
-                cell.textField.placeholder = @"餐品给您送至哪";
-                cell.chooseButton.hidden = NO;
-                break;
-            case 5:
-                cell.textField.placeholder = @"还有什么要求";
+                cell.textField.placeholder = @"快递收件人";
                 cell.chooseButton.hidden = YES;
                 break;
+            case 4:
+                cell.textField.placeholder = @"取件号(接单后显示)";
+                cell.chooseButton.hidden = YES;
+                break;
+            case 5:
+                cell.textField.placeholder = @"快递送到哪";
+                cell.chooseButton.hidden = NO;
+                break;
             case 6:
+                cell.textField.placeholder = @"例：易燃，易爆";
+                cell.chooseButton.hidden = YES;
+                break;
+            case 7:
                 cell.textField.placeholder = @"您要悬赏多少荣誉值呢";
                 cell.chooseButton.hidden = YES;
                 break;
@@ -140,29 +145,32 @@
 {
     switch (textField.tag) {
         case 0:
-            self.canteenString = textField.text;break;
+            self.companyString = textField.text;break;
         case 1:
-            self.floorString = textField.text;break;
+            self.loactionString = textField.text;break;
         case 2:
-            self.windowString = textField.text;break;
+            self.sizeString = textField.text;break;
         case 3:
-            self.foodString = textField.text;break;
+            self.receiverString = textField.text;break;
         case 4:
-            self.sendToString = textField.text;break;
+            self.numberString = textField.text;break;
         case 5:
-            self.remarkString = textField.text;break;
+            self.sendToString = textField.text;break;
         case 6:
+            self.remarkString = textField.text;break;
+        case 7:
             self.honorString = textField.text;break;
     }
 }
 
 -(void)chooseButtonAction{
     NSLog(@"WTF.....");
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
 }
 
 -(void)makeSureOrderAction{
     BmobUser *user = [BmobUser currentUser];
-    if (_canteenString == nil || _floorString == nil || _windowString == nil || _foodString == nil || _sendToString == nil || _honorString == nil){
+    if (_companyString == nil || _loactionString == nil || _sizeString == nil || _receiverString == nil || _numberString == nil || _sendToString == nil || _honorString == nil){
         [self showDismissWithTitle:NULL message:@"信息不全,请填写完整"];
         return;
     }
@@ -170,33 +178,34 @@
         _remarkString = @" ";
     }
     NSDictionary * dic = @{
-                           @"canteen":_canteenString,
-                           @"floor":_floorString,
-                           @"window":_windowString,
-                           @"food":_foodString,
-                           @"sendTo":_sendToString,
-                           @"remark":_remarkString,
-                           };
+                            @"company":_companyString,
+                            @"loaction":_loactionString,
+                            @"number":_numberString,
+                            @"receiver":_receiverString,
+                            @"sendTo":_sendToString,
+                            @"size":_sizeString,
+                            @"remark":_remarkString,
+                            };
     NSString *stringDic = [NSString dictionaryToJson:dic];
     NSLog(@"WTF.....%@",stringDic);
-    
+
     BmobObject *order = [BmobObject objectWithClassName:@"Order"];
     NSNumber *honorNum = @([_honorString intValue]);
     [order setObject:honorNum forKey:@"orderHonor"];
     [order setObject:stringDic forKey:@"content"];
-    
+
     BmobUser *creator = [BmobUser objectWithoutDataWithClassName:@"_User" objectId:user.objectId];
     [order setObject:creator forKey:@"creator"];
-    
+
     BmobObject *orderSchool = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"oDNOJJJR"];
     [order setObject:orderSchool forKey:@"orderSchool"];
-    
+
     BmobObject *orderStatus = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"AfQxEEET"];
     [order setObject:orderStatus forKey:@"orderStatus"];
-    
-    BmobObject *orderType = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"RDWbAAAD"];
+
+    BmobObject *orderType = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"YHVNIIIb"];
     [order setObject:orderType forKey:@"orderType"];
-    
+
     //异步保存
     [order saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
         if (isSuccessful) {
@@ -220,6 +229,15 @@
     }];
 }
 
+-(void)touchesBegan{
+    [self.view endEditing:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)showDismissWithTitle:(NSString *)title message:(NSString *)message{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     [self presentViewController:alert animated:YES completion:nil];
@@ -231,15 +249,5 @@
     [alert dismissViewControllerAnimated:YES completion:nil];
     alert = nil;
 }
-
--(void)touchesBegan{
-    [self.view endEditing:YES];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
 
 @end

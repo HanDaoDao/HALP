@@ -11,6 +11,7 @@
 #import "HPUser.h"
 #import "SDWebImage-umbrella.h"
 #import "ReactiveObjC.h"
+#import "UIImageView+HPHelper.h"
 
 @interface HPUserViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
@@ -57,6 +58,7 @@
     _headImageView = [[UIImageView alloc] init];
     _headImageView.layer.cornerRadius = 30;
     _headImageView.layer.masksToBounds = YES;
+    [_headImageView HPHeadimageBrowser];
     [_headImageView setFrame:CGRectMake(0, 0, 60, 60)];
     
     _imagePickerController = [[UIImagePickerController alloc] init];

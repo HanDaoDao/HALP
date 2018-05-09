@@ -11,7 +11,7 @@
 #import "HPListTableViewCell.h"
 #import "HPExpDetailViewController.h"
 #import "headFile.pch"
-#import "HPWriteOrderViewController.h"
+#import "HPExpOrderViewController.h"
 #import "HPOrder.h"
 #import "YYModel.h"
 #import "NSString+JSON.h"
@@ -64,15 +64,17 @@
 
 -(void)targetMethod{
     NSLog(@"关闭");
-
     //下拉刷新请求公告信息
     [self findOrderList:^(NSMutableArray *array, NSError *error) {
-        self.dataArray = array;
-        NSLog(@"111111111111");
+        if (error) {
+            NSLog(@"error:%@",error);
+        }
+        else{
+            self.dataArray = array;
+        }
     }];
-    [self.tableView reloadData];
     [self.tableView.mj_header endRefreshing];
-    
+    [self.tableView reloadData];
 }
 
 -(void)setupView{
@@ -107,9 +109,9 @@
 }
 
 -(void)buttonCompleted{
-    HPWriteOrderViewController *writeOderVC = [[HPWriteOrderViewController alloc] init];
-    writeOderVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:writeOderVC animated:YES];
+    HPExpOrderViewController *expOderVC = [[HPExpOrderViewController alloc] init];
+    expOderVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:expOderVC animated:YES];
 }
 #pragma mark - Tableview datasource and delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -195,9 +197,17 @@
                     NSLog(@"obj ========== %@", [obj objectForKey:@"content"]);
                     HPOrder *addOrder = [[HPOrder alloc] init];
                     NSDictionary *dic = [NSString parseJSONStringToNSDictionary:[obj objectForKey:@"content"]];
+//                    [dic enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+//                        NSLog(@"key = %@ and obj = %@", key, obj);
+//                        if ([obj isEqual:[NSNull null]]) {
+//                            [dic setValue:@" " forKey:key];
+//                            NSLog(@"%s key = %@ and obj = %@", __func__, key, obj);
+//                        }
+//                    }];
                     HPExpressContent* expCont = [HPExpressContent yy_modelWithDictionary:dic];
-                    
+
                     addOrder.expContent = expCont;
+                    addOrder.objectID = obj.objectId;
                     addOrder.orderHonor = [obj objectForKey:@"orderHonor"];
                     addOrder.creator = [obj objectForKey:@"creator"];
                     [self.dataArray addObject:addOrder];

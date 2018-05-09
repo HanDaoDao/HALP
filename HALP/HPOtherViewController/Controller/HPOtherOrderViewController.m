@@ -1,39 +1,36 @@
 //
-//  HPCantOrderViewController.m
+//  HPOtherOrderViewController.m
 //  HALP
 //
-//  Created by HanZhao on 2018/3/29.
+//  Created by 韩钊 on 2018/5/8.
 //  Copyright © 2018年 HanZhao. All rights reserved.
 //
 
-#import "HPCantOrderViewController.h"
-#import "ReactiveObjC.h"
-#import "BmobSDK.framework/Headers/Bmob.h"
+#import "HPOtherOrderViewController.h"
 #import "HPOrderTableViewCell.h"
 #import "NSString+JSON.h"
 #import "SVProgressHUD.h"
+#import "NSDate+Time.h"
 
-@interface HPCantOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
+
+@interface HPOtherOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,copy) NSArray *array;
-@property(nonatomic,copy) NSString *canteenString;
-@property(nonatomic,copy) NSString *floorString;
-@property(nonatomic,copy) NSString *foodString;
-@property(nonatomic,copy) NSString *windowString;
-@property(nonatomic,copy) NSString *sendToString;
-@property(nonatomic,copy) NSString *remarkString;
+@property(nonatomic,copy) NSString *titleString;
+@property(nonatomic,copy) NSString *contentString;
 @property(nonatomic,copy) NSString *honorString;
-
 
 @end
 
-@implementation HPCantOrderViewController
+@implementation HPOtherOrderViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
+
     [self initArrayList];
     [self setupView];
     
@@ -43,7 +40,7 @@
 }
 
 -(void)initArrayList{
-    _array = @[@"食堂：",@"楼层：",@"窗口：",@"餐品：",@"送 至：",@"备 注：",@"荣誉值："];
+    _array = @[@"标题：",@"需求：",@"荣誉值："];
 }
 
 -(void)setupView{
@@ -53,6 +50,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
+//    [self.tableView registerClass:[HPOrderTableViewCell class] forCellReuseIdentifier:kHPOrderTableViewCell];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.top.bottom.equalTo(self.view);
@@ -72,11 +71,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"cell";
-    HPOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    HPOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kHPOrderTableViewCell];
     
     if (cell == nil) {
-        cell = [[HPOrderTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
+        cell = [[HPOrderTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:kHPOrderTableViewCell];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else{
         for (UIView *subView in cell.contentView.subviews)
@@ -94,39 +93,21 @@
         [cell.textField addTarget:self action:@selector(textFieldWithText:) forControlEvents:UIControlEventEditingChanged];
         switch (indexPath.row) {
             case 0:
-                cell.textField.placeholder = nil;
-                cell.chooseButton.hidden = NO;
-                cell.textField.placeholder = @"可以输入亦可以选择";
-                cell.textField.text = _canteenString;
+                cell.chooseButton.hidden = YES;
+                cell.textField.placeholder = @"输入标题";
+                cell.textField.text = _titleString;
                 break;
             case 1:
-                cell.chooseButton.hidden = NO;
-                cell.textField.placeholder = @"可以输入亦可以选择";
-                cell.textField.text = _floorString;
+                cell.chooseButton.hidden = YES;
+                cell.textField.placeholder = @"你的需求是什么";
+                cell.textField.text = _contentString;
                 break;
             case 2:
-                cell.textField.placeholder = @"可以输入亦可以选择";
-                cell.chooseButton.hidden = NO;
-                cell.textField.text = _windowString;
-                break;
-            case 3:
-                cell.textField.placeholder = @"可以输入亦可以选择";
-                cell.chooseButton.hidden = NO;
-                break;
-            case 4:
-                cell.textField.placeholder = @"餐品给您送至哪";
-                cell.chooseButton.hidden = NO;
-                break;
-            case 5:
-                cell.textField.placeholder = @"还有什么要求";
+                cell.textField.placeholder = @"您要悬赏的荣誉值";
                 cell.chooseButton.hidden = YES;
-                break;
-            case 6:
-                cell.textField.placeholder = @"您要悬赏多少荣誉值呢";
-                cell.chooseButton.hidden = YES;
+                cell.textField.text = _honorString;
                 break;
             default:
-                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction) forControlEvents:UIControlEventTouchUpInside];
                 break;
         }
     }else{
@@ -140,42 +121,23 @@
 {
     switch (textField.tag) {
         case 0:
-            self.canteenString = textField.text;break;
+            self.titleString = textField.text;break;
         case 1:
-            self.floorString = textField.text;break;
+            self.contentString = textField.text;break;
         case 2:
-            self.windowString = textField.text;break;
-        case 3:
-            self.foodString = textField.text;break;
-        case 4:
-            self.sendToString = textField.text;break;
-        case 5:
-            self.remarkString = textField.text;break;
-        case 6:
             self.honorString = textField.text;break;
     }
 }
 
--(void)chooseButtonAction{
-    NSLog(@"WTF.....");
-}
-
 -(void)makeSureOrderAction{
     BmobUser *user = [BmobUser currentUser];
-    if (_canteenString == nil || _floorString == nil || _windowString == nil || _foodString == nil || _sendToString == nil || _honorString == nil){
+    if (_titleString == nil || _contentString == nil || _honorString == nil){
         [self showDismissWithTitle:NULL message:@"信息不全,请填写完整"];
         return;
     }
-    if (_remarkString == nil) {
-        _remarkString = @" ";
-    }
     NSDictionary * dic = @{
-                           @"canteen":_canteenString,
-                           @"floor":_floorString,
-                           @"window":_windowString,
-                           @"food":_foodString,
-                           @"sendTo":_sendToString,
-                           @"remark":_remarkString,
+                           @"title":_titleString,
+                           @"content":_contentString,
                            };
     NSString *stringDic = [NSString dictionaryToJson:dic];
     NSLog(@"WTF.....%@",stringDic);
@@ -194,7 +156,7 @@
     BmobObject *orderStatus = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"AfQxEEET"];
     [order setObject:orderStatus forKey:@"orderStatus"];
     
-    BmobObject *orderType = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"RDWbAAAD"];
+    BmobObject *orderType = [BmobObject objectWithoutDataWithClassName:@"Dictionary" objectId:@"lmh2999k"];
     [order setObject:orderType forKey:@"orderType"];
     
     //异步保存
@@ -220,6 +182,15 @@
     }];
 }
 
+-(void)touchesBegan{
+    [self.view endEditing:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)showDismissWithTitle:(NSString *)title message:(NSString *)message{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     [self presentViewController:alert animated:YES completion:nil];
@@ -231,15 +202,5 @@
     [alert dismissViewControllerAnimated:YES completion:nil];
     alert = nil;
 }
-
--(void)touchesBegan{
-    [self.view endEditing:YES];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
 
 @end

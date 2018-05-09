@@ -10,4 +10,6 @@
 
 @interface HPDetaileCompleteViewController : UIViewController
 
+@property(nonatomic,copy) NSString *time;
+
 @end
