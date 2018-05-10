@@ -57,6 +57,8 @@ static HPUser* _instance;
     }
     self.stuID = [bUser objectForKey:@"stuId"];
     self.mobilePhoneNumber = [bUser objectForKey:@"mobilePhoneNumber"];
+    
+    self.addressList = [bUser objectForKey:@"addr"];
 }
 
 @end

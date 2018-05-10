@@ -147,6 +147,8 @@
             [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
             [SVProgressHUD dismissWithDelay:1];
             UINavigationController *navigationVC = self.navigationController;
+            NSNotification *notification = [NSNotification notificationWithName:@"changeNameTongzhi" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
             NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
             for (UIViewController *vc in navigationVC.viewControllers) {
                 [viewControllers addObject:vc];
@@ -154,8 +156,6 @@
                     break;
                 }
             }
-            NSNotification *notification = [NSNotification notificationWithName:@"changeNameTongzhi" object:nil userInfo:nil];
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
             [navigationVC setViewControllers:viewControllers animated:YES];
             [navigationVC popViewControllerAnimated:YES];
         } else {

@@ -184,7 +184,6 @@
 
 -(void)findOrderList:(findOrderBlock)callBack{
     BmobQuery *bquery = [BmobQuery queryWithClassName:@"Order"];
-    //查找GameScore表的数据
     [bquery includeKey:@"orderType,orderStatus,,orderSchool,creator,helper"];
     
     [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -194,16 +193,10 @@
         }else{
             for (BmobObject *obj in array) {
                 if ([[[obj objectForKey:@"orderType"] objectForKey:@"dataType"] intValue] == 2) {
+                    if ([[[obj objectForKey:@"orderStatus"] objectForKey:@"dataType"] integerValue] == 0) {
                     NSLog(@"obj ========== %@", [obj objectForKey:@"content"]);
                     HPOrder *addOrder = [[HPOrder alloc] init];
                     NSDictionary *dic = [NSString parseJSONStringToNSDictionary:[obj objectForKey:@"content"]];
-//                    [dic enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-//                        NSLog(@"key = %@ and obj = %@", key, obj);
-//                        if ([obj isEqual:[NSNull null]]) {
-//                            [dic setValue:@" " forKey:key];
-//                            NSLog(@"%s key = %@ and obj = %@", __func__, key, obj);
-//                        }
-//                    }];
                     HPExpressContent* expCont = [HPExpressContent yy_modelWithDictionary:dic];
 
                     addOrder.expContent = expCont;
@@ -211,6 +204,7 @@
                     addOrder.orderHonor = [obj objectForKey:@"orderHonor"];
                     addOrder.creator = [obj objectForKey:@"creator"];
                     [self.dataArray addObject:addOrder];
+                    }
                 }
             }
         }

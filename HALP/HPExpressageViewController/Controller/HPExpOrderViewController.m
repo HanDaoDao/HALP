@@ -11,11 +11,17 @@
 #import "HPExpOrder.h"
 #import "NSString+JSON.h"
 #import "SVProgressHUD.h"
-
+#import "HPUser.h"
+#import "headFile.pch"
 @interface HPExpOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,strong) HPUser *user;
 @property(nonatomic,copy) NSArray *array;
+@property(nonatomic,strong) NSMutableArray* expNameArray;
+@property(nonatomic,strong) NSMutableArray* expLocationArray;
+@property(nonatomic,strong) NSMutableArray* expSizeArray;
+@property(nonatomic,strong) NSMutableArray* expAddressArray;
 @property(nonatomic,copy) NSString *companyString;
 @property(nonatomic,copy) NSString *loactionString;
 @property(nonatomic,copy) NSString *sizeString;
@@ -29,14 +35,43 @@
 
 @implementation HPExpOrderViewController
 
+//懒加载dataArray
+-(NSMutableArray *)expNameArray{
+    if (!_expNameArray) {
+        _expNameArray = [NSMutableArray array];
+    }
+    return _expNameArray;
+}
+
+-(NSMutableArray *)expLocationArray{
+    if (!_expLocationArray) {
+        _expLocationArray = [NSMutableArray array];
+    }
+    return _expLocationArray;
+}
+
+-(NSMutableArray *)expSizeArray{
+    if (!_expSizeArray) {
+        _expSizeArray = [NSMutableArray array];
+    }
+    return _expSizeArray;
+}
+
+-(NSMutableArray *)expAddressArray{
+    if (!_expAddressArray) {
+        _expAddressArray = [NSMutableArray array];
+    }
+    return _expAddressArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.user = [HPUser sharedHPUser];
+    [_user initUser];
 
     [self initArrayList];
     [self setupView];
-
     //添加手势，键盘隐藏
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesBegan)];
     [self.view addGestureRecognizer:tap];
@@ -44,17 +79,26 @@
 
 -(void)initArrayList{
     _array = @[@"快递公司：",@"快递点：",@"包裹尺寸：",@"收件人：",@"取件号：",@"送 至：",@"备 注：",@"荣誉值："];
+    [self findExpressNameList:^(NSMutableArray *array, NSError *error) {
+        self.expNameArray = array;
+    }];
+    [self findExpressLocationList:^(NSMutableArray *array, NSError *error) {
+        self.expLocationArray = array;
+    }];
+    [self findExpressSizeList:^(NSMutableArray *array, NSError *error) {
+        self.expSizeArray = array;
+    }];
+    
+    self.expAddressArray = _user.addressList;
 }
 
 -(void)setupView{
     UITableViewController* tvc=[[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self addChildViewController:tvc];
     _tableView=tvc.tableView;
-//    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:(UITableViewStyleGrouped)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.top.bottom.equalTo(self.view);
     }];
@@ -95,43 +139,54 @@
         [cell.textField addTarget:self action:@selector(textFieldWithText:) forControlEvents:UIControlEventEditingChanged];
         switch (indexPath.row) {
             case 0:
-                cell.textField.placeholder = nil;
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 0;
                 cell.textField.placeholder = @"快递属于哪个公司";
                 cell.textField.text = _companyString;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 break;
             case 1:
-                cell.chooseButton.hidden = YES;
+                cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 1;
                 cell.textField.placeholder = @"在哪里取";
                 cell.textField.text = _loactionString;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 break;
             case 2:
                 cell.textField.placeholder = @"包裹多大";
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 2;
                 cell.textField.text = _sizeString;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 break;
             case 3:
                 cell.textField.placeholder = @"快递收件人";
                 cell.chooseButton.hidden = YES;
+                cell.textField.text = _receiverString;
                 break;
             case 4:
                 cell.textField.placeholder = @"取件号(接单后显示)";
                 cell.chooseButton.hidden = YES;
+                cell.textField.text = _numberString;
                 break;
             case 5:
                 cell.textField.placeholder = @"快递送到哪";
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 5;
+                cell.textField.text = _sendToString;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 break;
             case 6:
                 cell.textField.placeholder = @"例：易燃，易爆";
                 cell.chooseButton.hidden = YES;
+                cell.textField.text = _remarkString;
                 break;
             case 7:
                 cell.textField.placeholder = @"您要悬赏多少荣誉值呢";
                 cell.chooseButton.hidden = YES;
+                cell.textField.text = _honorString;
                 break;
             default:
-                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction) forControlEvents:UIControlEventTouchUpInside];
                 break;
         }
     }else{
@@ -163,9 +218,60 @@
     }
 }
 
--(void)chooseButtonAction{
-    NSLog(@"WTF.....");
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+-(void)chooseButtonAction:(UIButton *)sender{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+    switch (sender.tag) {
+        case 0:
+            for (int i = 0; i < _expNameArray.count; i++) {
+                [alert addAction:[UIAlertAction actionWithTitle:((void)(@"%@"),[_expNameArray objectAtIndex:i])
+                                                          style:(UIAlertActionStyleDefault)
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                            _companyString = [_expNameArray objectAtIndex:i];
+                                                            [self.tableView reloadData];
+                                                        }]];
+            }
+            break;
+        case 1:
+            for (int i = 0; i < _expLocationArray.count; i++) {
+                [alert addAction:[UIAlertAction actionWithTitle:((void)(@"%@"),[_expLocationArray objectAtIndex:i])
+                                                          style:(UIAlertActionStyleDefault)
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                            _loactionString = [_expLocationArray objectAtIndex:i];
+                                                            [self.tableView reloadData];
+                                                        }]];
+            }
+            break;
+        case 2:
+            for (int i = 0; i < _expSizeArray.count; i++) {
+                [alert addAction:[UIAlertAction actionWithTitle:((void)(@"%@"),[_expSizeArray objectAtIndex:i])
+                                                          style:(UIAlertActionStyleDefault)
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                            _sizeString = [_expSizeArray objectAtIndex:i];
+                                                            [self.tableView reloadData];
+                                                        }]];
+            }
+            break;
+        case 5:
+            for (int i = 0; i < _expAddressArray.count; i++) {
+                [alert addAction:[UIAlertAction actionWithTitle:((void)(@"%@"),[_expAddressArray objectAtIndex:i])
+                                                          style:(UIAlertActionStyleDefault)
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                            _sendToString = [_expAddressArray objectAtIndex:i];
+                                                            [self.tableView reloadData];
+                                                        }]];
+            }
+            break;
+        default:
+            break;
+    }
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:(UIAlertActionStyleCancel)
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                            }]];
+    
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
 }
 
 -(void)makeSureOrderAction{
@@ -187,8 +293,7 @@
                             @"remark":_remarkString,
                             };
     NSString *stringDic = [NSString dictionaryToJson:dic];
-    NSLog(@"WTF.....%@",stringDic);
-
+    
     BmobObject *order = [BmobObject objectWithClassName:@"Order"];
     NSNumber *honorNum = @([_honorString intValue]);
     [order setObject:honorNum forKey:@"orderHonor"];
@@ -210,7 +315,6 @@
     [order saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
         if (isSuccessful) {
             NSLog(@"创建订单成功！！");
-            NSLog(@"objectid :%@",order.objectId);
             [SVProgressHUD showSuccessWithStatus:@"创建订单成功"];
             [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
             [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
@@ -226,6 +330,65 @@
                 [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
             }
         }
+    }];
+}
+
+-(void)findExpressNameList:(findExpBlock)callBack{
+    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Express"];
+    [bquery includeKey:@"expSchool"];
+    
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        self.expNameArray = nil;
+        if (error) {
+            NSLog(@"ERROR");
+        }else{
+            for (BmobObject *obj in array) {
+                if ([[[obj objectForKey:@"expSchool"] objectForKey:@"dataType"] intValue] == 11664) {
+                    NSString *addName = [obj objectForKey:@"expName"];
+                    [self.expNameArray addObject:addName];
+                }
+            }
+        }
+        callBack(self.expNameArray,error);
+    }];
+}
+
+-(void)findExpressLocationList:(findExpBlock)callBack{
+    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Express"];
+    [bquery includeKey:@"expSchool"];
+    
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        self.expLocationArray = nil;
+        if (error) {
+            NSLog(@"ERROR");
+        }else{
+            for (BmobObject *obj in array) {
+                if ([[[obj objectForKey:@"expSchool"] objectForKey:@"dataType"] intValue] == 11664) {
+                    NSString *addName = [obj objectForKey:@"location"];
+                    [self.expLocationArray addObject:addName];
+                }
+            }
+        }
+        callBack(self.expLocationArray,error);
+    }];
+}
+
+-(void)findExpressSizeList:(findExpBlock)callBack{
+    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
+    
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        self.expSizeArray = nil;
+        if (error) {
+            NSLog(@"ERROR");
+        }else{
+            for (BmobObject *obj in array) {
+                if ([[obj objectForKey:@"dicType"] intValue] == 5) {
+                    NSString *addName = [obj objectForKey:@"dataName"];
+                    [self.expSizeArray addObject:addName];
+                }
+            }
+        }
+        callBack(self.expSizeArray,error);
     }];
 }
 

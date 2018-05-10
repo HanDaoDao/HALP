@@ -10,4 +10,6 @@
 
 @interface HPExpOrderViewController : UIViewController
 
+typedef void(^findExpBlock)(NSMutableArray *array, NSError *error);
+
 @end

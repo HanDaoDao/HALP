@@ -37,6 +37,7 @@
 		4C64D87520A14C31001C3D3C /* HPExpOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C64D87420A14C31001C3D3C /* HPExpOrderViewController.m */; };
 		4C64D87820A14E2E001C3D3C /* HPOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C64D87720A14E2E001C3D3C /* HPOrderTableViewCell.m */; };
 		4C64D87B20A1DFEA001C3D3C /* UIImageView+HPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C64D87A20A1DFEA001C3D3C /* UIImageView+HPHelper.m */; };
+		4C64D88420A3E513001C3D3C /* HPCanteenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C64D88320A3E512001C3D3C /* HPCanteenModel.m */; };
 		4C91EA471FFE479C007C6C05 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C91EA461FFE479C007C6C05 /* AppDelegate.m */; };
 		4C91EA4D1FFE479C007C6C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C91EA4B1FFE479C007C6C05 /* Main.storyboard */; };
 		4C91EA4F1FFE479C007C6C05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C91EA4E1FFE479C007C6C05 /* Assets.xcassets */; };
@@ -142,6 +143,8 @@
 		4C64D87720A14E2E001C3D3C /* HPOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPOrderTableViewCell.m; sourceTree = "<group>"; };
 		4C64D87920A1DFEA001C3D3C /* UIImageView+HPHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HPHelper.h"; sourceTree = "<group>"; };
 		4C64D87A20A1DFEA001C3D3C /* UIImageView+HPHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HPHelper.m"; sourceTree = "<group>"; };
+		4C64D88220A3E512001C3D3C /* HPCanteenModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteenModel.h; sourceTree = "<group>"; };
+		4C64D88320A3E512001C3D3C /* HPCanteenModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCanteenModel.m; sourceTree = "<group>"; };
 		4C91EA421FFE479C007C6C05 /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C91EA451FFE479C007C6C05 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C91EA461FFE479C007C6C05 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -239,6 +242,8 @@
 				4C9E8AF62085C346003CF17B /* HPUserDAO.m */,
 				4C9E8AF82085C52E003CF17B /* HPDictionary.h */,
 				4C9E8AF92085C52E003CF17B /* HPDictionary.m */,
+				4C64D88220A3E512001C3D3C /* HPCanteenModel.h */,
+				4C64D88320A3E512001C3D3C /* HPCanteenModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -786,6 +791,7 @@
 				4C43136120070BA700E5627D /* HPTabBarController.m in Sources */,
 				4C3654A4205FD0CB00046DB1 /* HPAddress.m in Sources */,
 				4C3BF7052057D8200010F913 /* HPCanteenTableViewController.m in Sources */,
+				4C64D88420A3E513001C3D3C /* HPCanteenModel.m in Sources */,
 				4C36549E205FA4D100046DB1 /* HPNewAddressTableViewCell.m in Sources */,
 				4C431370200713B900E5627D /* HPExpressageViewController.m in Sources */,
 				4C5BC673205159230021AA0D /* HPUserNameViewController.m in Sources */,

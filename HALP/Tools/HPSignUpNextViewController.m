@@ -230,6 +230,10 @@
 }
 
 -(void)completeAction{
+    [SVProgressHUD showWithStatus:@"正在注册"];
+    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+    [SVProgressHUD dismissWithDelay:1];
     NSString *nameIDString = @"11664_";
     NSString *IDString = _stuIDTextField.text;
     nameIDString = [nameIDString stringByAppendingString:IDString];
@@ -246,6 +250,13 @@
     [bUser setObject:nickNameString forKey:@"nickName"];
     [bUser setObject:@100 forKey:@"stuHonor"];
     [bUser setObject:school forKey:@"stuSchool"];
+//    self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"qx2fEEEM"];
+//    self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"QGuB2226"];
+    if (_checkBoxBoy.isEnabled) {
+        self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"qx2fEEEM"];
+    } else {
+        self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"QGuB2226"];
+    }
     [bUser setObject:_sex forKey:@"sex"];
 
     [bUser signUpInBackgroundWithBlock:^ (BOOL isSuccessful, NSError *error){
@@ -284,19 +295,6 @@
     self.checkBoxGroup = [BEMCheckBoxGroup groupWithCheckBoxes:checkBoxArray];
     self.checkBoxGroup.selectedCheckBox = self.checkBoxBoy;
     self.checkBoxGroup.mustHaveSelection = YES;
-}
-
-#pragma mark - BEMCheckBoxDelegate
-
-- (void)didTapCheckBox:(BEMCheckBox *)checkBox {
-    [self.view endEditing:YES];
-    if (checkBox.tag == 0) {
-        self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"qx2fEEEM"];
-    }else{
-        self.sex = [BmobUser objectWithoutDataWithClassName:@"Dictionary" objectId:@"QGuB2226"];
-
-    }
-
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
