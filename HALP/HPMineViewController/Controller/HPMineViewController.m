@@ -60,6 +60,9 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
 
 //通知方法
 -(void)modifiy{
+    _bUser = [BmobUser currentUser];
+    self.user = [HPUser sharedHPUser];
+    [_user initUser];
     [self.mineTableView reloadData];
 }
 
@@ -83,7 +86,7 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
 }
 
 -(void)initMineListNames{
-    _mineListNames = @[@"荣誉值",@"我的地址",@"我发布的",@"我帮助的",@"退出登录"];
+    _mineListNames = @[@"荣誉值",@"我的地址",@"我发布的",@"我帮助的",@"我关注的",@"退出登录"];
 }
 
 #pragma mark - Tableview datasource
@@ -151,6 +154,7 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
     HPLoginViewController *loginViewController = [[HPLoginViewController alloc] init];
     loginViewController.hidesBottomBarWhenPushed = YES;
     
+    
     if (indexPath.section == 0) {
         if (_bUser) {
             [self.navigationController pushViewController:userViewController animated:YES];
@@ -174,17 +178,26 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
             case 3:
                 break;
             case 4:
-                [BmobUser logout];
-                [SVProgressHUD showSuccessWithStatus:@"退出登录"];
-                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                [SVProgressHUD dismissWithDelay:0.8];
-                [self.mineTableView reloadData];
+                break;
+            case 5:
                 if (!_bUser) {
                     [SVProgressHUD showSuccessWithStatus:@"已经退出登录"];
                     [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
                     [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
                     [SVProgressHUD dismissWithDelay:0.8];
+                }else{
+                    UIAlertController *logoutAlert = [UIAlertController alertControllerWithTitle:@"是否退出登录" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
+                    [logoutAlert addAction:[UIAlertAction actionWithTitle:@"是" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                        [BmobUser logout];
+                        [SVProgressHUD showSuccessWithStatus:@"退出登录"];
+                        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+                        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                        [SVProgressHUD dismissWithDelay:0.8];
+                        [self.mineTableView reloadData];
+                    }]];
+                    [logoutAlert addAction:[UIAlertAction actionWithTitle:@"否" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+                    }]];
+                    [self presentViewController:logoutAlert animated:YES completion:nil];
                 }
                 break;
             default:
@@ -195,11 +208,6 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return indexPath.section == 0? 80:44;
-}
-
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeHeadTongzhi" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeNameTongzhi" object:nil];
 }
 
 @end

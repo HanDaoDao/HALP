@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPUser.h"
 
 @interface HPAdd_addressViewController : UIViewController
+
+@property(nonatomic,strong) HPUser *user;
 
 @end

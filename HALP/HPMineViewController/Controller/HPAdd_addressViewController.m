@@ -7,128 +7,68 @@
 //
 
 #import "HPAdd_addressViewController.h"
-#import "HPNewAddressTableViewCell.h"
 #import "HPAddress.h"
 #import "HPAddressViewController.h"
 
-@interface HPAdd_addressViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HPAdd_addressViewController ()
 
-@property(nonatomic,strong) UITableView *tableView;
-@property(nonatomic,strong) NSArray *contactsArray;
-@property(nonatomic,strong) NSArray *addressArray;
-@property(nonatomic,strong) HPAddress *oneAddress;
+//@property(nonatomic,strong) UITableView *tableView;
+//@property(nonatomic,strong) NSArray *contactsArray;
+//@property(nonatomic,strong) NSArray *addressArray;
+//@property(nonatomic,strong) HPAddress *oneAddress;
+@property(nonatomic,strong) UITextView *addressTextView;
 
 @end
 
 @implementation HPAdd_addressViewController
 
+-(void)loadView{
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    scrollView.alwaysBounceVertical = YES;
+    self.view = scrollView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0];
     self.navigationController.navigationBar.topItem.title = @" ";
     self.navigationItem.title = @"新增地址";
     
     UIBarButtonItem *saveBarButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:(UIBarButtonItemStyleDone) target:self action:@selector(saveOneAddress)];
     self.navigationItem.rightBarButtonItem = saveBarButton;
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, VIEW_WIDTH, VIEW_HEIGHT) style:(UITableViewStyleGrouped)];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
+    _addressTextView = [[UITextView alloc] init];
+    _addressTextView.frame = CGRectMake(16, 16, SCREEN_WIDTH - 2 * 16, 92);
+    _addressTextView.font = [UIFont systemFontOfSize:16.0];
+    [self.view addSubview:_addressTextView];
 
-    [self initArrayList];
-}
-
--(void)initArrayList{
-    _contactsArray = @[@"姓名：",@"电话："];
-    _addressArray = @[@"东 / 西 区:",@"楼号宿舍号:"];
 }
 
 -(void)saveOneAddress{
-    if (!_oneAddress) {
-        NSArray *array = [_tableView indexPathsForVisibleRows];
-        NSMutableArray *arrayText = [[NSMutableArray alloc]init];
-        int i = 0;
-        
-        for (NSIndexPath *indexPath in array) {
-            HPNewAddressTableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
-            if (cell.textField.text.length == 0) {
-                [self showDismissWithTitle:NULL message:@"信息不全,请填写完整"];
-                return;
+    NSString *addressString = _addressTextView.text;
+    if (addressString.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请填写地址"];
+        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+        [SVProgressHUD dismissWithDelay:1.5];
+    }else{
+        _user.addressList = [_user.addressList arrayByAddingObject:addressString];
+        BmobUser *bUser = [BmobUser currentUser];
+        [bUser setObject:_user.addressList forKey:@"addr"];
+        [bUser updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            if (isSuccessful) {
+                [SVProgressHUD showSuccessWithStatus:@"创建成功"];
+                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                [SVProgressHUD dismissWithDelay:1.5];
+                NSNotification *notification = [NSNotification notificationWithName:@"appendAddressTongzhi" object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                NSLog(@"error %@",[error description]);
             }
-            arrayText[i] = cell.textField.text;
-            i++;
-        }
-        _oneAddress = [[HPAddress alloc] init];
-        _oneAddress.name = arrayText[0];
-        _oneAddress.tel = arrayText[1];
-        _oneAddress.area = arrayText[2];
-        _oneAddress.detail = arrayText[3];
+        }];
     }
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_oneAddress,@"appendAddress", nil];
-    NSNotification *notification = [NSNotification notificationWithName:@"appendAddressTongzhi" object:nil userInfo:dict];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)showDismissWithTitle:(NSString *)title message:(NSString *)message{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:alert animated:YES completion:nil];
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(creatAlert:) userInfo:alert repeats:NO];
-}
-
-- (void)creatAlert:(NSTimer *)timer{
-    UIAlertController * alert = (UIAlertController *)[timer userInfo];
-    [alert dismissViewControllerAnimated:YES completion:nil];
-    alert = nil;
-    
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return section == 0 ? 30 : 15;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"cell";
-    HPNewAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (cell == nil) {
-        cell = [[HPNewAddressTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:identifier];
-    }
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-
-
-    if (indexPath.section == 0) {
-        [cell setupContactsView];
-        cell.titleLabel.text = [_contactsArray objectAtIndex:indexPath.row];
-    }
-    else if (indexPath.section == 1){
-        [cell setupAddressView];
-        cell.titleLabel.text = [_addressArray objectAtIndex:indexPath.row];
-        if (indexPath.row == 0) {
-            cell.textField.placeholder = @"如：东区";
-        } else {
-            cell.textField.placeholder = @"如：安悦公寓北区 427";
-        }
-    }
-
-    return cell;
-}
-
-- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return (section == 0) ? @"联系人" : @"收货地址";
 }
 
 @end

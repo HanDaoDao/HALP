@@ -12,12 +12,13 @@
 #import "HPAddressListTableViewCell.h"
 #import "HPAdd_addressViewController.h"
 #import "ReactiveObjC.h"
+#import "HPUser.h"
 
 @interface HPAddressViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+@property(nonatomic,strong) HPUser *user;
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) UIButton *addButton;
-@property(nonatomic,strong) NSMutableArray *addressArray;
 
 @end
 
@@ -26,35 +27,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
+    [self addressList];
     [self setupView];
-    
     
     @weakify(self);
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"appendAddressTongzhi" object:nil] subscribeNext:^(NSNotification *noti) {
         @strongify(self);
-        HPAddress *address = noti.userInfo[@"appendAddress"];
-        [self appendAddress:address];
         [self.tableView reloadData];
     }];
     
 }
 
--(void)appendAddress:(HPAddress *)appendAddress{
-    [self.addressArray addObject:appendAddress];
-}
-
--(NSMutableArray *)addressArray{
-    if (!_addressArray) {
-        _addressArray = [NSMutableArray array];
-//        HPAddress *address = [[HPAddress alloc] init];
-//        address.name = @"韩";
-//        address.tel = @"18989899898";
-//        address.area = @"东区";
-//        address.detail = @"2427";
-//        [self.addressArray addObject:address];
-    }
-
-    return _addressArray;
+-(void)addressList{
+    self.user = [HPUser sharedHPUser];
+    [_user initUser];
+//    NSLog(@"============！！！%@",self.user.addressList);
 }
 
 -(void)setupView{
@@ -87,22 +75,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _addressArray.count;
+    return _user.addressList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"cell";
-    HPAddressListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        cell = [[HPAddressListTableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:identifier];
     }
 
-    HPAddress *address = [_addressArray objectAtIndex:indexPath.row];
-    cell.nameLabel.text = [address.name stringByAppendingString:@" 同学"];
-    cell.telLabel.text = address.tel;
-    NSString *addressString = [self addressStringMerge:address.area and:address.detail];
-    cell.addressLabel.text = addressString;
+    NSString *addressString = [_user.addressList objectAtIndex:indexPath.row];
+    cell.textLabel.text = addressString;
     
     return cell;
 }
@@ -119,21 +104,29 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle ==UITableViewCellEditingStyleDelete) {//如果编辑样式为删除样式
-        if (indexPath.row<[self.addressArray count]) {
-            [self.addressArray removeObjectAtIndex:indexPath.row];//移除数据源的数据
+        if (indexPath.row<[_user.addressList count]) {
+            [self.user.addressList removeObjectAtIndex:indexPath.row];//移除数据源的数据
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
         }
     }
 }
 
--(NSString *)addressStringMerge:(NSString *)string1 and:(NSString *)string2{
-    NSString *addressString = [NSString stringWithFormat:@"%@  ", string1];
-    addressString = [addressString stringByAppendingString:string2];
-    return addressString;
+-(void)viewWillDisappear:(BOOL)animated{
+    BmobUser *bUser = [BmobUser currentUser];
+    [bUser setObject:_user.addressList forKey:@"addr"];
+    [bUser updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+        if (isSuccessful) {
+            NSLog(@"更新ing");
+
+        }else{
+            NSLog(@"error %@",[error description]);
+        }
+    }];
 }
 
 -(void)addAddressButton{
     HPAdd_addressViewController *addAddressVC = [[HPAdd_addressViewController alloc] init];
+    addAddressVC.user = _user;
     [self.navigationController pushViewController:addAddressVC animated:YES];
 }
 

@@ -11,8 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "HPOrder.h"
 
-typedef void(^findOrderBlock)(NSMutableArray *array, NSError *error);
-
 @interface HPCanteenViewController : UIViewController
+
+typedef void(^findOrderBlock)(NSMutableArray *array, NSError *error);
 
 @end

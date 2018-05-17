@@ -2,7 +2,7 @@
 //  HPUser.m
 //  HALP
 //
-//  Created by HanZhao on 2018/3/8.
+//  Created by HanZhao on 2018/4/8.
 //  Copyright © 2018年 HanZhao. All rights reserved.
 //
 
@@ -58,7 +58,7 @@ static HPUser* _instance;
     self.stuID = [bUser objectForKey:@"stuId"];
     self.mobilePhoneNumber = [bUser objectForKey:@"mobilePhoneNumber"];
     
-    self.addressList = [bUser objectForKey:@"addr"];
+    self.addressList = [[bUser objectForKey:@"addr"] mutableCopy];
 }
 
 @end

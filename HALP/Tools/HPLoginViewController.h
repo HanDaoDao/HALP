@@ -10,4 +10,6 @@
 
 @interface HPLoginViewController : UIViewController
 
+typedef void(^findExpBlock)(NSMutableDictionary *dictionary, NSError *error);
+
 @end
