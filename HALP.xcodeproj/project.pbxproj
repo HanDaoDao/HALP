@@ -55,7 +55,9 @@
 		4CD51347206A48E0008F6ED3 /* HPOrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51346206A48E0008F6ED3 /* HPOrderDetailCell.m */; };
 		4CD5134A206CE9B6008F6ED3 /* HPCantOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */; };
 		4CD5134D206CEA48008F6ED3 /* HPCantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5134C206CEA48008F6ED3 /* HPCantDetailViewController.m */; };
-		4CE45D5420AD5568008F0A35 /* HPOrderListStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE45D5320AD5568008F0A35 /* HPOrderListStatusViewController.m */; };
+		4CE45D5420AD5568008F0A35 /* HPMineOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE45D5320AD5568008F0A35 /* HPMineOrderListViewController.m */; };
+		4CE45D5720AD5865008F0A35 /* HPMineOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE45D5620AD5865008F0A35 /* HPMineOrderTableViewCell.m */; };
+		4CE45D5A20ADD831008F0A35 /* HPFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE45D5920ADD831008F0A35 /* HPFriendViewController.m */; };
 		4CEC7BB3208F0D7900D62432 /* HPSignUpNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BB2208F0D7900D62432 /* HPSignUpNextViewController.m */; };
 		4CEC7BB620949EA000D62432 /* HPCanteenContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BB520949EA000D62432 /* HPCanteenContent.m */; };
 		4CEC7BBC2094A20B00D62432 /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC7BBB2094A20B00D62432 /* NSString+JSON.m */; };
@@ -180,8 +182,12 @@
 		4CD51349206CE9B6008F6ED3 /* HPCantOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCantOrderViewController.m; sourceTree = "<group>"; };
 		4CD5134B206CEA48008F6ED3 /* HPCantDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCantDetailViewController.h; sourceTree = "<group>"; };
 		4CD5134C206CEA48008F6ED3 /* HPCantDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCantDetailViewController.m; sourceTree = "<group>"; };
-		4CE45D5220AD5568008F0A35 /* HPOrderListStatusViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPOrderListStatusViewController.h; sourceTree = "<group>"; };
-		4CE45D5320AD5568008F0A35 /* HPOrderListStatusViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPOrderListStatusViewController.m; sourceTree = "<group>"; };
+		4CE45D5220AD5568008F0A35 /* HPMineOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPMineOrderListViewController.h; sourceTree = "<group>"; };
+		4CE45D5320AD5568008F0A35 /* HPMineOrderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPMineOrderListViewController.m; sourceTree = "<group>"; };
+		4CE45D5520AD5865008F0A35 /* HPMineOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPMineOrderTableViewCell.h; sourceTree = "<group>"; };
+		4CE45D5620AD5865008F0A35 /* HPMineOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPMineOrderTableViewCell.m; sourceTree = "<group>"; };
+		4CE45D5820ADD831008F0A35 /* HPFriendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPFriendViewController.h; sourceTree = "<group>"; };
+		4CE45D5920ADD831008F0A35 /* HPFriendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPFriendViewController.m; sourceTree = "<group>"; };
 		4CEC7BB1208F0D7900D62432 /* HPSignUpNextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPSignUpNextViewController.h; sourceTree = "<group>"; };
 		4CEC7BB2208F0D7900D62432 /* HPSignUpNextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPSignUpNextViewController.m; sourceTree = "<group>"; };
 		4CEC7BB420949EA000D62432 /* HPCanteenContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCanteenContent.h; sourceTree = "<group>"; };
@@ -397,6 +403,8 @@
 			children = (
 				4C616964200E16EC00696BEC /* HPMTableViewCell.h */,
 				4C616965200E16EC00696BEC /* HPMTableViewCell.m */,
+				4CE45D5520AD5865008F0A35 /* HPMineOrderTableViewCell.h */,
+				4CE45D5620AD5865008F0A35 /* HPMineOrderTableViewCell.m */,
 				4C36549C205FA4D100046DB1 /* HPNewAddressTableViewCell.h */,
 				4C36549D205FA4D100046DB1 /* HPNewAddressTableViewCell.m */,
 				4C36549F205FB94800046DB1 /* HPAddressListTableViewCell.h */,
@@ -420,8 +428,10 @@
 				4C365487205928A900046DB1 /* HPAddressViewController.m */,
 				4C365499205F672300046DB1 /* HPAdd_addressViewController.h */,
 				4C36549A205F672300046DB1 /* HPAdd_addressViewController.m */,
-				4CE45D5220AD5568008F0A35 /* HPOrderListStatusViewController.h */,
-				4CE45D5320AD5568008F0A35 /* HPOrderListStatusViewController.m */,
+				4CE45D5220AD5568008F0A35 /* HPMineOrderListViewController.h */,
+				4CE45D5320AD5568008F0A35 /* HPMineOrderListViewController.m */,
+				4CE45D5820ADD831008F0A35 /* HPFriendViewController.h */,
+				4CE45D5920ADD831008F0A35 /* HPFriendViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -794,7 +804,7 @@
 				4CEC7BB620949EA000D62432 /* HPCanteenContent.m in Sources */,
 				4C922A5120494024004DFD20 /* HPUserViewController.m in Sources */,
 				4C43136120070BA700E5627D /* HPTabBarController.m in Sources */,
-				4CE45D5420AD5568008F0A35 /* HPOrderListStatusViewController.m in Sources */,
+				4CE45D5420AD5568008F0A35 /* HPMineOrderListViewController.m in Sources */,
 				4C3654A4205FD0CB00046DB1 /* HPAddress.m in Sources */,
 				4C3BF7052057D8200010F913 /* HPCanteenTableViewController.m in Sources */,
 				4C64D88420A3E513001C3D3C /* HPCanteenModel.m in Sources */,
@@ -807,6 +817,7 @@
 				4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */,
 				4CD51347206A48E0008F6ED3 /* HPOrderDetailCell.m in Sources */,
 				4CEC7BC2209AE71F00D62432 /* HPExpOrder.m in Sources */,
+				4CE45D5A20ADD831008F0A35 /* HPFriendViewController.m in Sources */,
 				4C36548C205A9B5F00046DB1 /* HPListTableViewCell.m in Sources */,
 				4C64D87B20A1DFEA001C3D3C /* UIImageView+HPHelper.m in Sources */,
 				4C64D86C20A14622001C3D3C /* HPOtherOrderViewController.m in Sources */,
@@ -814,6 +825,7 @@
 				4C64D87520A14C31001C3D3C /* HPExpOrderViewController.m in Sources */,
 				4CEC7BBF209ADD7300D62432 /* HPExpressContent.m in Sources */,
 				4C64D87220A147E7001C3D3C /* HPOtherContent.m in Sources */,
+				4CE45D5720AD5865008F0A35 /* HPMineOrderTableViewCell.m in Sources */,
 				4C365496205BC15300046DB1 /* HPExpDetailViewController.m in Sources */,
 				4CD5134A206CE9B6008F6ED3 /* HPCantOrderViewController.m in Sources */,
 				4C4313752007173C00E5627D /* HPIndentViewController.m in Sources */,

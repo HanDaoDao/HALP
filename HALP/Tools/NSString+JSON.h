@@ -13,5 +13,6 @@
 +(NSDictionary *)parseJSONStringToNSDictionary:(NSString *)JSONString;
 +(NSString*)dictionaryToJson:(NSDictionary *)dic;
 +(NSString*)getCurrentTimes;
++(NSString *)translateNSDateToNSString:(NSDate *)date;
 
 @end

@@ -28,7 +28,6 @@
         _headView = [[UIImageView alloc] init];
         _headView.layer.cornerRadius = 25;
         _headView.layer.masksToBounds = YES;
-//        _headView.image = [UIImage imageNamed:@"路飞"];
     }
     return _headView;
 }
@@ -36,9 +35,7 @@
 -(UIImageView *)sexView{
     if (!_sexView) {
         _sexView = [[UIImageView alloc] init];
-//        _sexView.backgroundColor = [UIColor yellowColor];
         _sexView.layer.cornerRadius = 10;
-//        _sexView.image = [UIImage imageNamed:@"性别男"];
     }
     return _sexView;
 }
@@ -46,8 +43,6 @@
 -(UILabel *)nameLabel{
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-//        _nameLabel.text = @"漩涡鸣人";
-//        _nameLabel.backgroundColor = [UIColor yellowColor];
         _nameLabel.font = [UIFont fontWithName:@"PingFang SC" size:18];
     }
     return _nameLabel;
@@ -57,7 +52,6 @@
     if (!_honorLabel) {
         _honorLabel = [[UILabel alloc] init];
         _honorLabel.textColor = hpRGBHex(0xFFA500);
-//        _honorLabel.backgroundColor = [UIColor blueColor];
         _honorLabel.font = [UIFont fontWithName:@"PingFang SC" size:18];
     }
     return _honorLabel;
@@ -66,7 +60,6 @@
 -(UILabel *)labelOne{
     if (!_labelOne) {
         _labelOne = [[UILabel alloc] init];
-//        _labelOne.backgroundColor = [UIColor redColor];
         _labelOne.font = [UIFont fontWithName:@"PingFang SC" size:14];
     }
     return _labelOne;
@@ -75,7 +68,6 @@
 -(UILabel *)labelTwo{
     if (!_labelTwo) {
         _labelTwo = [[UILabel alloc] init];
-//        _labelTwo.backgroundColor = [UIColor yellowColor];
         _labelTwo.font = [UIFont fontWithName:@"PingFang SC" size:14];
     }
     return _labelTwo;
@@ -84,8 +76,6 @@
 -(UILabel *)labelThree{
     if (!_labelThree) {
         _labelThree = [[UILabel alloc] init];
-        //        _labelOne.text = @"东升苑 - 安悦北区 427";
-//        _labelThree.backgroundColor = [UIColor redColor];
         _labelThree.font = [UIFont fontWithName:@"PingFang SC" size:14];
     }
     return _labelThree;
@@ -96,7 +86,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-//        self.backgroundColor = hpRGBHex(0xDCDCDC);
         [self setupCell];
     }
     
@@ -104,8 +93,6 @@
 }
 
 -(void)setupCell{
-    
-//    [self.contentView addSubview:self.whiteBackgroudView];
     [self.contentView addSubview:self.headView];
     [self.contentView addSubview:self.sexView];
     [self.contentView addSubview:self.nameLabel];
@@ -113,12 +100,6 @@
     [self.contentView addSubview:self.labelTwo];
     [self.contentView addSubview:self.labelThree];
     [self.contentView addSubview:self.honorLabel];
-    
-    [_whiteBackgroudView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.top.equalTo(self.contentView).offset(10);
-        make.right.equalTo(self.contentView).offset(-10);
-        make.bottom.equalTo(self.contentView);
-    }];
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(15);

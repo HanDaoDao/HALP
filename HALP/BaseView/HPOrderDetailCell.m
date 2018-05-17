@@ -154,16 +154,42 @@
 }
 
 -(void)acceptCell{
-    self.contentView.backgroundColor = hpRGBHex(0xAFEEEE);
-    _acceptButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    _acceptButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    _acceptButton.backgroundColor = hpRGBHex(0xAFEEEE);
     [_acceptButton setTitle:@"确   认   接   单" forState:(UIControlStateNormal)];
     [_acceptButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     [self.contentView addSubview:_acceptButton];
-    
+
     [_acceptButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.and.top.bottom.equalTo(self.contentView);
-        make.width.equalTo(self.contentView).multipliedBy(0.5);
+        make.center.and.top.and.bottom.equalTo(self.contentView);
+        make.width.equalTo(self.contentView);
     }];
 }
 
+-(void)cancelAndCompleteCell{
+    _cancelButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    _cancelButton.backgroundColor = hpRGBHex(0xFF7F50);
+    [_cancelButton setTitle:@"取   消   接   单" forState:(UIControlStateNormal)];
+    [_cancelButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [self.contentView addSubview:_cancelButton];
+    
+    _completeButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    _completeButton.backgroundColor = hpRGBHex(0xAFEEEE);
+    [_completeButton setTitle:@"订   单   完   成" forState:(UIControlStateNormal)];
+    [_completeButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [self.contentView addSubview:_completeButton];
+    
+    [_cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.top.equalTo(self.contentView);
+        make.width.equalTo(self.contentView);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [_completeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView);
+        make.top.equalTo(_cancelButton.mas_bottom).offset(5);
+        make.width.equalTo(self.contentView);
+        make.height.mas_equalTo(40);
+    }];
+}
 @end

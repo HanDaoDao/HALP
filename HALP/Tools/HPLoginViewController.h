@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HPLoginViewController : UIViewController
+typedef void(^findBlock)(NSMutableDictionary *dictionary, NSError *error);
 
-typedef void(^findExpBlock)(NSMutableDictionary *dictionary, NSError *error);
+@interface HPLoginViewController : UIViewController
 
 @end

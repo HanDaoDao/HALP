@@ -1,5 +1,5 @@
 //
-//  HPOrderListStatusViewController.h
+//  HPFriendViewController.h
 //  HALP
 //
 //  Created by 韩钊 on 2018/5/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HPOrderListStatusViewController : UIViewController
+@interface HPFriendViewController : UIViewController
 
 @end

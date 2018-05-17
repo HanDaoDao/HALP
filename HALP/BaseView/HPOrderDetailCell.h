@@ -20,9 +20,11 @@
 @property(nonatomic,strong) UILabel *detailLabel;
 @property(nonatomic,strong) UITextView *detailTextView;
 @property(nonatomic,strong) UIButton *acceptButton;                //接单按钮
+@property(nonatomic,strong) UIButton *cancelButton;                //取消按钮
+@property(nonatomic,strong) UIButton *completeButton;                //完成按钮
 
 -(void)setupHeadCell;
 -(void)setupDetailCell;
 -(void)acceptCell;
-
+-(void)cancelAndCompleteCell;
 @end

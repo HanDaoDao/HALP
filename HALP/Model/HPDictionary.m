@@ -61,83 +61,13 @@
 }
 
 //性别列表
--(void)findSexListWithCallBack:(findBlock)callBack{
-    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
-    bquery.cachePolicy = kBmobCachePolicyNetworkElseCache;
-    @weakify(self)
-    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-        @strongify(self)
-        for (BmobObject *obj in array) {
-            if ([[obj objectForKey:@"dicType"] intValue] == 1) {
-                [self.sexList addObject:[obj objectForKey:@"dataName"]];
-            }
-        }
-        callBack(self.sexList,error);
-    }];
-}
 
 //订单状态列表
--(void)findorderStatusListWithCallBack:(findBlock)callBack{
-    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
-    bquery.cachePolicy = kBmobCachePolicyNetworkElseCache;
-    @weakify(self)
-    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-        @strongify(self)
-        for (BmobObject *obj in array) {
-            if ([[obj objectForKey:@"dicType"] intValue] == 2) {
-                [self.orderStatusList addObject:[obj objectForKey:@"dataName"]];
-            }
-        }
-        callBack(self.orderStatusList,error);
-    }];
-}
 
 //订单类型列表
--(void)findOrderTypeListWithCallBack:(findBlock)callBack{
-    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
-    bquery.cachePolicy = kBmobCachePolicyNetworkElseCache;
-    @weakify(self)
-    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-        @strongify(self)
-        for (BmobObject *obj in array) {
-            if ([[obj objectForKey:@"dicType"] intValue] == 3) {
-                [self.orderTypeList addObject:[obj objectForKey:@"dataName"]];
-            }
-        }
-        callBack(self.orderTypeList,error);
-    }];
-}
 
 //学校列表
--(void)findSchoolListWithCallBack:(findSchoolBlock)callBack{
-    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
-    bquery.cachePolicy = kBmobCachePolicyNetworkElseCache;
-    @weakify(self)
-    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-        @strongify(self)
-        for (BmobObject *obj in array) {
-            if ([[obj objectForKey:@"dicType"] intValue] == 4) {
-                [self.schoolList setValue:[obj objectForKey:@"dataName"] forKey:[obj objectForKey:@"dataType"]];
-            }
-        }
-        callBack(self.schoolList,error);
-    }];
-}
 
 //包裹大小列表
--(void)findBagTypeListWithCallBack:(findBlock)callBack{
-    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
-    bquery.cachePolicy = kBmobCachePolicyNetworkElseCache;
-    @weakify(self)
-    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-        @strongify(self)
-        for (BmobObject *obj in array) {
-            if ([[obj objectForKey:@"dicType"] intValue] == 5) {
-                [self.bagTypeList addObject:[obj objectForKey:@"dataName"]];
-            }
-        }
-        callBack(self.bagTypeList,error);
-    }];
-}
 
 @end

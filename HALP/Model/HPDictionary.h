@@ -32,9 +32,6 @@ typedef NS_ENUM(NSInteger,bagSize)
     big
 };
 
-typedef void(^findBlock)(NSArray *array, NSError *error);
-typedef void(^findSchoolBlock)(NSMutableDictionary *dictionary, NSError *error);
-
 @property(nonatomic,copy) NSString *objectID;
 @property(nonatomic,assign) NSNumber *dicType;
 @property(nonatomic,assign) NSNumber *dataType;
@@ -49,10 +46,5 @@ typedef void(^findSchoolBlock)(NSMutableDictionary *dictionary, NSError *error);
 @property(nonatomic,copy) NSMutableDictionary *schoolList;
 
 +(void)findAllDictionary;
--(void)findSexListWithCallBack:(findBlock)callBack;
--(void)findOrderTypeListWithCallBack:(findBlock)callBack;
--(void)findorderStatusListWithCallBack:(findBlock)callBack;
--(void)findBagTypeListWithCallBack:(findBlock)callBack;
--(void)findSchoolListWithCallBack:(findSchoolBlock)callBack;
 
 @end

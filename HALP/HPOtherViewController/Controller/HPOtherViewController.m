@@ -15,12 +15,14 @@
 #import "NSString+JSON.h"
 #import "MJRefresh.h"
 #import "headFile.pch"
+#import "HPLoginViewController.h"
 
 @interface HPOtherViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UIButton *button;
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) HPOrder *order;
+@property (nonatomic,strong) HPUser *user;
 @property(nonatomic,strong) NSMutableArray* dataArray;
 
 @end
@@ -35,9 +37,15 @@
     return _dataArray;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [SVProgressHUD dismiss];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _user = [HPUser sharedHPUser];
+    [_user initUser];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"导航栏"] forBarMetrics:(UIBarMetrics)UIBarMetricsDefault];
     
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [UIFont fontWithName:@"PingFang SC" size:18], NSFontAttributeName,nil];
@@ -163,8 +171,19 @@
     if (indexPath.row < [_dataArray count]) {//无论你武功有多高，有时也会忘记加
         orderDetail = [_dataArray objectAtIndex:indexPath.row];
     }
-    otherDetailVC.orderDetail = orderDetail;
-    [self.navigationController pushViewController:otherDetailVC animated:YES];
+    if (_user) {
+        otherDetailVC.orderDetail = orderDetail;
+        otherDetailVC.isCreator = [self isOrderCreatorMakeure:orderDetail.creator];
+        [self.navigationController pushViewController:otherDetailVC animated:YES];
+    }else{
+        [SVProgressHUD showInfoWithStatus:@"请先进行登录"];
+        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
+        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+        [SVProgressHUD dismissWithDelay:1.5];
+        HPLoginViewController *loginVC = [[HPLoginViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -203,6 +222,15 @@
         }
         callBack(self.dataArray,error);
     }];
+}
+
+-(Boolean)isOrderCreatorMakeure:(HPUser *)orderUser{
+    BmobUser *user = [BmobUser currentUser];
+    if ([orderUser.objectId isEqualToString:user.objectId]) {
+        return true;
+    }else{
+        return false;
+    }
 }
 
 @end

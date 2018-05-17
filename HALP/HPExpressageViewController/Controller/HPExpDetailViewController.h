@@ -12,5 +12,6 @@
 @interface HPExpDetailViewController : UIViewController
 
 @property(nonatomic,strong) HPOrder* orderDetail;
+@property(nonatomic,assign) Boolean isCreator;
 
 @end

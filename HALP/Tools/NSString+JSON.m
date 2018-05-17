@@ -57,4 +57,18 @@
     
 }
 
++(NSString *)translateNSDateToNSString:(NSDate *)date{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    //设置格式,hh与HH的区别:分别表示12小时制,24小时制
+    
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    
+    NSString *currentTimeString = [formatter stringFromDate:date];
+    
+    NSLog(@"currentTimeString =  %@",currentTimeString);
+    
+    return currentTimeString;
+}
+
 @end

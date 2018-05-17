@@ -240,7 +240,7 @@
     [_passwordTextFiled resignFirstResponder];
 }
 
--(void)findschoolList:(findExpBlock)callBack{
+-(void)findschoolList:(findBlock)callBack{
     BmobQuery *bquery = [BmobQuery queryWithClassName:@"Dictionary"];
     [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         self.schoolDic = nil;

@@ -14,6 +14,20 @@
 #import "HPOtherContent.h"
 
 @interface HPOrder : NSObject
+typedef NS_ENUM(NSInteger,OrderStatusEnum)
+{
+    waiting = 0,
+    doing,
+    cancel,
+    complete,
+};
+
+typedef NS_ENUM(NSInteger,OrderTypeEnum)
+{
+    otherType = 0,
+    foodType,
+    expressType,
+};
 
 @property(nonatomic,copy) NSString *objectID;
 @property(nonatomic,assign) NSNumber *validTime;
@@ -21,8 +35,8 @@
 @property(nonatomic,strong) HPUser *helper;
 @property(nonatomic,assign) NSNumber *orderHonor;
 @property(nonatomic,strong) NSString *orderSchool;
-@property(nonatomic,strong) NSNumber *orderStatus;
-@property(nonatomic,strong) NSNumber *orderType;
+@property(nonatomic,assign) OrderStatusEnum orderStatus;
+@property(nonatomic,assign) OrderTypeEnum orderType;
 @property(nonatomic,strong) NSDate *startAt;
 @property(nonatomic,strong) NSDate *endAt;
 @property(nonatomic,strong) NSDate *createdAt;

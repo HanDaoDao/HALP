@@ -38,6 +38,9 @@ static HPUser* _instance;
 
 -(void)initUser{
     BmobUser *bUser = [BmobUser currentUser];
+    
+    self.objectID = bUser.objectId;
+    
     self.nickName = [bUser objectForKey:@"nickName"];
     
     BmobUser *sex = [bUser objectForKey:@"sex"];

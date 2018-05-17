@@ -15,6 +15,9 @@
 #import "HPLoginViewController.h"
 #import "headFile.pch"
 #import "SVProgressHUD.h"
+#import "HPMineOrderListViewController.h"
+#import "HPFriendViewController.h"
+
 
 static NSString * const kHPMineViewCell = @"kHPMineViewCell";
 
@@ -80,9 +83,9 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
     _mineTableView.dataSource = self;
     
     [self.view addSubview:_mineTableView];
-    [self initMineListNames];
-    
     [self.mineTableView registerClass:[HPMTableViewCell class] forCellReuseIdentifier:kHPMineViewCell];
+    [self initMineListNames];
+
 }
 
 -(void)initMineListNames{
@@ -153,7 +156,10 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
     addressViewController.hidesBottomBarWhenPushed = YES;
     HPLoginViewController *loginViewController = [[HPLoginViewController alloc] init];
     loginViewController.hidesBottomBarWhenPushed = YES;
-    
+    HPMineOrderListViewController *mineorderListViewController = [[HPMineOrderListViewController alloc] init];
+    mineorderListViewController.hidesBottomBarWhenPushed = YES;
+    HPFriendViewController *friendVC = [[HPFriendViewController alloc] init];
+    friendVC.hidesBottomBarWhenPushed = YES;
     
     if (indexPath.section == 0) {
         if (_bUser) {
@@ -174,8 +180,10 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
                 [self.navigationController pushViewController:addressViewController animated:YES];
                 break;
             case 2:
+                [self.navigationController pushViewController:mineorderListViewController animated:YES];
                 break;
             case 3:
+                [self.navigationController pushViewController:mineorderListViewController animated:YES];
                 break;
             case 4:
                 break;
