@@ -17,6 +17,7 @@
 #import "NSString+JSON.h"
 #import "MJRefresh.h"
 #import "HPLoginViewController.h"
+#import "SVProgressHUD+HPHelper.h"
 
 @interface HPExpressageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -180,9 +181,7 @@
         [self.navigationController pushViewController:expDetailVC animated:YES];
     }else{
         [SVProgressHUD showInfoWithStatus:@"请先进行登录"];
-        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-        [SVProgressHUD dismissWithDelay:1.5];
+        [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
         HPLoginViewController *loginVC = [[HPLoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
     }

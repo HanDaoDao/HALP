@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C1DA48820B98B2300C8967A /* SVProgressHUD+HPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1DA48720B98B2300C8967A /* SVProgressHUD+HPHelper.m */; };
 		4C2F476A20610EF600875E5F /* HPWriteOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F476920610EF600875E5F /* HPWriteOrderViewController.m */; };
 		4C2F476D206123EF00875E5F /* HPWriteOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F476C206123EF00875E5F /* HPWriteOrderTableViewCell.m */; };
 		4C2F47702061FD0200875E5F /* HPPopViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F476F2061FD0200875E5F /* HPPopViewViewController.m */; };
@@ -85,6 +86,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C1DA48620B98B2300C8967A /* SVProgressHUD+HPHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+HPHelper.h"; sourceTree = "<group>"; };
+		4C1DA48720B98B2300C8967A /* SVProgressHUD+HPHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+HPHelper.m"; sourceTree = "<group>"; };
 		4C2F476820610EF600875E5F /* HPWriteOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPWriteOrderViewController.h; sourceTree = "<group>"; };
 		4C2F476920610EF600875E5F /* HPWriteOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPWriteOrderViewController.m; sourceTree = "<group>"; };
 		4C2F476B206123EF00875E5F /* HPWriteOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPWriteOrderTableViewCell.h; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 				4C64D865209C49A4001C3D3C /* NSDate+Time.m */,
 				4C64D87920A1DFEA001C3D3C /* UIImageView+HPHelper.h */,
 				4C64D87A20A1DFEA001C3D3C /* UIImageView+HPHelper.m */,
+				4C1DA48620B98B2300C8967A /* SVProgressHUD+HPHelper.h */,
+				4C1DA48720B98B2300C8967A /* SVProgressHUD+HPHelper.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -817,6 +822,7 @@
 				4C365488205928A900046DB1 /* HPAddressViewController.m in Sources */,
 				4CD51347206A48E0008F6ED3 /* HPOrderDetailCell.m in Sources */,
 				4CEC7BC2209AE71F00D62432 /* HPExpOrder.m in Sources */,
+				4C1DA48820B98B2300C8967A /* SVProgressHUD+HPHelper.m in Sources */,
 				4CE45D5A20ADD831008F0A35 /* HPFriendViewController.m in Sources */,
 				4C36548C205A9B5F00046DB1 /* HPListTableViewCell.m in Sources */,
 				4C64D87B20A1DFEA001C3D3C /* UIImageView+HPHelper.m in Sources */,

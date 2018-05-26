@@ -165,9 +165,7 @@ static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
             NSLog(@"创建订单成功！！");
             NSLog(@"objectid :%@",order.objectId);
             [SVProgressHUD showSuccessWithStatus:@"创建订单成功"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
@@ -175,8 +173,7 @@ static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
             if (error) {
                 NSLog(@"%@",error);
                 [SVProgressHUD showErrorWithStatus:@"创建订单失败，重新创建！"];
-                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
             }
         }
     }];

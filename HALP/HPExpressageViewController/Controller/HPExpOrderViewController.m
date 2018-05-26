@@ -11,8 +11,10 @@
 #import "HPExpOrder.h"
 #import "NSString+JSON.h"
 #import "SVProgressHUD.h"
+#import "SVProgressHUD+HPHelper.h"
 #import "HPUser.h"
 #import "headFile.pch"
+
 @interface HPExpOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property(nonatomic,strong) UITableView *tableView;
@@ -316,9 +318,7 @@
         if (isSuccessful) {
             NSLog(@"创建订单成功！！");
             [SVProgressHUD showSuccessWithStatus:@"创建订单成功"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
@@ -326,8 +326,7 @@
             if (error) {
                 NSLog(@"%@",error);
                 [SVProgressHUD showErrorWithStatus:@"创建订单失败，重新创建！"];
-                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
             }
         }
     }];

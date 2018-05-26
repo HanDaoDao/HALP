@@ -14,6 +14,7 @@
 #import "NSString+JSON.h"
 #import "HPDetaileCompleteViewController.h"
 #import "HPLoginViewController.h"
+#import "SVProgressHUD+HPHelper.h"
 
 static NSString * const kHOrderDetailViewCell = @"kHOrderDetailViewCell";
 
@@ -90,43 +91,83 @@ static NSString * const kHOrderDetailViewCell = @"kHOrderDetailViewCell";
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [cell setupHeadCell];
-            cell.nameLabel.text = [_orderDetail.creator objectForKey:@"nickName"];
-            
-            BmobFile *iconFile = (BmobFile *)[_orderDetail.creator objectForKey:@"userIcon"];
-            [cell.headView sd_setImageWithURL:[NSURL URLWithString:iconFile.url] placeholderImage:[UIImage imageNamed:@"路飞"]];
-            [cell.headView HPHeadimageBrowser];
-            
-            BmobUser *sex = [_orderDetail.creator objectForKey:@"sex"];
-            if ([sex.objectId isEqualToString:@"qx2fEEEM"]) {
-                cell.sexView.image = [UIImage imageNamed:@"性别男"];
+            if (_isCreator == 1) {
+                if (_orderDetail.orderStatus == 0 || _orderDetail.orderStatus == 2) {
+                    cell.nameLabel.text = [_orderDetail.creator objectForKey:@"nickName"];
+                    
+                    BmobFile *iconFile = (BmobFile *)[_orderDetail.creator objectForKey:@"userIcon"];
+                    [cell.headView sd_setImageWithURL:[NSURL URLWithString:iconFile.url] placeholderImage:[UIImage imageNamed:@"路飞"]];
+                    [cell.headView HPHeadimageBrowser];
+                    
+                    BmobUser *sex = [_orderDetail.creator objectForKey:@"sex"];
+                    if ([sex.objectId isEqualToString:@"qx2fEEEM"]) {
+                        cell.sexView.image = [UIImage imageNamed:@"性别男"];
+                    }else{
+                        cell.sexView.image = [UIImage imageNamed:@"性别女"];
+                    }
+                }else{
+                    cell.nameLabel.text = [_orderDetail.helper objectForKey:@"nickName"];
+                    
+                    BmobFile *iconFile = (BmobFile *)[_orderDetail.helper objectForKey:@"userIcon"];
+                    [cell.headView sd_setImageWithURL:[NSURL URLWithString:iconFile.url] placeholderImage:[UIImage imageNamed:@"路飞"]];
+                    [cell.headView HPHeadimageBrowser];
+                    
+                    BmobUser *sex = [_orderDetail.helper objectForKey:@"sex"];
+                    if ([sex.objectId isEqualToString:@"qx2fEEEM"]) {
+                        cell.sexView.image = [UIImage imageNamed:@"性别男"];
+                    }else{
+                        cell.sexView.image = [UIImage imageNamed:@"性别女"];
+                    }
+                }
             }else{
-                cell.sexView.image = [UIImage imageNamed:@"性别女"];
+                cell.nameLabel.text = [_orderDetail.creator objectForKey:@"nickName"];
+                
+                BmobFile *iconFile = (BmobFile *)[_orderDetail.creator objectForKey:@"userIcon"];
+                [cell.headView sd_setImageWithURL:[NSURL URLWithString:iconFile.url] placeholderImage:[UIImage imageNamed:@"路飞"]];
+                [cell.headView HPHeadimageBrowser];
+                
+                BmobUser *sex = [_orderDetail.creator objectForKey:@"sex"];
+                if ([sex.objectId isEqualToString:@"qx2fEEEM"]) {
+                    cell.sexView.image = [UIImage imageNamed:@"性别男"];
+                }else{
+                    cell.sexView.image = [UIImage imageNamed:@"性别女"];
+                }
             }
+            
             cell.phoneLabel.text = _orderDetail.creator.mobilePhoneNumber;
             cell.hornorLabel.text = [NSString stringWithFormat:@"悬赏：%@",_orderDetail.orderHonor];
-            
-        }else  if (indexPath.row == 2) {
+        }else{
             [cell setupDetailCell];
-            cell.detailLabel.hidden = YES;
-            cell.detailTextView.hidden = NO;
-            cell.titleLabel.text = _array[indexPath.row-1];
-            cell.detailTextView.text = _dataArray[indexPath.row - 1];
-        }
-        else{
-            [cell setupDetailCell];
-            cell.detailTextView.hidden = YES;
             cell.detailLabel.hidden = NO;
+            cell.detailTextView.hidden = YES;
             cell.titleLabel.text = _array[indexPath.row-1];
             cell.detailLabel.text = _dataArray[indexPath.row - 1];
         }
     }else{
-        if (_isCreator) {
-            [cell cancelAndCompleteCell];
-            [cell.cancelButton addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
-            [cell.completeButton addTarget:self action:@selector(completeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        if (_isCreator == 1) {
+            if(_orderDetail.orderStatus == 3){
+                [cell acceptCell];
+                [cell.acceptButton setTitle:@"订 单 已 完 成" forState:(UIControlStateNormal)];
+            }else if (_orderDetail.orderStatus == 2){
+                [cell acceptCell];
+                [cell.acceptButton setTitle:@"订 单 已 取 消" forState:(UIControlStateNormal)];
+            }else{
+                [cell cancelAndCompleteCell];
+                [cell.cancelButton addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
+                [cell.completeButton addTarget:self action:@selector(completeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+            }
         }else{
             [cell acceptCell];
-            [cell.acceptButton addTarget:self action:@selector(acceptButtonAction) forControlEvents:(UIControlEventTouchUpInside)];
+            //如果订单已经接收，帮助者的订单详情页面按钮不再显示
+            if(_orderDetail.orderStatus == 1){
+                [cell.acceptButton setTitle:@"订 单 进 行 中" forState:(UIControlStateNormal)];
+            }else if (_orderDetail.orderStatus == 2){
+                [cell.acceptButton setTitle:@"订 单 已 取 消" forState:(UIControlStateNormal)];
+            }else if (_orderDetail.orderStatus == 3){
+                [cell.acceptButton setTitle:@"订 单 已 完 成" forState:(UIControlStateNormal)];
+            }else if (_orderDetail.orderStatus == 0){
+                [cell.acceptButton addTarget:self action:@selector(acceptButtonAction) forControlEvents:(UIControlEventTouchUpInside)];
+            }
         }
     }
     return cell;
@@ -163,16 +204,13 @@ static NSString * const kHOrderDetailViewCell = @"kHOrderDetailViewCell";
                 } else {
                     NSLog(@"%@",error);
                     [SVProgressHUD showErrorWithStatus:@"接单失败，请重试"];
-                    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                    [SVProgressHUD dismissWithDelay:1.5];
+                    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
                 }
             }];
         }else{
             [SVProgressHUD showInfoWithStatus:@"已经被接单啦"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
+
         }
     }];
 }
@@ -197,30 +235,21 @@ static NSString * const kHOrderDetailViewCell = @"kHOrderDetailViewCell";
             [orderChange updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                 if (isSuccessful) {
                     [SVProgressHUD showSuccessWithStatus:@"取消成功！"];
-                    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                    [SVProgressHUD dismissWithDelay:1.5];
+                    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {
                     NSLog(@"%@",error);
                     [SVProgressHUD showErrorWithStatus:@"取消订单失败，请重试"];
-                    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                    [SVProgressHUD dismissWithDelay:1.5];
+                    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
                 }
             }];
         }else if([[orderStatus objectForKey:@"dataType"] intValue] == 2){
             [SVProgressHUD showInfoWithStatus:@"已经取消啦"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
         }else if([[orderStatus objectForKey:@"dataType"] intValue] == 3){
             [SVProgressHUD showInfoWithStatus:@"已经完成啦"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
         }
-        
     }];
 }
 
@@ -244,28 +273,20 @@ static NSString * const kHOrderDetailViewCell = @"kHOrderDetailViewCell";
             [orderChange updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                 if (isSuccessful) {
                     [SVProgressHUD showSuccessWithStatus:@"订单完成！"];
-                    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                    [SVProgressHUD dismissWithDelay:1.5];
+                    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {
                     NSLog(@"%@",error);
                     [SVProgressHUD showErrorWithStatus:@"订单失败，请重试"];
-                    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                    [SVProgressHUD dismissWithDelay:1.5];
+                    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
                 }
             }];
         }else if([[orderStatus objectForKey:@"dataType"] intValue] == 2){
             [SVProgressHUD showInfoWithStatus:@"已经取消啦"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
         }else if([[orderStatus objectForKey:@"dataType"] intValue] == 3){
             [SVProgressHUD showInfoWithStatus:@"已经完成啦"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
         }
         
     }];

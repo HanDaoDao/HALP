@@ -27,7 +27,7 @@ typedef void(^findUserBlock)(HPUser *user, NSError *error);
 @property(nonatomic,copy) NSString *stuID;          //学号
 @property(nonatomic,copy) NSString *stuHonor;       //荣誉值
 @property(nonatomic,copy) NSString *icon;           //头像
-@property(nonatomic,copy) NSMutableArray *addressList;      //我的地址
+@property(nonatomic,strong) NSMutableArray *addressList;      //我的地址
 
 +(HPUser *)sharedHPUser;
 -(void)initUser;

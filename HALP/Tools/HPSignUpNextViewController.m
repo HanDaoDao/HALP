@@ -231,9 +231,8 @@
 
 -(void)completeAction{
     [SVProgressHUD showWithStatus:@"正在注册"];
-    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-    [SVProgressHUD dismissWithDelay:1];
+    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1];
+
     NSString *nameIDString = @"11664_";
     NSString *IDString = _stuIDTextField.text;
     nameIDString = [nameIDString stringByAppendingString:IDString];

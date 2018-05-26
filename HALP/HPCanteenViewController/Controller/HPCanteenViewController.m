@@ -181,9 +181,7 @@
         [self.navigationController pushViewController:cantDetailVC animated:YES];
     }else{
         [SVProgressHUD showInfoWithStatus:@"请先进行登录"];
-        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-        [SVProgressHUD dismissWithDelay:1.5];
+        [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
         HPLoginViewController *loginVC = [[HPLoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
     }
@@ -201,7 +199,6 @@
 -(void)findOrderList:(findOrderBlock)callBack{
     BmobQuery *bquery = [BmobQuery queryWithClassName:@"Order"];
     [bquery includeKey:@"orderType,orderStatus,,orderSchool,creator,helper"];
-    
     [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         self.dataArray = nil;
         if (error) {
@@ -210,12 +207,9 @@
             for (BmobObject *obj in array) {
                 if ([[[obj objectForKey:@"orderType"] objectForKey:@"dataType"] intValue] == 1) {
                     if ([[[obj objectForKey:@"orderStatus"] objectForKey:@"dataType"] integerValue] == 0) {
-                        NSLog(@"obj ========== %@", obj);
                         HPOrder *addOrder = [[HPOrder alloc] init];
                         NSDictionary *dic = [NSString parseJSONStringToNSDictionary:[obj objectForKey:@"content"]];
-                        
                         HPCanteenContent* cantCont = [HPCanteenContent yy_modelWithDictionary:dic];
-                        
                         addOrder.objectID = obj.objectId;
                         addOrder.content = cantCont;
                         addOrder.orderHonor = [obj objectForKey:@"orderHonor"];

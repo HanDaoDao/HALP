@@ -56,14 +56,25 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
     
     [self.tableView registerClass:[HPMineOrderTableViewCell class] forCellReuseIdentifier:kHPMineOrderTableViewCell];
 
-    [self findOrderList:^(NSMutableArray *array, NSError *error) {
-        if (error) {
-            NSLog(@"%@",error);
-        }else{
-            self.dataArray = array;
-            NSLog(@"----%lu",(unsigned long)self.dataArray.count);
-        }
-    }];
+    if(_isCreator == 1){
+        [self findMyCreateOrderList:^(NSMutableArray *array, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error);
+            }else{
+                self.dataArray = array;
+                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
+            }
+        }];
+    }else{
+        [self findMyHelpOrderList:^(NSMutableArray *array, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error);
+            }else{
+                self.dataArray = array;
+                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
+            }
+        }];
+    }
     
     //当刚开始没有数据的时候，不显示cell的分割线
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
@@ -80,14 +91,25 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
 -(void)targetMethod{
     NSLog(@"关闭");
     //下拉刷新请求公告信息
-    [self findOrderList:^(NSMutableArray *array, NSError *error) {
-        if (error) {
-            NSLog(@"error:%@",error);
-        }
-        else{
-            self.dataArray = array;
-        }
-    }];
+    if(_isCreator == 1){
+        [self findMyCreateOrderList:^(NSMutableArray *array, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error);
+            }else{
+                self.dataArray = array;
+                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
+            }
+        }];
+    }else{
+        [self findMyHelpOrderList:^(NSMutableArray *array, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error);
+            }else{
+                self.dataArray = array;
+                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
+            }
+        }];
+    }
     [self.tableView.mj_header endRefreshing];
     [self.tableView reloadData];
 }
@@ -133,13 +155,13 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
             cell.statusLabel.text = @"待接单";
             break;
         case 1:
-            cell.statusLabel.text = @"已取消";
+            cell.statusLabel.text = @"进行中";
             break;
         case 2:
-            cell.statusLabel.text = @"已完成";
+            cell.statusLabel.text = @"已取消";
             break;
         case 3:
-            cell.statusLabel.text = @"进行中";
+            cell.statusLabel.text = @"已完成";
             break;
         default:
             break;
@@ -165,17 +187,17 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
     switch (orderDetail.orderType) {
         case 0:
             otherDetailVC.orderDetail = orderDetail;
-            otherDetailVC.isCreator = 1;
+            otherDetailVC.isCreator = _isCreator;
             [self.navigationController pushViewController:otherDetailVC animated:YES];
             break;
         case 1:
             cantDetailVC.orderDetail = orderDetail;
-            cantDetailVC.isCreator = 1;
+            cantDetailVC.isCreator = _isCreator;
             [self.navigationController pushViewController:cantDetailVC animated:YES];
             break;
         case 2:
             expDetailVC.orderDetail = orderDetail;
-            expDetailVC.isCreator = 1;
+            expDetailVC.isCreator = _isCreator;
             [self.navigationController pushViewController:expDetailVC animated:YES];
             break;
         default:
@@ -183,7 +205,7 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
     }
 }
 
--(void)findOrderList:(findOrderBlock)callBack{
+-(void)findMyCreateOrderList:(findOrderBlock)callBack{
     BmobQuery *bquery = [BmobQuery queryWithClassName:@"Order"];
     [bquery includeKey:@"orderType,orderStatus,,orderSchool,creator,helper"];
     
@@ -240,8 +262,25 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
                             break;
                     }
                     [self.dataArray addObject:addOrder];
-                    
-                }else if ([[[obj objectForKey:@"helper"] objectForKey:@"objectId"] isEqualToString:_user.objectID]){
+                }
+                
+            }
+        }
+        callBack(self.dataArray,error);
+    }];
+}
+
+-(void)findMyHelpOrderList:(findOrderBlock)callBack{
+    BmobQuery *bquery = [BmobQuery queryWithClassName:@"Order"];
+    [bquery includeKey:@"orderType,orderStatus,,orderSchool,creator,helper"];
+    
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        self.dataArray = nil;
+        if (error) {
+            NSLog(@"ERROR");
+        }else{
+            for (BmobObject *obj in array) {
+                if ([[[obj objectForKey:@"helper"] objectForKey:@"objectId"] isEqualToString:_user.objectID]){
                     HPOrder *addOrder = [[HPOrder alloc] init];
                     NSDictionary *dic = [NSString parseJSONStringToNSDictionary:[obj objectForKey:@"content"]];
                     HPExpressContent* expCont = [HPExpressContent yy_modelWithDictionary:dic];
@@ -289,10 +328,10 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
                     }
                     [self.dataArray addObject:addOrder];
                 }
+                
             }
         }
         callBack(self.dataArray,error);
     }];
 }
-
 @end

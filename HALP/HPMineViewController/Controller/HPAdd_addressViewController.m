@@ -48,9 +48,8 @@
     NSString *addressString = _addressTextView.text;
     if (addressString.length == 0) {
         [SVProgressHUD showErrorWithStatus:@"请填写地址"];
-        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-        [SVProgressHUD dismissWithDelay:1.5];
+        [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
+
     }else{
         _user.addressList = [_user.addressList arrayByAddingObject:addressString];
         BmobUser *bUser = [BmobUser currentUser];
@@ -58,9 +57,7 @@
         [bUser updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
             if (isSuccessful) {
                 [SVProgressHUD showSuccessWithStatus:@"创建成功"];
-                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                [SVProgressHUD dismissWithDelay:1.5];
+                [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
                 NSNotification *notification = [NSNotification notificationWithName:@"appendAddressTongzhi" object:nil userInfo:nil];
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 [self.navigationController popViewControllerAnimated:YES];

@@ -89,7 +89,7 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
 }
 
 -(void)initMineListNames{
-    _mineListNames = @[@"荣誉值",@"我的地址",@"我发布的",@"我帮助的",@"我关注的",@"退出登录"];
+    _mineListNames = @[@"荣誉值",@"我的地址",@"我发布的",@"我帮助的",@"退出登录"];
 }
 
 #pragma mark - Tableview datasource
@@ -180,27 +180,23 @@ static NSString * const kHPMineViewCell = @"kHPMineViewCell";
                 [self.navigationController pushViewController:addressViewController animated:YES];
                 break;
             case 2:
+                mineorderListViewController.isCreator = 1;
                 [self.navigationController pushViewController:mineorderListViewController animated:YES];
                 break;
             case 3:
+                mineorderListViewController.isCreator = 0;
                 [self.navigationController pushViewController:mineorderListViewController animated:YES];
                 break;
             case 4:
-                break;
-            case 5:
                 if (!_bUser) {
                     [SVProgressHUD showSuccessWithStatus:@"已经退出登录"];
-                    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                    [SVProgressHUD dismissWithDelay:0.8];
+                    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:0.8];
                 }else{
                     UIAlertController *logoutAlert = [UIAlertController alertControllerWithTitle:@"是否退出登录" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
                     [logoutAlert addAction:[UIAlertAction actionWithTitle:@"是" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
                         [BmobUser logout];
                         [SVProgressHUD showSuccessWithStatus:@"退出登录"];
-                        [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-                        [SVProgressHUD dismissWithDelay:0.8];
+                        [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:0.8];
                         [self.mineTableView reloadData];
                     }]];
                     [logoutAlert addAction:[UIAlertAction actionWithTitle:@"否" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {

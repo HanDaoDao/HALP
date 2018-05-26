@@ -196,9 +196,8 @@
 
 -(void)loginAction{
     [SVProgressHUD showWithStatus:@"正在登陆"];
-    [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-    [SVProgressHUD dismissWithDelay:1];
+    [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1];
+
     NSString *password = _passwordTextFiled.text;
     NSString *IDString = _nameTextFiled.text;
     _nameIDString = [_nameIDString stringByAppendingString:@"_"];
@@ -223,8 +222,8 @@
         } else {
             NSLog(@"%@",error);
             [SVProgressHUD showSuccessWithStatus:@"用户不存在或密码错误"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:0.8];
+
         }
     }];
 

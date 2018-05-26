@@ -12,6 +12,7 @@
 #import "HPOrderTableViewCell.h"
 #import "NSString+JSON.h"
 #import "SVProgressHUD.h"
+#import "SVProgressHUD+HPHelper.h"
 
 @interface HPCantOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
@@ -94,39 +95,51 @@
         [cell.textField addTarget:self action:@selector(textFieldWithText:) forControlEvents:UIControlEventEditingChanged];
         switch (indexPath.row) {
             case 0:
-                cell.textField.placeholder = nil;
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 0;
                 cell.textField.placeholder = @"可以输入亦可以选择";
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textField.text = _canteenString;
                 break;
             case 1:
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 1;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textField.placeholder = @"可以输入亦可以选择";
                 cell.textField.text = _floorString;
                 break;
             case 2:
                 cell.textField.placeholder = @"可以输入亦可以选择";
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 2;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 cell.textField.text = _windowString;
                 break;
             case 3:
                 cell.textField.placeholder = @"可以输入亦可以选择";
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 3;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+                cell.textField.text = _foodString;
                 break;
             case 4:
                 cell.textField.placeholder = @"餐品给您送至哪";
                 cell.chooseButton.hidden = NO;
+                cell.chooseButton.tag = 4;
+                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+                cell.textField.text = _sendToString;
                 break;
             case 5:
                 cell.textField.placeholder = @"还有什么要求";
                 cell.chooseButton.hidden = YES;
+                cell.textField.text = _remarkString;
                 break;
             case 6:
                 cell.textField.placeholder = @"您要悬赏多少荣誉值呢";
                 cell.chooseButton.hidden = YES;
+                cell.textField.text = _honorString;
                 break;
             default:
-                [cell.chooseButton addTarget:self action:@selector(chooseButtonAction) forControlEvents:UIControlEventTouchUpInside];
                 break;
         }
     }else{
@@ -156,7 +169,7 @@
     }
 }
 
--(void)chooseButtonAction{
+-(void)chooseButtonAction:(UIButton *)sender{
     NSLog(@"WTF.....");
 }
 
@@ -203,9 +216,7 @@
             NSLog(@"创建订单成功！！");
             NSLog(@"objectid :%@",order.objectId);
             [SVProgressHUD showSuccessWithStatus:@"创建订单成功"];
-            [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-            [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-            [SVProgressHUD dismissWithDelay:1.5];
+            [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
@@ -213,8 +224,7 @@
             if (error) {
                 NSLog(@"%@",error);
                 [SVProgressHUD showErrorWithStatus:@"创建订单失败，重新创建！"];
-                [SVProgressHUD setBackgroundColor:hpRGBHex(0x808080)];
-                [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+                [SVProgressHUD setHelpBackgroudViewAndDismissWithDelay:1.5];
             }
         }
     }];

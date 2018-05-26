@@ -19,10 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
     [Bmob registerWithAppKey:@"af88b97664a492f9374e5f0eed092c75"];
-    
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

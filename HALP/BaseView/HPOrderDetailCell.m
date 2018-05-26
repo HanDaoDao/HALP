@@ -169,7 +169,7 @@
 -(void)cancelAndCompleteCell{
     _cancelButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
     _cancelButton.backgroundColor = hpRGBHex(0xFF7F50);
-    [_cancelButton setTitle:@"取   消   接   单" forState:(UIControlStateNormal)];
+    [_cancelButton setTitle:@"取   消   订   单" forState:(UIControlStateNormal)];
     [_cancelButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     [self.contentView addSubview:_cancelButton];
     

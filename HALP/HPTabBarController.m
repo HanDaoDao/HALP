@@ -21,7 +21,6 @@
 //    self.tabBar.translucent = NO;
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
     [self initHPTabBarController];
     
 }
