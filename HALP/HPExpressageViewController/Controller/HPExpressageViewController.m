@@ -46,45 +46,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     _user = [HPUser sharedHPUser];
     [_user initUser];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"导航栏"] forBarMetrics:(UIBarMetrics)UIBarMetricsDefault];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [UIFont fontWithName:@"PingFang SC" size:18], NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    
     [self setupView];
-    [self findOrderList:^(NSMutableArray *array, NSError *error) {
-        self.dataArray = array;
-    }];
-    
+
     //当刚开始没有数据的时候，不显示cell的分割线
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     //设置下拉刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
-    [self.tableView.mj_header beginRefreshing];
-}
-
-//下拉刷新使用的方法
--(void)refresh{
-    NSLog(@"哈哈哈");
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(targetMethod) userInfo:nil repeats:NO];
-}
-
--(void)targetMethod{
-    NSLog(@"关闭");
-    //下拉刷新请求公告信息
-    [self findOrderList:^(NSMutableArray *array, NSError *error) {
-        if (error) {
-            NSLog(@"error:%@",error);
-        }
-        else{
-            self.dataArray = array;
-        }
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self findOrderList:^(NSMutableArray *array, NSError *error) {
+            if (error) {
+                NSLog(@"error:%@",error);
+            }
+            else{
+                self.dataArray = array;
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
+            }
+        }];
     }];
-    [self.tableView.mj_header endRefreshing];
-    [self.tableView reloadData];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)setupView{
