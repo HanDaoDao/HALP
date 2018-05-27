@@ -63,7 +63,7 @@
                 NSLog(@"error:%@",error);
             }
             else{
-                self.dataArray = array;
+                self.dataArray = (NSMutableArray *)[[array reverseObjectEnumerator] allObjects];
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
             }

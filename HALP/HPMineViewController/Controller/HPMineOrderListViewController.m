@@ -55,63 +55,34 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
     }];
     
     [self.tableView registerClass:[HPMineOrderTableViewCell class] forCellReuseIdentifier:kHPMineOrderTableViewCell];
-
-    if(_isCreator == 1){
-        [self findMyCreateOrderList:^(NSMutableArray *array, NSError *error) {
-            if (error) {
-                NSLog(@"%@",error);
-            }else{
-                self.dataArray = array;
-                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
-            }
-        }];
-    }else{
-        [self findMyHelpOrderList:^(NSMutableArray *array, NSError *error) {
-            if (error) {
-                NSLog(@"%@",error);
-            }else{
-                self.dataArray = array;
-                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
-            }
-        }];
-    }
     
     //当刚开始没有数据的时候，不显示cell的分割线
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     //设置下拉刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        if(_isCreator == 1){
+            [self findMyCreateOrderList:^(NSMutableArray *array, NSError *error) {
+                if (error) {
+                    NSLog(@"%@",error);
+                }else{
+                    self.dataArray = (NSMutableArray *)[[array reverseObjectEnumerator] allObjects];
+                    NSLog(@"----%lu",(unsigned long)self.dataArray.count);
+                }
+            }];
+        }else{
+            [self findMyHelpOrderList:^(NSMutableArray *array, NSError *error) {
+                if (error) {
+                    NSLog(@"%@",error);
+                }else{
+                    self.dataArray = (NSMutableArray *)[[array reverseObjectEnumerator] allObjects];
+                    NSLog(@"----%lu",(unsigned long)self.dataArray.count);
+                }
+            }];
+        }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+    }];
     [self.tableView.mj_header beginRefreshing];
-}
-
--(void)refresh{
-    NSLog(@"哈哈哈");
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(targetMethod) userInfo:nil repeats:NO];
-}
-
--(void)targetMethod{
-    NSLog(@"关闭");
-    //下拉刷新请求公告信息
-    if(_isCreator == 1){
-        [self findMyCreateOrderList:^(NSMutableArray *array, NSError *error) {
-            if (error) {
-                NSLog(@"%@",error);
-            }else{
-                self.dataArray = array;
-                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
-            }
-        }];
-    }else{
-        [self findMyHelpOrderList:^(NSMutableArray *array, NSError *error) {
-            if (error) {
-                NSLog(@"%@",error);
-            }else{
-                self.dataArray = array;
-                NSLog(@"----%lu",(unsigned long)self.dataArray.count);
-            }
-        }];
-    }
-    [self.tableView.mj_header endRefreshing];
-    [self.tableView reloadData];
 }
 
 #pragma mark - Tableview datasource
