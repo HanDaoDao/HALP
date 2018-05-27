@@ -299,7 +299,6 @@ static NSString * const kHPMineOrderTableViewCell = @"kHPMineOrderTableViewCell"
                     }
                     [self.dataArray addObject:addOrder];
                 }
-                
             }
         }
         callBack(self.dataArray,error);

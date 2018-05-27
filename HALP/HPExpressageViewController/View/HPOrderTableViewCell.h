@@ -12,6 +12,7 @@
 
 @property(nonatomic,strong) UIButton *chooseButton;
 @property(nonatomic,strong) UITextField *textField;
+@property(nonatomic,strong) UITextView *textView;
 @property(nonatomic,strong) UILabel *titleLabel;
 @property(nonatomic,strong) UIButton *makeSureButton;
 

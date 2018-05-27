@@ -32,12 +32,20 @@
 @property(nonatomic,copy) NSString *sendToString;
 @property(nonatomic,copy) NSString *remarkString;
 @property(nonatomic,copy) NSString *honorString;
+@property(nonatomic,strong) NSCache *cache;
 
 @end
 
 @implementation HPExpOrderViewController
 
 //懒加载dataArray
+-(NSCache *)cache{
+    if (!_cache) {
+        _cache = [[NSCache alloc] init];
+    }
+    return _cache;
+}
+
 -(NSMutableArray *)expNameArray{
     if (!_expNameArray) {
         _expNameArray = [NSMutableArray array];
@@ -142,6 +150,8 @@
         switch (indexPath.row) {
             case 0:
                 cell.chooseButton.hidden = NO;
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
                 cell.chooseButton.tag = 0;
                 cell.textField.placeholder = @"快递属于哪个公司";
                 cell.textField.text = _companyString;
@@ -149,6 +159,8 @@
                 break;
             case 1:
                 cell.chooseButton.hidden = NO;
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
                 cell.chooseButton.tag = 1;
                 cell.textField.placeholder = @"在哪里取";
                 cell.textField.text = _loactionString;
@@ -157,6 +169,8 @@
             case 2:
                 cell.textField.placeholder = @"包裹多大";
                 cell.chooseButton.hidden = NO;
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
                 cell.chooseButton.tag = 2;
                 cell.textField.text = _sizeString;
                 [cell.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -164,15 +178,22 @@
             case 3:
                 cell.textField.placeholder = @"快递收件人";
                 cell.chooseButton.hidden = YES;
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
                 cell.textField.text = _receiverString;
                 break;
             case 4:
                 cell.textField.placeholder = @"取件号(接单后显示)";
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
+                cell.textField.keyboardType = UIKeyboardTypeNumberPad;
                 cell.chooseButton.hidden = YES;
                 cell.textField.text = _numberString;
                 break;
             case 5:
                 cell.textField.placeholder = @"快递送到哪";
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
                 cell.chooseButton.hidden = NO;
                 cell.chooseButton.tag = 5;
                 cell.textField.text = _sendToString;
@@ -180,11 +201,16 @@
                 break;
             case 6:
                 cell.textField.placeholder = @"例：易燃，易爆";
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
                 cell.chooseButton.hidden = YES;
                 cell.textField.text = _remarkString;
                 break;
             case 7:
                 cell.textField.placeholder = @"您要悬赏多少荣誉值呢";
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
+                cell.textField.keyboardType = UIKeyboardTypeNumberPad;
                 cell.chooseButton.hidden = YES;
                 cell.textField.text = _honorString;
                 break;

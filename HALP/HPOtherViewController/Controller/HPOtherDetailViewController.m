@@ -138,10 +138,10 @@ static NSString * const kHOrderDetailViewCell = @"kHOrderDetailViewCell";
             cell.hornorLabel.text = [NSString stringWithFormat:@"悬赏：%@",_orderDetail.orderHonor];
         }else{
             [cell setupDetailCell];
-            cell.detailLabel.hidden = NO;
-            cell.detailTextView.hidden = YES;
+            cell.detailLabel.hidden = YES;
+            cell.detailTextView.hidden = NO;
             cell.titleLabel.text = _array[indexPath.row-1];
-            cell.detailLabel.text = _dataArray[indexPath.row - 1];
+            cell.detailTextView.text = _dataArray[indexPath.row - 1];
         }
     }else{
         if (_isCreator == 1) {

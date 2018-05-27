@@ -22,6 +22,10 @@
 //    _textField.backgroundColor = [UIColor yellowColor];
     [self.contentView addSubview:_textField];
     
+    _textView = [[UITextView alloc] init];
+    _textView.font = [UIFont systemFontOfSize:16];
+    [self.contentView addSubview:_textView];
+    
     _chooseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
 //    _chooseButton.backgroundColor = [UIColor redColor];
     [_chooseButton setImage:[UIImage imageNamed:@"选择"] forState:(UIControlStateNormal)];
@@ -31,13 +35,20 @@
         make.top.equalTo(self.contentView).offset(5);
         make.left.equalTo(self.contentView).offset(40);
         make.width.mas_equalTo(90);
-        make.bottom.equalTo(self.contentView).offset(-5);
+        make.height.mas_equalTo(34);
     }];
     
     [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel.mas_right);
         make.top.equalTo(self.contentView).offset(5);
         make.right.equalTo(self.contentView).offset(-60);
+        make.bottom.equalTo(self.contentView).offset(-5);
+    }];
+    
+    [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleLabel.mas_right);
+        make.top.equalTo(self.contentView).offset(5);
+        make.right.equalTo(self.contentView).offset(-30);
         make.bottom.equalTo(self.contentView).offset(-5);
     }];
     

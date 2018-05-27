@@ -50,9 +50,7 @@ static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    
-//    [self.tableView registerClass:[HPOrderTableViewCell class] forCellReuseIdentifier:kHPOrderTableViewCell];
-    
+        
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.top.bottom.equalTo(self.view);
     }];
@@ -67,6 +65,9 @@ static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 1) {
+        return 60;
+    }
     return 44;
 }
 
@@ -94,16 +95,22 @@ static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
         switch (indexPath.row) {
             case 0:
                 cell.chooseButton.hidden = YES;
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
                 cell.textField.placeholder = @"输入标题";
                 cell.textField.text = _titleString;
                 break;
             case 1:
                 cell.chooseButton.hidden = YES;
-                cell.textField.placeholder = @"你的需求是什么";
-                cell.textField.text = _contentString;
+                cell.textField.hidden = YES;
+                cell.textView.hidden = NO;
+                cell.textView.text = _contentString;
                 break;
             case 2:
                 cell.textField.placeholder = @"您要悬赏的荣誉值";
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
+                cell.textField.keyboardType = UIKeyboardTypeNumberPad;
                 cell.chooseButton.hidden = YES;
                 cell.textField.text = _honorString;
                 break;

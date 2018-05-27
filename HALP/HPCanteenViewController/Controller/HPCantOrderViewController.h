@@ -10,4 +10,7 @@
 
 @interface HPCantOrderViewController : UIViewController
 
+typedef void(^findDictionaryBlock)(NSMutableDictionary *dictionary, NSError *error);
+typedef void(^findArrayBlock)(NSMutableArray *array, NSError *error);
+
 @end
