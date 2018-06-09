@@ -14,13 +14,14 @@
 
 static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
 
-@interface HPOtherOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface HPOtherOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BmobEventDelegate>
 
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,copy) NSArray *array;
 @property(nonatomic,copy) NSString *titleString;
 @property(nonatomic,copy) NSString *contentString;
 @property(nonatomic,copy) NSString *honorString;
+@property(nonatomic,strong) BmobEvent *bmobEvent;
 
 @end
 
@@ -102,9 +103,9 @@ static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
                 break;
             case 1:
                 cell.chooseButton.hidden = YES;
-                cell.textField.hidden = YES;
-                cell.textView.hidden = NO;
-                cell.textView.text = _contentString;
+                cell.textField.hidden = NO;
+                cell.textView.hidden = YES;
+                cell.textField.text = _contentString;
                 break;
             case 2:
                 cell.textField.placeholder = @"您要悬赏的荣誉值";
@@ -205,6 +206,20 @@ static NSString * const kHPOrderTableViewCell = @"kHPOrderTableViewCell";
     UIAlertController * alert = (UIAlertController *)[timer userInfo];
     [alert dismissViewControllerAnimated:YES completion:nil];
     alert = nil;
+}
+
+-(void)listen{
+    _bmobEvent = [BmobEvent defaultBmobEvent];
+    _bmobEvent.delegate = self;
+    [_bmobEvent start];
+}
+
+-(void)bmobEventCanStartListen:(BmobEvent*)event{
+    [_bmobEvent listenTableChange:BmobActionTypeUpdateTable tableName:@"Order"];
+}
+
+-(void)bmobEvent:(BmobEvent *)event didReceiveMessage:(NSString *)message{
+    NSLog(@"didReceiveMessage:%@",message);
 }
 
 @end

@@ -27,6 +27,7 @@
     HPTabBarController *TabBarController = [[HPTabBarController alloc] init];
     self.window.rootViewController = TabBarController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

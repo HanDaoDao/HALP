@@ -56,12 +56,13 @@
     [bUser setObject:_modifyName.text forKey:@"nickName"];
     [bUser updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
         NSLog(@"error %@",[error description]);
+        if(isSuccessful){
+            //通知“个人信息”页面的昵称进行修改
+            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.modifyName.text,@"modifyName", nil];
+            NSNotification *notification = [NSNotification notificationWithName:@"changeNameTongzhi" object:nil userInfo:dict];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }
     }];
-    
-    //通知“个人信息”页面的昵称进行修改
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.modifyName.text,@"modifyName", nil];
-    NSNotification *notification = [NSNotification notificationWithName:@"changeNameTongzhi" object:nil userInfo:dict];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 -(void)touchesBegan{

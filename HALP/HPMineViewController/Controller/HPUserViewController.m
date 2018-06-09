@@ -36,6 +36,8 @@
     @weakify(self);
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"changeNameTongzhi" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self);
+        self.user = [HPUser sharedHPUser];
+        [self.user initUser];
         [self.userTableView reloadData];
     }];
     
